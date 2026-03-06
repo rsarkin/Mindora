@@ -21,8 +21,6 @@ import { TermsOfServicePage } from './pages/TermsOfServicePage';
 import { CrisisHelplinesPage } from './pages/CrisisHelplinesPage';
 import { ContactUsPage } from './pages/ContactUsPage';
 import { AboutUsPage } from './pages/AboutUsPage';
-import { InspirationPage } from './pages/InspirationPage';
-import { ProgressPage } from './pages/ProgressPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 
 import { TherapistLayout } from './layouts/TherapistLayout';
@@ -119,8 +117,6 @@ const AnimatedRoutes = () => {
           <Route path="/dashboard/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           <Route path="/breathing" element={<ProtectedRoute><BreathingExercisesPage /></ProtectedRoute>} />
           <Route path="/resources" element={<ProtectedRoute><PatientResourcesPage /></ProtectedRoute>} />
-          <Route path="/inspiration" element={<ProtectedRoute><InspirationPage /></ProtectedRoute>} />
-          <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
           <Route path="/all-resources" element={<ProtectedRoute><ResourcesPage /></ProtectedRoute>} />
 
           <Route path="/find-therapists" element={<ProtectedRoute><FindTherapistsPage /></ProtectedRoute>} />

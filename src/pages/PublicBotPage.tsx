@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Sparkles, AlertCircle, ArrowLeft } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Send, Sparkles } from 'lucide-react';
 import api from '../services/api';
 
 interface BotMessage {
@@ -9,28 +8,24 @@ interface BotMessage {
     sender: 'user' | 'bot';
     content: string;
     createdAt: string;
+    metadata?: {
+        suggestions?: string[];
+    };
 }
 
 export const PublicBotPage: React.FC = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    // Check if there's initial data from onboarding
-    const initialState = location.state as {
-        initialMessage?: string;
-        initialEmotion?: string;
-    };
-
     const [messages, setMessages] = useState<BotMessage[]>([{
         _id: 'init-0',
         sender: 'bot',
-        content: `Hi there. I'm Mindora, your safe, anonymous AI companion. I'm here to listen without judgment. ${initialState?.initialEmotion ? `I see you're feeling ${initialState.initialEmotion}. ` : ''}How can I support you today?`,
-        createdAt: new Date().toISOString()
+        content: "Hi there. I'm TARA, your safe, anonymous AI companion. I'm here to listen without judgment. How are you feeling today?",
+        createdAt: new Date().toISOString(),
+        metadata: {
+            suggestions: ["I'm feeling stressed", "Just wanted to chat", "How can therapy help?"]
+        }
     }]);
 
     const [newMessage, setNewMessage] = useState('');
     const [isThinking, setIsThinking] = useState(false);
-
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -40,15 +35,6 @@ export const PublicBotPage: React.FC = () => {
     useEffect(() => {
         scrollToBottom();
     }, [messages, isThinking]);
-
-    // Handle initial message from onboarding
-    useEffect(() => {
-        if (initialState?.initialMessage) {
-            handleSendMessage(initialState.initialMessage);
-            // Clear state to prevent double-sending on re-renders
-            window.history.replaceState({}, document.title);
-        }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSendMessage = async (text: string = newMessage) => {
         if (!text.trim()) return;
@@ -70,7 +56,6 @@ export const PublicBotPage: React.FC = () => {
                 role: m.sender === 'bot' ? 'assistant' : 'user',
                 content: m.content
             }));
-
             const reqHistory = history.length > 5 ? history.slice(history.length - 5) : history;
 
             const res = await api.post('/bot/chat', {
@@ -78,23 +63,22 @@ export const PublicBotPage: React.FC = () => {
                 history: reqHistory
             });
 
-            const botData = res.data;
-
             const botMsg: BotMessage = {
                 _id: `bot-${Date.now()}`,
                 sender: 'bot',
-                content: botData.content,
-                createdAt: new Date().toISOString()
+                content: res.data.content,
+                createdAt: new Date().toISOString(),
+                metadata: {
+                    suggestions: res.data.suggestions
+                }
             };
-
             setMessages(prev => [...prev, botMsg]);
-
         } catch (error) {
             console.error('Failed to get bot response', error);
             setMessages(prev => [...prev, {
                 _id: `sys-${Date.now()}`,
                 sender: 'bot',
-                content: "I'm having a little trouble connecting right now, but please know I'm here for you. If you need urgent support, please reach out to Tele-MANAS (14416).",
+                content: "I'm having a little trouble connecting right now, but please know I'm here for you.",
                 createdAt: new Date().toISOString()
             }]);
         } finally {
@@ -102,114 +86,120 @@ export const PublicBotPage: React.FC = () => {
         }
     };
 
-    return (
-        <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-            {/* Header */}
-            <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-                <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-                    <button
-                        onClick={() => navigate('/')}
-                        className="p-2 -ml-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition-colors flex items-center gap-1"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                        <span className="hidden sm:inline font-medium">Home</span>
-                    </button>
+    const latestSuggestions = messages[messages.length - 1]?.sender === 'bot'
+        ? messages[messages.length - 1]?.metadata?.suggestions
+        : [];
 
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-md shadow-primary-500/20">
-                            <Sparkles className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                            <h1 className="font-bold text-slate-900 leading-tight">Mindora Anonymous AI</h1>
-                            <p className="text-xs text-primary-600 font-medium">Safe & Confidential</p>
+    return (
+        <div className="min-h-screen bg-white relative flex flex-col font-sans overflow-hidden">
+            {/* Background Decorations */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-sky-100/50 rounded-full blur-[120px] -z-10 -mr-64 -mt-64" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px] -z-10 -ml-48 -mb-48" />
+
+            {/* Header */}
+            <header className="px-8 py-6 bg-white/70 backdrop-blur-2xl border-b border-white/50 flex items-center justify-between sticky top-0 z-50">
+                <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
+                        <Sparkles className="w-7 h-7 text-white animate-pulse" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-black text-slate-900 tracking-tight">TARA AI</h1>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                            <p className="text-[10px] font-black text-sky-600 uppercase tracking-widest">Safe · Anonymous · Non-judgmental</p>
                         </div>
                     </div>
-
-                    <div className="w-20"></div> {/* Spacer for centering */}
+                </div>
+                <div className="flex items-center gap-4">
+                     <a 
+                        href="/login" 
+                        className="px-6 py-3 bg-white border-2 border-slate-100 hover:border-sky-500 rounded-2xl text-sm font-black text-slate-700 transition-all uppercase tracking-widest hover:shadow-xl hover:shadow-sky-100 active:scale-95"
+                    >
+                        Save Session
+                    </a>
                 </div>
             </header>
 
-            {/* Disclaimer Banner */}
-            <div className="bg-amber-50 border-b border-amber-100">
-                <div className="max-w-4xl mx-auto px-4 py-3 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                    <p className="text-sm text-amber-800 leading-relaxed font-medium">
-                        This is an AI companion for emotional support, not a clinical professional. In an emergency, please call <strong>14416</strong> or <strong>112</strong>.
-                    </p>
-                </div>
-            </div>
-
-            {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto px-4 py-8">
-                <div className="max-w-4xl mx-auto space-y-6">
+            {/* Chat Container */}
+            <main className="flex-1 max-w-4xl mx-auto w-full flex flex-col p-8 sm:p-12 relative z-10">
+                <div className="flex-1 space-y-10 scrollbar-hide">
                     <AnimatePresence>
                         {messages.map((message) => (
                             <motion.div
                                 key={message._id}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
                                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                             >
-                                <div className={`flex flex-col max-w-[85%] sm:max-w-[75%] ${message.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                                    <div className={`relative px-5 py-3.5 shadow-sm text-[15px] leading-relaxed ${message.sender === 'user'
-                                            ? 'bg-primary-600 text-white rounded-2xl rounded-tr-sm border border-primary-700/50 shadow-primary-500/10'
-                                            : 'bg-white text-slate-800 rounded-2xl rounded-tl-sm border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]'
-                                        }`}>
-                                        <p className="whitespace-pre-wrap">{message.content}</p>
-                                    </div>
+                                <div className={`max-w-[85%] sm:max-w-[75%] px-8 py-5 shadow-sm ring-1 ring-black/5 ${
+                                    message.sender === 'user'
+                                        ? 'bg-gradient-to-br from-sky-500 to-blue-600 text-white rounded-[2rem] rounded-tr-none'
+                                        : 'bg-white/90 backdrop-blur-xl text-slate-700 rounded-[2rem] rounded-tl-none border border-white/80 shadow-xl shadow-slate-900/5'
+                                }`}>
+                                    <p className="text-lg leading-relaxed font-semibold whitespace-pre-wrap">{message.content}</p>
                                 </div>
                             </motion.div>
                         ))}
                     </AnimatePresence>
-
                     {isThinking && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="flex justify-start"
-                        >
-                            <div className="px-5 py-4 shadow-sm bg-white border border-slate-100 rounded-2xl rounded-tl-sm flex items-center gap-1.5">
-                                <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <div className="flex justify-start">
+                            <div className="px-8 py-5 bg-white shadow-xl rounded-[2rem] rounded-tl-none border border-slate-50 flex items-center gap-2">
+                                <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                             </div>
-                        </motion.div>
+                        </div>
                     )}
-                    <div ref={messagesEndRef} className="h-4" />
+                    <div ref={messagesEndRef} className="h-12" />
                 </div>
-            </div>
+            </main>
 
-            {/* Input Area */}
-            <div className="bg-white border-t border-slate-200 pb-safe p-4">
-                <div className="max-w-4xl mx-auto flex items-end gap-3">
-                    <div className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl focus-within:ring-2 focus-within:ring-primary-500/20 focus-within:border-primary-500 transition-all shadow-sm">
-                        <textarea
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' && !e.shiftKey) {
-                                    e.preventDefault();
-                                    handleSendMessage();
-                                }
-                            }}
-                            placeholder="Type your message..."
-                            rows={1}
-                            className="w-full py-4 px-5 bg-transparent text-slate-800 placeholder:text-slate-400 font-medium resize-none focus:outline-none max-h-32 text-[15px]"
-                        />
-                    </div>
+            {/* Input Bar */}
+            <footer className="p-8 sm:p-12 bg-white/80 backdrop-blur-3xl border-t border-white/50 sticky bottom-0 z-50">
+                <div className="max-w-4xl mx-auto space-y-8">
+                    {/* Suggestions */}
+                    {latestSuggestions && latestSuggestions.length > 0 && !isThinking && (
+                        <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+                            {latestSuggestions.map((suggestion: string, idx: number) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => handleSendMessage(suggestion)}
+                                    className="whitespace-nowrap px-6 py-2.5 bg-white border-2 border-slate-100 rounded-full text-slate-600 text-sm font-black hover:border-sky-500 hover:text-sky-600 transition-all uppercase tracking-widest shadow-sm hover:shadow-lg hover:shadow-sky-50"
+                                >
+                                    {suggestion}
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
-                    <button
-                        onClick={() => handleSendMessage()}
-                        disabled={!newMessage.trim() || isThinking}
-                        className={`p-4 rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0 ${newMessage.trim() && !isThinking
-                                ? 'bg-primary-600 text-white hover:bg-primary-700 hover:-translate-y-0.5 shadow-primary-500/25'
-                                : 'bg-slate-100 text-slate-300 cursor-not-allowed border border-slate-200'
+                    {/* Input Field */}
+                    <div className="flex items-center gap-6">
+                        <div className="flex-1 bg-slate-50/80 rounded-3xl border-2 border-slate-100 focus-within:border-sky-500/50 focus-within:ring-4 focus-within:ring-sky-500/10 transition-all p-2 flex items-center pr-3 shadow-inner">
+                            <input
+                                type="text"
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleSendMessage();
+                                }}
+                                placeholder="Whisper what's on your heart..."
+                                className="flex-1 bg-transparent px-6 py-4 text-lg font-bold text-slate-800 focus:outline-none placeholder:text-slate-400"
+                            />
+                        </div>
+                        <button
+                            onClick={() => handleSendMessage()}
+                            disabled={!newMessage.trim() || isThinking}
+                            className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all shadow-xl ${
+                                newMessage.trim() && !isThinking
+                                    ? 'bg-gradient-to-br from-sky-500 to-blue-600 text-white hover:shadow-blue-200 hover:-translate-y-1 active:scale-95'
+                                    : 'bg-slate-100 text-slate-300 cursor-not-allowed border-2 border-slate-200'
                             }`}
-                    >
-                        <Send className="w-6 h-6 ml-0.5" />
-                    </button>
+                        >
+                            <Send className="w-8 h-8 ml-1" />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </footer>
         </div>
     );
 };

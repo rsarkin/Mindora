@@ -148,7 +148,11 @@ export const TherapistDashboardPage: React.FC = () => {
     }).sort((a, b) => a.scheduledAt.getTime() - b.scheduledAt.getTime());
 
     return (
-        <>
+        <div className="relative">
+            {/* Page specific background effects */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[140px] -mr-40 -mt-20 pointer-events-none" />
+            <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-sky-500/5 rounded-full blur-[120px] -ml-20 pointer-events-none" />
+
             <motion.div
                 initial="hidden"
                 animate="show"
@@ -159,175 +163,220 @@ export const TherapistDashboardPage: React.FC = () => {
                         transition: { staggerChildren: 0.1 }
                     }
                 }}
-                className="max-w-7xl mx-auto space-y-8"
+                className="max-w-7xl mx-auto space-y-12 relative z-10"
             >
-                {/* Header */}
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <h1 className="text-3xl font-heading font-bold text-slate-900 tracking-tight">Overview</h1>
-                        <p className="text-slate-500 mt-2 text-lg">
-                            Welcome back, {user?.name?.split(' ')[0] || 'Therapist'}. {crisisAlerts.length > 0 && (
-                                <span className="text-red-500 font-semibold ml-1">
-                                    You have {crisisAlerts.length} emergency alert{crisisAlerts.length > 1 ? 's' : ''} pending!
+                {/* Header Section */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2 mb-1">
+                            <div className="w-2 h-8 bg-gradient-to-b from-indigo-500 to-sky-400 rounded-full" />
+                            <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Command Center</h1>
+                        </div>
+                        <p className="text-slate-500 text-lg font-medium max-w-2xl leading-relaxed">
+                            Welcome back, <span className="text-indigo-600 font-bold">{user?.name}</span>. 
+                            {crisisAlerts.length > 0 ? (
+                                <span className="text-red-500 font-bold block mt-1 animate-pulse">
+                                    ⚠️ Action Required: {crisisAlerts.length} emergency alerts pending.
                                 </span>
+                            ) : (
+                                " All systems are clear. You have " + todaysAppointments.length + " sessions scheduled for today."
                             )}
                         </p>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <button onClick={() => navigate('/therapist/settings')} className="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 font-semibold shadow-sm transition-all">
-                            Manage Availability
+                    <div className="flex items-center gap-4 bg-white/50 backdrop-blur-md p-2 rounded-[2.5rem] border border-white/50 shadow-sm self-start md:self-center">
+                        <button 
+                            onClick={() => navigate('/therapist/slots')}
+                            className="px-6 py-3 bg-white text-slate-700 rounded-3xl font-bold border border-slate-200 hover:bg-slate-50 hover:border-indigo-200 transition-all flex items-center gap-2 group shadow-sm"
+                        >
+                            <Clock className="w-5 h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+                            Update Slots
                         </button>
-                        <button className="px-4 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 font-bold shadow-lg shadow-primary-500/20 transition-all hover:-translate-y-0.5">
-                            Start Next Session
+                        <button 
+                            className="px-8 py-3 bg-indigo-600 text-white rounded-3xl font-bold hover:bg-indigo-700 transition-all flex items-center gap-2 group shadow-xl shadow-indigo-600/20 active:translate-y-0 hover:-translate-y-1"
+                        >
+                            <CalendarIcon className="w-5 h-5 text-indigo-200 group-hover:scale-110 transition-transform" />
+                            Schedule View
                         </button>
                     </div>
                 </motion.div>
 
-                {/* Crisis Alerts - High Priority */}
+                {/* Crisis Alerts Area */}
                 <AnimatePresence>
                     {crisisAlerts.length > 0 && (
-                        <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-4">
+                        <motion.div 
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="space-y-4"
+                        >
                             {crisisAlerts.map((alert) => (
-                                <motion.div
+                                <div
                                     key={alert.id}
-                                    className="bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 rounded-3xl p-6 shadow-lg shadow-red-500/10 relative overflow-hidden group"
-                                    initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                                    transition={{ type: 'spring', stiffness: 300 }}
+                                    className="bg-slate-900 rounded-[2.5rem] p-1 shadow-2xl shadow-red-900/10 overflow-hidden relative group"
                                 >
-                                    <div className="absolute right-0 top-0 w-64 h-64 bg-red-400 opacity-5 rounded-full blur-3xl -mr-20 -mt-20 group-hover:opacity-10 transition-opacity"></div>
-                                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-                                        <div className="flex items-start gap-5 flex-1">
-                                            <div className="relative">
-                                                <div className="absolute inset-0 bg-red-400 blur-md opacity-40 rounded-full animate-pulse"></div>
-                                                <div className="p-4 bg-red-100 rounded-2xl relative z-10 border border-red-200">
-                                                    <AlertCircle className="w-8 h-8 text-red-600" />
+                                    {/* Animated border effect for critical alerts */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-red-500/20 to-red-500/0 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer pointer-events-none" />
+                                    
+                                    <div className="bg-white rounded-[2.25rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+                                        <div className="flex items-center gap-6 flex-1">
+                                            <div className="relative shrink-0">
+                                                <div className="absolute inset-0 bg-red-500/20 blur-xl rounded-full animate-pulse" />
+                                                <div className="w-16 h-16 md:w-20 md:h-20 bg-red-50 rounded-[2rem] border-2 border-red-100 flex items-center justify-center relative z-10 group-hover:bg-red-100 transition-colors">
+                                                    <AlertCircle className="w-8 h-8 md:w-10 md:h-10 text-red-600" />
                                                 </div>
                                             </div>
                                             <div>
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    <h3 className="text-xl font-heading font-black text-red-900 tracking-tight">
-                                                        Emergency Protocol Activated
-                                                    </h3>
-                                                    <span className="px-2.5 py-1 bg-red-600 text-white text-[10px] uppercase font-black tracking-widest rounded-md shadow-sm">
-                                                        Level {alert.crisisLevel}
-                                                    </span>
+                                                <div className="flex items-center gap-3 mb-2 flex-wrap">
+                                                    <span className="text-xs font-black bg-red-100 text-red-600 px-3 py-1 rounded-full uppercase tracking-[0.15em]">Critical Alert</span>
+                                                    <h3 className="text-xl md:text-2xl font-black text-slate-900">Emergency Protocol</h3>
                                                 </div>
-                                                <p className="text-red-800/80 font-medium mb-1 line-clamp-2 md:line-clamp-1">"{alert.message}"</p>
-                                                <p className="text-xs font-bold text-red-500 uppercase tracking-wider">
-                                                    Patient ID: {alert.userId} • Reported {formatRelativeTime(new Date(alert.timestamp))}
+                                                <p className="text-slate-600 font-medium text-lg leading-relaxed line-clamp-2 italic">
+                                                    "{alert.message}"
                                                 </p>
+                                                <div className="flex items-center gap-4 mt-3 text-sm font-bold text-slate-400">
+                                                    <span className="flex items-center gap-1.5"><Users className="w-4 h-4" /> ID: {alert.userId.slice(-6)}</span>
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                                                    <span className="flex items-center gap-1.5 text-red-500 animate-pulse"><Clock className="w-4 h-4" /> Received {formatRelativeTime(new Date(alert.timestamp))}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="flex w-full md:w-auto gap-3">
+                                        <div className="flex items-center gap-4 w-full md:w-auto shrink-0">
                                             <button
                                                 onClick={() => dismissAlert(alert.id)}
-                                                className="flex-1 md:flex-none px-6 py-3 bg-white text-red-600 rounded-xl font-bold hover:bg-red-50 transition-colors shadow-sm border border-red-100"
+                                                className="flex-1 md:flex-none px-8 py-4 bg-slate-100 text-slate-600 rounded-[1.5rem] font-black hover:bg-slate-200 transition-all active:scale-95"
                                             >
                                                 Dismiss
                                             </button>
                                             <button
                                                 onClick={() => handleAcceptCrisis(alert.id)}
-                                                className="flex-1 md:flex-none px-6 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-xl shadow-red-600/20 hover:-translate-y-0.5 flex justify-center items-center gap-2"
+                                                className="flex-1 md:flex-none px-10 py-4 bg-red-600 text-white rounded-[1.5rem] font-black hover:bg-red-700 transition-all shadow-xl shadow-red-600/25 active:translate-y-1 hover:-translate-y-1 flex items-center justify-center gap-3"
                                             >
-                                                <Video className="w-5 h-5" />
+                                                <Video className="w-6 h-6" />
                                                 Intervene Now
                                             </button>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                {/* Stats Grid */}
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Top Statistics Cards */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
-                        { label: "Upcoming Sessions", value: stats.upcomingSessions, icon: CalendarIcon, color: "blue" as const, prefix: "" },
-                        { label: "Monthly Earnings", value: stats.totalEarningsINR.toLocaleString('en-IN'), icon: DollarSign, color: "emerald" as const, prefix: "₹" },
-                        { label: "Completed Sessions", value: stats.completedThisMonth, icon: CheckCircle, color: "indigo" as const, prefix: "" }
+                        { label: "Today's Schedule", value: stats.upcomingSessions, sub: "Upcoming Sessions", icon: CalendarIcon, accent: "indigo" },
+                        { label: "Revenue Overview", value: stats.totalEarningsINR.toLocaleString('en-IN'), sub: "Total Earnings (INR)", icon: DollarSign, accent: "slate" },
+                        { label: "Patient Impact", value: stats.completedThisMonth, sub: "Sessions Completed", icon: Activity, accent: "sky" }
                     ].map((stat, idx) => (
-                        <div key={idx} className="bg-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex items-center gap-5 relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
-                            <div className={`absolute top-0 right-0 w-32 h-32 bg-${stat.color}-500 blur-[80px] opacity-10 rounded-full -mr-16 -mt-16 group-hover:opacity-20 transition-opacity`}></div>
-                            <div className={`p-4 bg-${stat.color}-50 text-${stat.color}-600 rounded-2xl ring-1 ring-${stat.color}-100 relative z-10 shadow-inner`}>
-                                <stat.icon className="w-7 h-7" />
-                            </div>
-                            <div className="relative z-10">
-                                <p className="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">{stat.label}</p>
-                                <p className="text-3xl font-black text-slate-900 tracking-tight">{stat.prefix}{stat.value}</p>
+                        <div key={idx} className="relative group perspective-1000">
+                            <div className={`absolute -inset-1 bg-gradient-to-r ${stat.accent === 'indigo' ? 'from-indigo-500 to-sky-500' : stat.accent === 'sky' ? 'from-sky-400 to-indigo-400' : 'from-slate-400 to-slate-600'} rounded-[2.5rem] blur opacity-15 group-hover:opacity-30 transition duration-500`} />
+                            
+                            <div className="relative bg-white rounded-[2.5rem] p-8 border border-white/50 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
+                                <div className="flex justify-between items-start mb-6">
+                                    <div className={`w-14 h-14 rounded-2xl bg-${stat.accent}-50 flex items-center justify-center border border-${stat.accent}-100 group-hover:scale-110 transition-transform duration-500`}>
+                                        <stat.icon className={`w-7 h-7 ${stat.accent === 'slate' ? 'text-slate-700' : `text-${stat.accent}-600`}`} />
+                                    </div>
+                                    <button className="text-slate-300 hover:text-slate-500 transition-colors">
+                                        <MoreHorizontal className="w-6 h-6" />
+                                    </button>
+                                </div>
+                                <div className="space-y-1">
+                                    <p className="text-4xl font-black text-slate-900 tracking-tight">
+                                        {stat.icon === DollarSign && "₹"}
+                                        {stat.value}
+                                    </p>
+                                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest leading-none pt-1">{stat.sub}</p>
+                                </div>
+                                <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
+                                    <span className="flex items-center gap-2 text-xs font-black text-indigo-600 uppercase tracking-wider group-hover:translate-x-1 transition-transform cursor-pointer">
+                                        Detailed breakdown <ChevronRight className="w-3.5 h-3.5" />
+                                    </span>
+                                    <div className="flex -space-x-2">
+                                        {[1, 2, 3].map(i => (
+                                            <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-200" />
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}
                 </motion.div>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Today's Appointments */}
-                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="lg:col-span-2 bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col">
-                        <div className="flex items-center justify-between mb-8">
-                            <div>
-                                <h2 className="text-2xl font-heading font-black text-slate-900 tracking-tight">Today's Schedule</h2>
-                                <p className="text-sm font-medium text-slate-500 mt-1">You have {todaysAppointments.length} sessions today.</p>
-                            </div>
-                            <button
-                                onClick={() => navigate('/therapist/appointments')}
-                                className="flex items-center gap-1 text-primary-600 hover:text-primary-700 font-bold bg-primary-50 px-4 py-2 rounded-xl transition-colors text-sm"
-                            >
-                                View Calendar <ChevronRight className="w-4 h-4" />
-                            </button>
-                        </div>
-
-                        {todaysAppointments.length === 0 ? (
-                            <div className="flex-1 flex flex-col items-center justify-center p-12 text-center rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200">
-                                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-4">
-                                    <CalendarIcon className="w-8 h-8 text-slate-300" />
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    {/* Schedule Section */}
+                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="lg:col-span-8 space-y-8">
+                        <section className="bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
+                            
+                            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10 relative z-10">
+                                <div>
+                                    <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+                                        Upcoming Sessions
+                                        <span className="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 text-sm flex items-center justify-center border border-indigo-100">{todaysAppointments.length}</span>
+                                    </h2>
+                                    <p className="text-slate-500 font-medium mt-1">Your filtered view for today {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}</p>
                                 </div>
-                                <h3 className="text-lg font-bold text-slate-700 mb-1">Clear Schedule</h3>
-                                <p className="text-slate-500 font-medium">You have no appointments scheduled for today.</p>
+                                <button
+                                    onClick={() => navigate('/therapist/appointments')}
+                                    className="px-6 py-3 bg-slate-50 text-slate-700 rounded-2xl font-bold border border-slate-200 hover:bg-slate-100 transition-all flex items-center gap-2"
+                                >
+                                    Full Schedule <ChevronRight className="w-4 h-4" />
+                                </button>
                             </div>
-                        ) : (
-                            <div className="space-y-4">
-                                {todaysAppointments.map((apt) => (
-                                    <div
-                                        key={apt.id}
-                                        className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white border border-slate-100 rounded-2xl hover:border-primary-100 hover:shadow-md transition-all group"
-                                    >
-                                        <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                                            <div className="relative">
-                                                <img src={apt.avatar} alt={apt.patientName} className="w-12 h-12 rounded-xl object-cover shadow-sm" />
-                                                {apt.type === 'VIDEO_CALL' ? (
-                                                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-100 border-2 border-white rounded-md flex items-center justify-center text-blue-600"><Video className="w-2.5 h-2.5" /></div>
-                                                ) : (
-                                                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-slate-100 border-2 border-white rounded-md flex items-center justify-center text-slate-600"><MessageSquare className="w-2.5 h-2.5" /></div>
-                                                )}
-                                            </div>
-                                            <div>
-                                                <h3 className="font-bold text-slate-900 group-hover:text-primary-700 transition-colors text-lg leading-tight">{apt.patientName}</h3>
-                                                <div className="flex items-center gap-2 mt-1 text-sm font-semibold text-slate-500">
-                                                    <Clock className="w-3.5 h-3.5 text-slate-400" />
-                                                    <span>{formatTime(apt.scheduledAt)}</span>
-                                                    <span className="w-1 h-1 bg-slate-300 rounded-full mx-0.5"></span>
-                                                    <span>{apt.durationMinutes} min</span>
+
+                            {todaysAppointments.length === 0 ? (
+                                <div className="py-20 flex flex-col items-center justify-center text-center">
+                                    <div className="w-24 h-24 bg-indigo-50 rounded-[2.5rem] flex items-center justify-center mb-6 border-2 border-dashed border-indigo-200">
+                                        <CalendarIcon className="w-10 h-10 text-indigo-300" />
+                                    </div>
+                                    <h3 className="text-xl font-black text-slate-800 mb-2">Afternoon Refresh</h3>
+                                    <p className="text-slate-500 font-medium max-w-sm">No more sessions locked in for today. Perfect time for session notes or a quick break.</p>
+                                </div>
+                            ) : (
+                                <div className="grid gap-4">
+                                    {todaysAppointments.map((apt) => (
+                                        <div
+                                            key={apt.id}
+                                            className="group relative"
+                                        >
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-sky-400 rounded-3xl opacity-0 group-hover:opacity-10 transition duration-300" />
+                                            <div className="relative bg-white border border-slate-100 rounded-3xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6 transition-all group-hover:border-indigo-100 group-hover:shadow-lg">
+                                                <div className="flex items-center gap-5 flex-1 w-full">
+                                                    <div className="relative shrink-0">
+                                                        <div className="p-0.5 rounded-2xl bg-gradient-to-tr from-indigo-50 to-sky-50 border border-slate-100 overflow-hidden shadow-sm">
+                                                            <img src={apt.avatar || `https://ui-avatars.com/api/?name=${apt.patientName}&background=f1f5f9&color=6366f1`} alt={apt.patientName} className="w-14 h-14 md:w-16 md:h-16 rounded-[0.875rem] object-cover" />
+                                                        </div>
+                                                        <div className={`absolute -bottom-2 -right-2 w-7 h-7 rounded-xl border-2 border-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 ${
+                                                            apt.type === 'VIDEO_CALL' ? 'bg-indigo-50 text-indigo-600' : 'bg-sky-50 text-sky-600'
+                                                        }`}>
+                                                            {apt.type === 'VIDEO_CALL' ? <Video className="w-3.5 h-3.5" /> : <MessageSquare className="w-3.5 h-3.5" />}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="flex items-center gap-3 mb-1">
+                                                            <h3 className="text-lg md:text-xl font-black text-slate-800 transition-colors group-hover:text-indigo-600">{apt.patientName}</h3>
+                                                            {apt.status === 'IN_PROGRESS' && (
+                                                                <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-200 animate-pulse">
+                                                                    Live Now
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <div className="flex items-center gap-4 text-sm font-bold text-slate-400 mt-1">
+                                                            <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {formatTime(apt.scheduledAt)}</span>
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                                                            <span className="flex items-center gap-1.5"><Activity className="w-4 h-4" /> {apt.durationMinutes}m Session</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-3 w-full sm:w-auto">
-                                            {apt.status === 'SCHEDULED' ? (
-                                                <div className="flex w-full gap-2">
-                                                    <button className="flex-1 sm:flex-none px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-xl font-bold transition-colors text-sm">
-                                                        Accept
-                                                    </button>
-                                                    <button
+                                                <div className="flex items-center gap-3 w-full md:w-auto shrink-0">
+                                                    <button 
                                                         onClick={() => setSelectedApt(apt)}
-                                                        className="flex-1 sm:flex-none px-4 py-2 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-xl font-bold transition-colors text-sm"
+                                                        className="flex-1 md:flex-none p-4 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all border border-transparent hover:border-red-100"
                                                     >
-                                                        Decline
+                                                        <X className="w-5 h-5" />
                                                     </button>
-                                                </div>
-                                            ) : (
-                                                <div className="flex gap-2">
                                                     <button
                                                         onClick={() => {
                                                             if (apt.googleMeetLink) {
@@ -336,147 +385,195 @@ export const TherapistDashboardPage: React.FC = () => {
                                                                 window.open(`https://meet.google.com/abc-defg-hij`, '_blank');
                                                             }
                                                         }}
-                                                        className="w-full sm:w-auto px-6 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 font-bold shadow-md shadow-slate-900/10"
+                                                        className="flex-[3] md:flex-none px-10 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-indigo-600 transition-all flex items-center justify-center gap-3 shadow-xl active:translate-y-1 hover:-translate-y-1"
                                                     >
-                                                        Join Room
-                                                    </button>
-                                                    <button
-                                                        onClick={() => setSelectedApt(apt)}
-                                                        className="p-2.5 bg-white border border-slate-200 text-slate-400 hover:text-red-600 rounded-xl transition-colors"
-                                                        title="Cancel Session"
-                                                    >
-                                                        <X className="w-4 h-4" />
+                                                        <Video className="w-5 h-5 hidden sm:block" />
+                                                        Enter Room
                                                     </button>
                                                 </div>
-                                            )}
+                                            </div>
                                         </div>
+                                    ))}
+                                </div>
+                            )}
+                        </section>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="bg-slate-900 rounded-[2.5rem] p-1 shadow-2xl overflow-hidden relative group cursor-pointer" onClick={() => navigate('/therapist/patients')}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="bg-slate-800/40 rounded-[2.25rem] p-8 border border-white/5 relative z-10">
+                                    <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center border border-white/10 mb-6 group-hover:scale-110 transition-transform">
+                                        <Users className="w-7 h-7 text-indigo-400" />
                                     </div>
-                                ))}
-                            </div>
-                        )}
-                    </motion.div>
-
-                    {/* Recent Activity */}
-                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col">
-                        <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-2xl font-heading font-black text-slate-900 tracking-tight">Recent Activity</h2>
-                            <button className="p-2 hover:bg-slate-50 rounded-lg text-slate-400 transition-colors">
-                                <MoreHorizontal className="w-5 h-5" />
-                            </button>
-                        </div>
-
-                        <div className="space-y-6 flex-1">
-                            {recentActivity.map((activity, idx) => (
-                                <div key={activity.id} className="relative pl-6">
-                                    {/* Timeline Line */}
-                                    {idx !== recentActivity.length - 1 && (
-                                        <div className="absolute left-[11px] top-8 bottom-[-24px] w-[2px] bg-slate-100 rounded-full"></div>
-                                    )}
-
-                                    {/* Icon */}
-                                    <div className={`absolute left-0 top-1 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white ring-2 ring-slate-50 shadow-sm ${activity.type === 'SESSION_COMPLETED' ? 'bg-indigo-500 text-white' :
-                                        activity.type === 'MESSAGE_SENT' ? 'bg-blue-500 text-white' :
-                                            'bg-emerald-500 text-white'
-                                        }`}>
-                                        {activity.type === 'SESSION_COMPLETED' ? <Video className="w-3 h-3" /> :
-                                            activity.type === 'MESSAGE_SENT' ? <MessageSquare className="w-3 h-3" /> :
-                                                <CheckCircle className="w-3 h-3" />}
-                                    </div>
-
-                                    <div>
-                                        <h4 className="text-sm font-bold text-slate-900">{activity.description}</h4>
-                                        <p className="text-sm text-slate-500 font-medium mt-0.5"><span className="text-slate-700">{activity.actor}</span> • {formatRelativeTime(activity.timestamp)}</p>
+                                    <h3 className="text-xl font-black text-white mb-2">Active Directory</h3>
+                                    <p className="text-slate-400 font-medium leading-relaxed mb-6">Access central patient records, history, and treatment plans.</p>
+                                    <div className="flex items-center text-xs font-black text-indigo-400 uppercase tracking-widest group-hover:translate-x-2 transition-transform">
+                                        Open Directory <ChevronRight className="w-4 h-4 ml-1" />
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
 
-                        <button className="w-full mt-6 py-3 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold rounded-xl transition-colors text-sm border border-slate-200/60">
-                            View All Activity
-                        </button>
+                            <div className="bg-white rounded-[2.5rem] p-1 shadow-lg overflow-hidden relative group cursor-pointer border border-slate-100" onClick={() => navigate('/therapist/messages')}>
+                                <div className="bg-slate-50/50 rounded-[2.25rem] p-8 border border-white relative z-10 transition-colors group-hover:bg-white">
+                                    <div className="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center border border-sky-100 mb-6 group-hover:scale-110 transition-transform">
+                                        <MessageSquare className="w-7 h-7 text-sky-600" />
+                                    </div>
+                                    <h3 className="text-xl font-black text-slate-900 mb-2">Secure Comms</h3>
+                                    <p className="text-slate-500 font-medium leading-relaxed mb-6">Review unread messages and coordinate between sessions.</p>
+                                    <div className="flex items-center text-xs font-black text-sky-600 uppercase tracking-widest group-hover:translate-x-2 transition-transform">
+                                        Go to Inbox <ChevronRight className="w-4 h-4 ml-1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Sidebar Area */}
+                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="lg:col-span-4 space-y-8">
+                        {/* Feed / Activity */}
+                        <section className="bg-white rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-xl flex flex-col h-full min-h-[500px]">
+                            <div className="flex items-center justify-between mb-10">
+                                <h2 className="text-2xl font-black text-slate-900 tracking-tight">System Feed</h2>
+                                <button className="p-3 bg-slate-50 hover:bg-slate-100 rounded-2xl text-slate-400 transition-colors">
+                                    <MoreHorizontal className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            <div className="flex-1 space-y-8 overflow-y-auto pr-2 scrollbar-hide">
+                                {recentActivity.length === 0 ? (
+                                    <div className="h-full flex flex-col items-center justify-center text-center opacity-40">
+                                        <Activity className="w-12 h-12 mb-4 text-slate-300" />
+                                        <p className="text-sm font-bold uppercase tracking-widest text-slate-400">No recent activity</p>
+                                    </div>
+                                ) : (
+                                    recentActivity.map((activity, idx) => (
+                                        <div key={activity.id} className="relative pl-10 group">
+                                            {/* Timeline track */}
+                                            {idx !== recentActivity.length - 1 && (
+                                                <div className="absolute left-[13px] top-10 bottom-[-32px] w-[2px] bg-slate-50 rounded-full" />
+                                            )}
+
+                                            {/* Status line effect */}
+                                            <div className="absolute left-[13px] top-0 bottom-0 w-0.5 bg-indigo-500/0 group-hover:bg-indigo-500/20 transition-colors" />
+
+                                            {/* Bubble Icon */}
+                                            <div className={`absolute left-0 top-0 w-7 h-7 rounded-xl flex items-center justify-center border-2 border-white ring-4 ring-slate-50 shadow-sm transition-all group-hover:scale-125 z-10 ${
+                                                activity.type === 'SESSION_COMPLETED' ? 'bg-indigo-600 text-white' :
+                                                activity.type === 'MESSAGE_SENT' ? 'bg-sky-500 text-white' :
+                                                'bg-emerald-500 text-white'
+                                            }`}>
+                                                {activity.type === 'SESSION_COMPLETED' ? <Video className="w-3.5 h-3.5" /> :
+                                                 activity.type === 'MESSAGE_SENT' ? <MessageSquare className="w-3.5 h-3.5" /> :
+                                                 <CheckCircle className="w-3.5 h-3.5" />}
+                                            </div>
+
+                                            <div className="space-y-1">
+                                                <h4 className="text-base font-black text-slate-800 leading-tight group-hover:text-indigo-600 transition-colors">{activity.description}</h4>
+                                                <p className="text-sm text-slate-500 font-bold">
+                                                    <span className="text-slate-900">{activity.actor}</span>
+                                                    <span className="mx-2 text-slate-300">•</span>
+                                                    <span className="text-indigo-500/80">{formatRelativeTime(activity.timestamp)}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
+                            <button className="w-full mt-10 py-5 bg-slate-900 text-white font-black rounded-3xl transition-all shadow-xl active:scale-95 hover:bg-indigo-700">
+                                Full History Log
+                            </button>
+                        </section>
+
+                        {/* Quick Tips or Insights */}
+                        <div className="bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group shadow-2xl">
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.05] pointer-events-none" />
+                            <div className="absolute -top-20 -left-20 w-40 h-40 bg-white/20 rounded-full blur-3xl group-hover:bg-white/30 transition-colors" />
+                            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-sky-400/20 rounded-full blur-2xl" />
+                            
+                            <div className="relative z-10">
+                                <Activity className="w-10 h-10 text-sky-400 mb-6 group-hover:rotate-12 transition-transform" />
+                                <h3 className="text-2xl font-black mb-3 tracking-tight leading-tight">Therapeutic Insight</h3>
+                                <p className="text-indigo-100 font-medium leading-relaxed mb-8 opacity-90 text-lg">
+                                    Focus on "Calm Transitions" today. Patients often reflect most deeply in the final 5 minutes of a session.
+                                </p>
+                                <div className="flex items-center gap-4">
+                                    <div className="flex -space-x-3">
+                                        {[1, 2, 3].map(i => (
+                                            <div key={i} className="w-10 h-10 rounded-2xl border-2 border-white/20 bg-indigo-500/50 backdrop-blur-sm" />
+                                        ))}
+                                    </div>
+                                    <span className="text-xs font-black uppercase tracking-widest text-sky-300">New Module: 12m</span>
+                                </div>
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
-
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div onClick={() => navigate('/therapist/patients')} className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-3xl text-white cursor-pointer hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-1 transition-all group overflow-hidden relative">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-white/10 transition-colors"></div>
-                        <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/10 mb-4 group-hover:scale-110 transition-transform">
-                            <Users className="w-6 h-6 text-white" />
-                        </div>
-                        <h3 className="text-xl font-bold font-heading mb-1">Patient Directory</h3>
-                        <p className="text-slate-400 font-medium text-sm">Manage files and patient notes.</p>
-                    </div>
-                    <div onClick={() => navigate('/therapist/messages')} className="bg-white border border-slate-200 p-6 rounded-3xl cursor-pointer hover:border-primary-200 hover:shadow-xl hover:shadow-primary-600/5 hover:-translate-y-1 transition-all group overflow-hidden relative">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-50 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-primary-100 transition-colors"></div>
-                        <div className="w-12 h-12 bg-primary-50 rounded-2xl flex items-center justify-center border border-primary-100 mb-4 group-hover:scale-110 transition-transform">
-                            <MessageSquare className="w-6 h-6 text-primary-600" />
-                        </div>
-                        <h3 className="text-xl font-bold font-heading text-slate-900 mb-1">Secure Messages</h3>
-                        <p className="text-slate-500 font-medium text-sm">Respond to patient inquiries.</p>
-                    </div>
-                    <div onClick={() => navigate('/therapist/earnings')} className="bg-white border border-slate-200 p-6 rounded-3xl cursor-pointer hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-600/5 hover:-translate-y-1 transition-all group overflow-hidden relative">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-emerald-100 transition-colors"></div>
-                        <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center border border-emerald-100 mb-4 group-hover:scale-110 transition-transform">
-                            <Activity className="w-6 h-6 text-emerald-600" />
-                        </div>
-                        <h3 className="text-xl font-bold font-heading text-slate-900 mb-1">Performance Analytics</h3>
-                        <p className="text-slate-500 font-medium text-sm">View hours and earnings data.</p>
-                    </div>
-                </motion.div>
             </motion.div>
 
-            {/* Cancellation Modal */}
+            {/* Cancellation Modal - Redesigned */}
             <AnimatePresence>
                 {selectedApt && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => { setSelectedApt(null); setCancelReason(''); }}
+                            className="absolute inset-0 bg-slate-950/60 backdrop-blur-md"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 40 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl"
+                            exit={{ opacity: 0, scale: 0.9, y: 40 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                            className="bg-white rounded-[3rem] p-10 max-w-lg w-full shadow-[0_50px_100px_rgba(0,0,0,0.2)] border border-white/20 relative z-[101]"
                         >
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500">
-                                    <AlertCircle className="w-6 h-6" />
+                            <div className="flex items-center gap-6 mb-8">
+                                <div className="w-20 h-20 bg-rose-50 rounded-[2rem] border-2 border-red-50 flex items-center justify-center text-rose-500 shrink-0">
+                                    <AlertCircle className="w-10 h-10" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900">Cancel Session</h3>
-                                    <p className="text-slate-500 text-sm">This will notify the patient immediately.</p>
+                                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">Withdraw Session</h3>
+                                    <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1">Intervention needed</p>
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
-                                <p className="text-sm font-medium text-slate-600">
-                                    Are you sure you want to cancel the session with <span className="font-bold text-slate-900">{selectedApt.patientName}</span>?
+                            <div className="space-y-8">
+                                <p className="text-lg font-medium text-slate-600 leading-relaxed">
+                                    You are about to withdraw the scheduled session with <span className="font-black text-slate-900 underline decoration-indigo-200 decoration-4 underline-offset-4">{selectedApt.patientName}</span>. This will notify the patient immediately.
                                 </p>
 
-                                <textarea
-                                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 text-slate-700 font-medium min-h-[120px] resize-none"
-                                    placeholder="Enter reason for cancellation..."
-                                    value={cancelReason}
-                                    onChange={(e) => setCancelReason(e.target.value)}
-                                />
+                                <div className="space-y-4">
+                                    <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-4">Reason for Withdrawal</label>
+                                    <textarea
+                                        className="w-full p-6 bg-slate-50 border-2 border-slate-100 rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-200 text-slate-700 font-bold min-h-[160px] resize-none transition-all"
+                                        placeholder="Briefly explain why the session is being withdrawn..."
+                                        value={cancelReason}
+                                        onChange={(e) => setCancelReason(e.target.value)}
+                                    />
+                                </div>
 
-                                <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-100 mb-6">
-                                    <p className="text-xs font-bold text-emerald-800 uppercase tracking-widest mb-1">Refund Policy</p>
-                                    <p className="text-xs text-emerald-700 font-medium leading-relaxed">
-                                        As a therapist, cancelling results in a <span className="font-bold underline">100% refund</span> to the patient.
+                                <div className="bg-red-50 rounded-3xl p-6 border border-red-100">
+                                    <p className="text-red-700 text-sm font-bold leading-relaxed flex items-center gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-red-500" />
+                                        This action includes an automatic 100% refund protocol.
                                     </p>
                                 </div>
 
-                                <div className="flex gap-3 mt-8">
+                                <div className="flex gap-4">
                                     <button
                                         onClick={() => { setSelectedApt(null); setCancelReason(''); }}
-                                        className="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-2xl font-bold hover:bg-slate-50 transition-colors"
+                                        className="flex-1 py-5 bg-slate-100 text-slate-600 rounded-[1.5rem] font-black hover:bg-slate-200 transition-all active:scale-95"
                                     >
-                                        Back
+                                        Go Back
                                     </button>
                                     <button
                                         onClick={handleCancel}
                                         disabled={!cancelReason.trim() || isCancelling}
-                                        className="flex-1 py-3 bg-rose-600 text-white rounded-2xl font-bold hover:bg-rose-700 transition-colors disabled:opacity-50 shadow-lg shadow-rose-600/20"
+                                        className="flex-[2] py-5 bg-red-600 text-white rounded-[1.5rem] font-black hover:bg-red-700 transition-all shadow-xl shadow-red-600/20 disabled:opacity-50 active:translate-y-1 hover:-translate-y-1"
                                     >
-                                        {isCancelling ? 'Processing...' : 'Confirm Cancel'}
+                                        {isCancelling ? 'Processing...' : 'Confirm Withdrawal'}
                                     </button>
                                 </div>
                             </div>
@@ -484,6 +581,6 @@ export const TherapistDashboardPage: React.FC = () => {
                     </div>
                 )}
             </AnimatePresence>
-        </>
+        </div>
     );
 };

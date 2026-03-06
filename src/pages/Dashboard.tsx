@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Calendar, TrendingUp, Quote, CheckCircle2 } from 'lucide-react';
+import { Calendar, TrendingUp, Quote, CheckCircle2, Heart, Sparkles, Brain, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
@@ -120,151 +120,232 @@ export const Dashboard: React.FC = () => {
     }, []);
 
     return (
-        <motion.div
-            initial="hidden"
-            animate="show"
-            variants={{
-                hidden: { opacity: 0 },
-                show: {
-                    opacity: 1,
-                    transition: { staggerChildren: 0.1 }
-                }
-            }}
-            className="max-w-4xl mx-auto space-y-6 lg:space-y-8 animate-fade-in"
+        <div
+            className="max-w-6xl mx-auto space-y-12 pb-24"
         >
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
-                <div>
-                    <h1 className="text-3xl font-heading font-bold text-slate-900 tracking-tight">Good morning, {user?.name?.split(' ')[0] || 'User'} 👋</h1>
-                    <p className="text-slate-500 mt-2 text-lg">Here's your wellness overview for today.</p>
-                </div>
+            {/* Greeting Section */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 px-2">
+                <motion.div variants={STAGGER_CHILD_VARIANTS}>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 border border-sky-100 text-sky-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm">
+                        <Sparkles className="w-3 h-3" />
+                        Your Daily Insight
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.05]">
+                        Find your<br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600">
+                            Inner Peace, {user?.name?.split(' ')[0] || 'User'}
+                        </span>
+                    </h1>
+                </motion.div>
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex gap-4">
+                    <button
+                        onClick={() => navigate('/appointments')}
+                        className="px-8 py-4 bg-white border border-slate-100 rounded-2xl font-black text-sm text-slate-500 hover:border-sky-500 hover:text-sky-600 transition-all shadow-xl shadow-slate-200/50 hover:shadow-sky-100 group active:scale-95"
+                    >
+                        Schedule Session
+                    </button>
+                    <button
+                        onClick={() => navigate('/onboarding')}
+                        className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm shadow-2xl shadow-slate-900/20 hover:bg-sky-600 transition-all active:scale-95 flex items-center gap-2"
+                    >
+                        Quick Start <ArrowRight className="w-4 h-4" />
+                    </button>
+                </motion.div>
             </div>
 
-            {/* Hero Quote Component */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-gradient-to-br from-primary-500 to-indigo-600 rounded-[32px] border border-primary-400 shadow-xl p-8 sm:p-12 relative overflow-hidden group min-h-[300px] flex flex-col justify-center items-center text-center">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-900/20 rounded-full blur-2xl -ml-10 -mb-10"></div>
+            {/* Hero Quote Card */}
+            <motion.div
+                variants={STAGGER_CHILD_VARIANTS}
+                className="relative overflow-hidden group rounded-[40px] shadow-2xl shadow-blue-200/50"
+            >
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-600" />
+                {/* Decorative blobs (from LandingPage CTA) */}
+                <div className="absolute top-0 left-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-indigo-400/20 rounded-full blur-3xl" />
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-sky-300/20 rounded-full blur-2xl" />
 
-                <div className="relative z-10 flex flex-col items-center justify-center h-full w-full">
-                    <div className="bg-white/20 p-4 rounded-3xl backdrop-blur-md mx-auto mb-8 inline-flex transform group-hover:scale-110 transition-transform">
+                <div className="relative z-10 p-10 sm:p-16 text-center flex flex-col items-center">
+                    <div className="w-16 h-16 bg-white/15 rounded-3xl backdrop-blur-md flex items-center justify-center mb-8 border border-white/20 shadow-inner">
                         <Quote className="w-8 h-8 text-white" />
                     </div>
 
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white leading-tight italic max-w-2xl mx-auto tracking-wide">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight italic max-w-3xl mx-auto tracking-tight mb-8">
                         "{todayQuote}"
                     </p>
 
-                    <div className="mt-8">
-                        <span className="bg-white/10 text-primary-50 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-sm border border-white/20">Quote of the Day</span>
-                    </div>
+                    <span className="inline-block px-5 py-2 rounded-full bg-white/10 text-sky-100 text-xs font-bold uppercase tracking-[0.2em] backdrop-blur-sm border border-white/10">
+                        Reflect for a moment
+                    </span>
                 </div>
             </motion.div>
 
-            {/* Main Interactive Widgets */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
+                {/* Left Column (Mood & Stats) */}
+                <div className="lg:col-span-2 space-y-10">
+                    {/* Mood Log Card */}
+                    <motion.div
+                        variants={STAGGER_CHILD_VARIANTS}
+                        className="bg-white/80 backdrop-blur-xl rounded-[40px] border border-white shadow-2xl shadow-slate-200/30 p-10 md:p-12 relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                        <div className="flex items-center gap-4 mb-10 relative z-10">
+                            <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center border border-orange-100 shadow-inner">
+                                <Heart className="w-6 h-6 text-orange-500" />
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-black text-slate-900 tracking-tight">How are you feeling?</h2>
+                                <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mt-0.5">Quick Mood Check-in</p>
+                            </div>
+                        </div>
 
-                {/* Stats Container Map */}
-                <div className="space-y-6">
-                    {/* Quick Mood Log Widget */}
-                    <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-[180px] flex flex-col justify-center">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-5 block text-center sm:text-left">How are you feeling right now?</span>
-                        <div className="flex items-center justify-between w-full max-w-sm mx-auto sm:mx-0">
+                        <div className="flex flex-wrap items-center justify-between gap-6 relative z-10">
                             {MOODS.map(m => (
                                 <button
                                     key={m.type}
                                     onClick={() => handleQuickMoodLog(m.type)}
                                     disabled={isLoggingMood}
-                                    className={`text-3xl p-3.5 rounded-2xl border border-transparent transition-all transform hover:scale-110 active:scale-95 ${m.color} ${isLoggingMood ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    title={m.label}
+                                    className={`flex-1 min-w-[100px] group flex flex-col items-center gap-4 p-6 rounded-[32px] border border-slate-50 bg-slate-50/50 transition-all hover:-translate-y-2 hover:shadow-2xl hover:bg-white hover:border-white active:scale-95 ${m.color} ${isLoggingMood ? 'opacity-50' : ''}`}
                                 >
-                                    {m.emoji}
+                                    <span className="text-5xl group-hover:scale-125 transition-transform duration-500">{m.emoji}</span>
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-slate-900 transition-colors">{m.label}</span>
                                 </button>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        {[
-                            { title: 'Sessions', value: `${completedSessionsCount}`, change: 'Total', color: 'secondary', icon: Calendar },
-                            { title: 'Streak', value: `${streak || 0} Days`, change: 'Current', color: 'emerald', icon: TrendingUp }
-                        ].map((stat, idx) => (
-                            <div key={idx} className={`bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow`}>
-                                <div className={`absolute top-0 right-0 w-24 h-24 bg-${stat.color}-500 blur-[60px] opacity-10 rounded-full -mr-8 -mt-8`}></div>
-                                <div className="flex justify-between items-start mb-3 relative z-10">
-                                    <div className={`p-2.5 rounded-xl bg-${stat.color}-50 text-${stat.color}-600 ring-1 ring-${stat.color}-100`}>
-                                        <stat.icon size={20} />
-                                    </div>
-                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-100/50">
-                                        <TrendingUp className="w-2.5 h-2.5" /> {stat.change}
-                                    </span>
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        {/* Session Stat */}
+                        <motion.div
+                            variants={STAGGER_CHILD_VARIANTS}
+                            whileHover={{ y: -8 }}
+                            className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 border border-white shadow-2xl shadow-sky-100/50 relative overflow-hidden group transition-all"
+                        >
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-sky-500/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-sky-500/20 transition-colors" />
+                            <div className="flex justify-between items-start mb-8 relative z-10">
+                                <div className="p-4 rounded-2xl bg-sky-50 text-sky-600 border border-sky-100 shadow-inner">
+                                    <Brain size={28} />
                                 </div>
-                                <div className="relative z-10">
-                                    <p className="text-xs font-semibold text-slate-500 mb-0.5">{stat.title}</p>
-                                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">{stat.value}</h3>
-                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-sky-600 bg-sky-100/50 px-4 py-1.5 rounded-full border border-sky-100 backdrop-blur-sm">
+                                    Journey
+                                </span>
                             </div>
-                        ))}
+                            <div className="relative z-10">
+                                <h3 className="text-5xl font-black text-slate-900 tracking-tighter">{completedSessionsCount}</h3>
+                                <p className="text-slate-400 font-black text-xs mt-2 uppercase tracking-[0.2em]">Sessions Completed</p>
+                            </div>
+                        </motion.div>
+
+                        {/* Streak Stat */}
+                        <motion.div
+                            variants={STAGGER_CHILD_VARIANTS}
+                            whileHover={{ y: -8 }}
+                            className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 border border-white shadow-2xl shadow-orange-100/50 relative overflow-hidden group transition-all"
+                        >
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-orange-500/20 transition-colors" />
+                            <div className="flex justify-between items-start mb-8 relative z-10">
+                                <div className="p-4 rounded-2xl bg-orange-50 text-orange-600 border border-orange-100 shadow-inner">
+                                    <TrendingUp size={28} />
+                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600 bg-orange-100/50 px-4 py-1.5 rounded-full border border-orange-100 backdrop-blur-sm">
+                                    Consistency
+                                </span>
+                            </div>
+                            <div className="relative z-10">
+                                <h3 className="text-5xl font-black text-slate-900 tracking-tighter">{streak || 0}</h3>
+                                <p className="text-slate-400 font-black text-xs mt-2 uppercase tracking-[0.2em]">Day Streak</p>
+                            </div>
+                        </motion.div>
                     </div>
 
-                    {/* Sign-in Today Button */}
+                    {/* Claim Streak Button */}
                     <AnimatePresence>
                         {!hasSignedInToday && (
                             <motion.button
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
                                 onClick={handleSignInToday}
                                 disabled={isSigningIn}
-                                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold py-4 rounded-3xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all flex items-center justify-center gap-2 transform active:scale-95"
+                                className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-black py-5 rounded-[24px] shadow-xl shadow-emerald-200 hover:shadow-2xl hover:shadow-emerald-300 transition-all flex items-center justify-center gap-3 active:scale-95"
                             >
-                                <CheckCircle2 className="w-5 h-5" />
-                                {isSigningIn ? 'Recording...' : 'Claim Daily Sign-In Streak! 🔥'}
+                                <CheckCircle2 className="w-6 h-6" />
+                                {isSigningIn ? 'RECORDING MOMENT...' : 'CLAIM DAILY STREAK 🔥'}
                             </motion.button>
                         )}
                     </AnimatePresence>
                 </div>
 
-                {/* Upcoming Appointments */}
-                <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8 flex flex-col h-full min-h-[350px]">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-xl font-heading font-bold text-slate-900">Upcoming</h2>
-                        <button onClick={() => navigate('/appointments')} className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">View All</button>
-                    </div>
-                    <div className="space-y-4 flex-1">
-                        {upcomingAppointments.length === 0 ? (
-                            <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
-                                <Calendar className="w-12 h-12 mb-3 text-slate-200" />
-                                <p className="text-sm font-medium">No upcoming sessions scheduled.</p>
+                {/* Right Column (Upcoming) */}
+                <div className="space-y-10">
+                    <motion.div
+                        variants={STAGGER_CHILD_VARIANTS}
+                        className="bg-white/80 backdrop-blur-xl rounded-[40px] border border-white shadow-2xl shadow-slate-200/30 p-10 h-full flex flex-col relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-sky-500/5 rounded-full blur-3xl -mr-24 -mt-24" />
+                        
+                        <div className="flex justify-between items-center mb-10 relative z-10">
+                            <div>
+                                <h2 className="text-2xl font-black text-slate-900 tracking-tight">Upcoming</h2>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Your Schedule</p>
                             </div>
-                        ) : (
-                            upcomingAppointments.map((appt) => {
-                                const therapistName = appt.therapist?.user?.name || appt.therapistId?.userId?.name || 'Therapist';
-                                const d = new Date(appt.scheduledAt);
-                                return (
-                                    <div key={appt._id} onClick={() => navigate('/appointments')} className="p-4 rounded-2xl bg-slate-50 border border-slate-100/50 hover:bg-slate-100 transition-all group cursor-pointer hover:-translate-y-0.5 shadow-sm">
-                                        <div className="flex items-center gap-4 mb-4">
-                                            <div className="w-10 h-10 rounded-full bg-secondary-100 text-secondary-600 flex items-center justify-center font-bold relative shadow-inner text-sm overflow-hidden">
-                                                <img src={`https://ui-avatars.com/api/?name=${therapistName}&background=c7d2fe&color=3730a3`} alt={therapistName} />
-                                                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></div>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-bold text-slate-900 group-hover:text-primary-600 transition-colors text-sm truncate max-w-[160px]">{therapistName}</h4>
-                                                <p className="text-[10px] font-semibold text-slate-500 border border-slate-200 inline-block px-1.5 py-0.5 rounded uppercase tracking-wider mt-1 bg-white truncate">({appt.type})</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center justify-between text-[11px] font-bold text-slate-600 bg-white p-2.5 rounded-lg border border-slate-100/80 shadow-sm">
-                                            <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-primary-500" /> {d.toLocaleDateString()} at {d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        )}
-                    </div>
-                    <button onClick={() => navigate('/appointments')} className="w-full mt-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 text-slate-500 font-bold text-sm hover:border-primary-400 hover:text-primary-600 hover:bg-primary-50 transition-all">
-                        + Book New Session
-                    </button>
-                </div>
+                            <button
+                                onClick={() => navigate('/appointments')}
+                                className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:bg-sky-50 transition-all border border-slate-100 shadow-sm"
+                            >
+                                <ArrowRight className="w-4 h-4" />
+                            </button>
+                        </div>
 
-            </motion.div>
-        </motion.div>
+                        <div className="space-y-5 flex-1 relative z-10">
+                            {upcomingAppointments.length === 0 ? (
+                                <div className="py-16 flex flex-col items-center justify-center text-center">
+                                    <div className="w-20 h-20 bg-slate-50 rounded-[32px] flex items-center justify-center mb-6 shadow-inner border border-slate-100/50">
+                                        <Calendar className="w-8 h-8 text-slate-200" />
+                                    </div>
+                                    <p className="text-slate-900 font-black text-lg">No sessions yet</p>
+                                    <p className="text-slate-400 font-medium text-sm mt-2 max-w-[150px] mx-auto leading-relaxed">Let's schedule your first step towards wellness.</p>
+                                </div>
+                            ) : (
+                                upcomingAppointments.map((appt) => {
+                                    const therapistName = appt.therapist?.user?.name || appt.therapistId?.userId?.name || 'Therapist';
+                                    const d = new Date(appt.scheduledAt);
+                                    return (
+                                        <div
+                                            key={appt._id}
+                                            onClick={() => navigate('/appointments')}
+                                            className="p-6 rounded-3xl bg-slate-50/50 border border-slate-100/50 hover:bg-white hover:shadow-2xl hover:shadow-sky-100/50 transition-all group cursor-pointer active:scale-[0.98]"
+                                        >
+                                            <div className="flex items-center gap-4 mb-5">
+                                                <div className="w-14 h-14 rounded-2xl border-4 border-white shadow-xl overflow-hidden bg-white group-hover:scale-110 transition-transform">
+                                                    <img src={`https://ui-avatars.com/api/?name=${therapistName}&background=0ea5e9&color=fff&bold=true`} alt={therapistName} />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="font-black text-slate-900 group-hover:text-sky-600 transition-colors truncate">{therapistName}</h4>
+                                                    <p className="text-[10px] font-black text-sky-500 uppercase tracking-widest bg-sky-50 px-2 py-0.5 rounded-md inline-block mt-1">{appt.type}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-3 text-xs font-black text-slate-500 bg-white/80 px-4 py-3 rounded-2xl border border-slate-100 shadow-sm group-hover:border-sky-100 group-hover:text-sky-600 transition-all">
+                                                <Calendar className="w-4 h-4 text-sky-500" />
+                                                <span className="tracking-tight">{d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} • {d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            )}
+                        </div>
+
+                        <button
+                            onClick={() => navigate('/appointments')}
+                            className="w-full mt-10 py-5 rounded-[24px] border-2 border-dashed border-slate-200 text-slate-400 font-black text-sm hover:border-sky-300 hover:text-sky-500 hover:bg-sky-50/50 transition-all group flex items-center justify-center gap-2 relative z-10 active:scale-95"
+                        >
+                            <Calendar className="w-4 h-4 group-hover:animate-bounce" />
+                            Book New Session
+                        </button>
+                    </motion.div>
+                </div>
+            </div>
+        </div>
     );
 };

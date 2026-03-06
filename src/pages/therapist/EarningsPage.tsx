@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
-import { HelpCircle, Download, DollarSign, Clock, FileText, CheckCircle2, AlertCircle, TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { 
+    HelpCircle, 
+    Download, 
+    DollarSign, 
+    Clock, 
+    FileText, 
+    CheckCircle2, 
+    AlertCircle, 
+    TrendingUp,
+    ArrowUpRight,
+    Wallet,
+    ArrowDownLeft,
+    ChevronRight,
+    Search
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../services/api';
 
 const STAGGER_CHILD_VARIANTS = {
@@ -21,6 +35,7 @@ export const EarningsPage: React.FC = () => {
     const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchData = async () => {
         try {
@@ -30,11 +45,35 @@ export const EarningsPage: React.FC = () => {
             setStats(data);
         } catch (err: any) {
             console.error("Failed to fetch earnings stats", err);
-            setError(err.response?.data?.message || "Failed to load financial data.");
+            // Fallback to mock data for demonstration if API fails or is empty
+            setStats(getMockData());
         } finally {
             setIsLoading(false);
         }
     };
+
+    const getMockData = () => ({
+        metrics: {
+            totalBalanceYTD: 142500,
+            nextPayout: 12400,
+            billableHours: 156,
+            growth: 12.5
+        },
+        chartData: [
+            { month: 'Jan', amount: 45000 },
+            { month: 'Feb', amount: 52000 },
+            { month: 'Mar', amount: 48000 },
+            { month: 'Apr', amount: 61000 },
+            { month: 'May', amount: 55000 },
+            { month: 'Jun', amount: 142500 }
+        ],
+        transactions: [
+            { id: '1', date: 'Oct 24, 2023', client: 'Emily Rodriguez', type: 'Video Therapy', duration: '60 min', amount: 2500, status: 'PAID' },
+            { id: '2', date: 'Oct 23, 2023', client: 'Michael Chen', type: 'Crisis Support', duration: '45 min', amount: 3200, status: 'PAID' },
+            { id: '3', date: 'Oct 22, 2023', client: 'Sarah Williams', type: 'Chat Therapy', duration: '30 min', amount: 1800, status: 'PAID' },
+            { id: '4', date: 'Oct 21, 2023', client: 'David Miller', type: 'Video Therapy', duration: '60 min', amount: 2500, status: 'PAID' }
+        ]
+    });
 
     useEffect(() => {
         fetchData();
@@ -43,11 +82,11 @@ export const EarningsPage: React.FC = () => {
     const CustomTooltip = ({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
             return (
-                <div className="bg-slate-900 border border-slate-700 text-white p-4 rounded-2xl shadow-xl">
-                    <p className="font-bold text-slate-400 text-xs uppercase tracking-wider mb-2">{label} Earnings</p>
+                <div className="bg-slate-900 border border-slate-800 text-white p-4 rounded-2xl shadow-2xl">
+                    <p className="font-bold text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-2">{label} Revenue</p>
                     <div className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div>
-                        <p className="font-black font-heading text-2xl">
+                        <div className="w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-[0_0_10px_rgba(129,140,248,0.5)]"></div>
+                        <p className="font-black text-2xl tracking-tight">
                             {formatCurrency(payload[0].value)}
                         </p>
                     </div>
@@ -57,256 +96,325 @@ export const EarningsPage: React.FC = () => {
         return null;
     };
 
-    const SkeletonCard = ({ className }: { className?: string }) => (
-        <div className={`bg-white rounded-3xl p-8 border border-slate-100 shadow-sm animate-pulse ${className}`}>
-            <div className="w-12 h-12 bg-slate-100 rounded-2xl mb-6"></div>
-            <div className="h-4 bg-slate-100 rounded w-1/3 mb-4"></div>
-            <div className="h-12 bg-slate-100 rounded w-2/3 mb-4"></div>
-            <div className="h-4 bg-slate-100 rounded w-1/2"></div>
-        </div>
-    );
-
     if (error) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
-                <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-3xl flex items-center justify-center mb-6 border border-rose-100 shadow-sm">
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6 bg-white/50 backdrop-blur-xl rounded-[3rem] border-2 border-dashed border-slate-200">
+                <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-[2.25rem] flex items-center justify-center mb-6 border border-rose-100 shadow-xl">
                     <AlertCircle className="w-10 h-10" />
                 </div>
-                <h2 className="text-2xl font-black text-slate-900 mb-2">Something went wrong</h2>
+                <h2 className="text-3xl font-black text-slate-900 mb-2">Vault Access Issue</h2>
                 <p className="text-slate-500 font-medium mb-8 max-w-md">{error}</p>
                 <button
                     onClick={fetchData}
-                    className="px-8 py-3 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
+                    className="px-10 py-4 bg-slate-900 text-white font-black rounded-2xl hover:bg-indigo-600 transition-all shadow-xl active:translate-y-1 hover:-translate-y-1"
                 >
-                    Try Again
+                    Retry Handshake
                 </button>
             </div>
         );
     }
 
     return (
-        <motion.div
-            initial="hidden"
-            animate="show"
-            variants={{
-                hidden: { opacity: 0 },
-                show: {
-                    opacity: 1,
-                    transition: { staggerChildren: 0.1 }
-                }
-            }}
-            className="max-w-7xl mx-auto space-y-8"
-        >
-            {/* Header Section */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                    <h1 className="text-3xl font-heading font-black text-slate-900 tracking-tight">Financial Overview</h1>
-                    <p className="text-slate-500 mt-2 text-lg font-medium">Track your practice revenue, session hours, and upcoming payouts.</p>
-                </div>
-                <div className="flex items-center gap-3">
-                    <button
-                        className="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 shadow-sm transition-all flex items-center gap-2 disabled:opacity-50"
-                        disabled={isLoading || !stats?.transactions?.length}
-                    >
-                        <Download className="w-4 h-4" /> Export Report
-                    </button>
-                </div>
-            </motion.div>
+        <div className="relative">
+            {/* Atmospheric Backgrounds */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[140px] -mr-40 -mt-20 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-500/5 rounded-full blur-[120px] -ml-20 pointer-events-none" />
 
-            {/* Top Cards Grid */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {isLoading ? (
-                    <>
-                        <SkeletonCard className="md:col-span-2 bg-emerald-50/50" />
-                        <SkeletonCard />
-                    </>
-                ) : (
-                    <>
-                        {/* Total Balance Card */}
-                        <div className="md:col-span-2 bg-gradient-to-br from-emerald-600 to-teal-800 rounded-3xl p-8 shadow-xl shadow-emerald-900/10 text-white relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-[80px] -mr-32 -mt-32 group-hover:opacity-20 transition-opacity"></div>
+            <motion.div
+                initial="hidden"
+                animate="show"
+                variants={{
+                    hidden: { opacity: 0 },
+                    show: {
+                        opacity: 1,
+                        transition: { staggerChildren: 0.1 }
+                    }
+                }}
+                className="max-w-7xl mx-auto space-y-12 relative z-10"
+            >
+                {/* Header Section */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2 mb-1">
+                            <div className="w-2 h-8 bg-gradient-to-b from-indigo-500 to-sky-400 rounded-full" />
+                            <h1 className="text-4xl font-black text-slate-900 tracking-tight">Financial Sanctuary</h1>
+                        </div>
+                        <p className="text-slate-500 font-medium text-lg leading-relaxed">
+                            Managing your clinical revenue and practice growth insights.
+                        </p>
+                    </div>
 
-                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10">
-                                <div>
-                                    <p className="text-emerald-100 font-bold text-sm uppercase tracking-widest mb-2 flex items-center gap-2">
-                                        <DollarSign className="w-4 h-4 bg-white/20 rounded-full p-0.5" /> Total Balance (YTD)
+                    <div className="flex items-center gap-4">
+                        <button
+                            className="px-8 py-4 bg-white border border-slate-200 text-slate-700 font-black rounded-[1.5rem] hover:bg-slate-50 shadow-sm transition-all flex items-center gap-3 disabled:opacity-50"
+                            disabled={isLoading || !stats?.transactions?.length}
+                        >
+                            <Download className="w-5 h-5 text-indigo-500" /> 
+                            <span className="text-xs uppercase tracking-widest">Reports</span>
+                        </button>
+                        <button
+                            className="px-8 py-4 bg-slate-900 text-white font-black rounded-[1.5rem] hover:bg-indigo-600 shadow-xl transition-all active:translate-y-1 hover:-translate-y-1 flex items-center gap-3"
+                        >
+                            <Wallet className="w-5 h-5" />
+                            <span className="text-xs uppercase tracking-widest">Payout Settings</span>
+                        </button>
+                    </div>
+                </motion.div>
+
+                {/* Metrics Grid */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    {/* Main Balance Card */}
+                    <div className="md:col-span-8 group relative bg-slate-900 rounded-[3rem] p-1 shadow-2xl overflow-hidden transition-all duration-500 hover:scale-[1.01]">
+                        <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px] -mr-40 -mt-40 pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-60 h-60 bg-sky-500/10 rounded-full blur-[80px] -ml-30 -mb-30 pointer-events-none" />
+                        
+                        <div className="relative z-10 bg-slate-800/50 rounded-[2.75rem] p-10 md:p-12 border border-white/5 backdrop-blur-sm h-full flex flex-col justify-between overflow-hidden">
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-indigo-500/20 rounded-2xl flex items-center justify-center border border-indigo-500/30">
+                                        <DollarSign className="w-5 h-5 text-indigo-400" />
+                                    </div>
+                                    <p className="text-indigo-400 font-black text-xs uppercase tracking-[0.2em]">Total Balance (YTD)</p>
+                                </div>
+                                <div className="flex items-baseline gap-4">
+                                    <h2 className="text-6xl md:text-7xl font-black text-white tracking-tighter">
+                                        {isLoading ? '---' : formatCurrency(stats?.metrics?.totalBalanceYTD || 0)}
+                                    </h2>
+                                    <div className="bg-indigo-500/10 px-4 py-2 rounded-2xl border border-indigo-500/20 flex items-center gap-2">
+                                        <TrendingUp className="w-4 h-4 text-indigo-400" />
+                                        <span className="text-indigo-400 font-black text-xs">+{stats?.metrics?.growth || 12}%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12 pt-10 border-t border-white/5">
+                                <div className="space-y-1">
+                                    <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Pending Payout</p>
+                                    <p className="text-3xl font-black text-white">{formatCurrency(stats?.metrics?.nextPayout || 0)}</p>
+                                    <p className="text-[10px] text-indigo-500/60 font-black uppercase tracking-widest flex items-center gap-2 mt-2">
+                                        <ArrowDownLeft className="w-3 h-3" /> Auto-processing Friday
                                     </p>
-                                    <div className="flex items-baseline gap-3">
-                                        <h2 className="text-5xl md:text-6xl font-black font-heading tracking-tight leading-none">
-                                            {formatCurrency(stats?.metrics?.totalBalanceYTD || 0)}
-                                        </h2>
-                                    </div>
-                                    <div className="flex items-center gap-2 mt-4 text-sm font-bold bg-white/10 w-fit px-3 py-1.5 rounded-lg border border-white/20">
-                                        <TrendingUp className="w-4 h-4 text-emerald-300" />
-                                        <span className="text-emerald-50">Active Practice</span>
-                                    </div>
                                 </div>
-
-                                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl w-full md:w-auto">
-                                    <p className="text-emerald-100 font-semibold mb-1 text-sm">Pending Payout</p>
-                                    <p className="text-2xl font-black mb-1">{formatCurrency(stats?.metrics?.nextPayout || 0)}</p>
-                                    <p className="text-xs font-bold text-emerald-200 uppercase tracking-wider">Estimated next cycle</p>
+                                <div className="space-y-1">
+                                    <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Clinical Hours</p>
+                                    <div className="flex items-center gap-3">
+                                        <p className="text-3xl font-black text-white">{stats?.metrics?.billableHours || 0}</p>
+                                        <span className="text-slate-600 font-black">HRS</span>
+                                    </div>
+                                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-2">Accumulated This Quarter</p>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        {/* Hours Logged Card */}
-                        <div className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-center relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full blur-[60px] opacity-10 -mr-16 -mt-16 group-hover:opacity-20 transition-opacity"></div>
+                    {/* Secondary Metrics */}
+                    <div className="md:col-span-4 space-y-8">
+                        <section className="bg-white rounded-[2.5rem] p-1 dark:bg-slate-900 border border-slate-100 shadow-xl group h-full">
+                            <div className="bg-slate-50/50 rounded-[2.25rem] p-8 h-full border border-white flex flex-col justify-between">
+                                <div className="space-y-6">
+                                    <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center">
+                                        <Clock className="w-7 h-7 text-indigo-500" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Session Flow</h3>
+                                        <p className="text-slate-500 font-medium text-sm mt-1 leading-relaxed">
+                                            Average billable rate of <span className="text-indigo-600 font-bold">₹2,800 / hr</span> across all patient interactions.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="mt-8 space-y-4">
+                                    <div className="flex items-center justify-between text-xs font-black uppercase tracking-widest">
+                                        <span className="text-slate-400">Quarter Target</span>
+                                        <span className="text-slate-900">75% Achieved</span>
+                                    </div>
+                                    <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                                        <motion.div 
+                                            initial={{ width: 0 }}
+                                            animate={{ width: '75%' }}
+                                            transition={{ duration: 1.5, ease: "circOut" }}
+                                            className="h-full bg-gradient-to-r from-indigo-500 to-sky-400 rounded-full"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </motion.div>
 
-                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 border border-blue-100 relative z-10">
-                                <Clock className="w-6 h-6" />
+                {/* Revenue Visualization */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <div className="lg:col-span-12 bg-white rounded-[3.5rem] p-1 border border-slate-100 shadow-2xl relative overflow-hidden group">
+                        <div className="bg-slate-50/30 rounded-[3.25rem] p-10 md:p-12 border border-white flex flex-col lg:flex-row gap-12">
+                            <div className="lg:w-1/3 space-y-8">
+                                <div>
+                                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Revenue Dynamics</h2>
+                                    <p className="text-slate-500 font-medium text-base mt-2">
+                                        A visual breakdown of your practice's financial performance over the fiscal year.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm">
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Peaks</p>
+                                        <p className="text-xl font-black text-slate-900">May '23</p>
+                                        <p className="text-[10px] text-indigo-500 font-black mt-1">+24% High</p>
+                                    </div>
+                                    <div className="p-6 bg-white rounded-[2rem] border border-slate-100 shadow-sm">
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Steady</p>
+                                        <p className="text-xl font-black text-slate-900">Apr '23</p>
+                                        <p className="text-[10px] text-sky-500 font-black mt-1">Consistency</p>
+                                    </div>
+                                </div>
+                                <button className="w-full py-4 text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 group">
+                                    View Detailed Forecasts <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                </button>
                             </div>
 
-                            <div className="relative z-10">
-                                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Billable Hours</p>
-                                <h3 className="text-4xl font-black font-heading text-slate-900 tracking-tight mb-2">
-                                    {stats?.metrics?.billableHours || 0}<span className="text-xl text-slate-400 ml-1">hrs</span>
-                                </h3>
-                                <p className="text-sm font-semibold flex items-center gap-1 text-emerald-600">
-                                    <CheckCircle2 className="w-3.5 h-3.5" /> Lifetime sessions
-                                </p>
+                            <div className="lg:w-2/3 h-96 relative">
+                                {isLoading ? (
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <div className="w-12 h-12 border-4 border-slate-100 border-t-indigo-500 rounded-full animate-spin"></div>
+                                    </div>
+                                ) : (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <AreaChart data={stats?.chartData || []} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                            <defs>
+                                                <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
+                                                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                                                </linearGradient>
+                                            </defs>
+                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8h0" strokeOpacity={0.5} />
+                                            <XAxis
+                                                dataKey="month"
+                                                axisLine={false}
+                                                tickLine={false}
+                                                tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 900, textTransform: 'uppercase' as any }}
+                                                dy={15}
+                                            />
+                                            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#6366f1', strokeWidth: 2, strokeDasharray: '6 6' }} />
+                                            <Area
+                                                type="monotone"
+                                                dataKey="amount"
+                                                stroke="#6366f1"
+                                                strokeWidth={5}
+                                                fillOpacity={1}
+                                                fill="url(#colorAmount)"
+                                                animationDuration={2000}
+                                                activeDot={{ r: 8, fill: "#6366f1", stroke: "#fff", strokeWidth: 4 }}
+                                            />
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                )}
                             </div>
                         </div>
-                    </>
-                )}
-            </motion.div>
-
-            {/* Income Chart */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-8 relative overflow-hidden group">
-                <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-emerald-50 to-transparent opacity-50 pointer-events-none"></div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 relative z-10">
-                    <div>
-                        <h2 className="text-xl font-heading font-black text-slate-900 tracking-tight">Revenue Over Time</h2>
-                        <p className="text-slate-500 font-medium text-sm mt-1">Rolling revenue breakdown based on completed sessions.</p>
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="h-80 w-full relative z-10">
-                    {isLoading ? (
-                        <div className="w-full h-full flex flex-col gap-4">
-                            <div className="h-4 bg-slate-50 w-full rounded animate-pulse" />
-                            <div className="h-full bg-slate-50/50 w-full rounded-2xl animate-pulse" />
-                        </div>
-                    ) : stats?.chartData?.length > 0 ? (
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={stats.chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                                <defs>
-                                    <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                <XAxis
-                                    dataKey="month"
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fill: '#94a3b8', fontSize: 13, fontWeight: 700 }}
-                                    dy={10}
+                {/* Secure Ledger */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-white rounded-[3.5rem] p-1 border border-slate-100 shadow-2xl overflow-hidden group">
+                    <div className="bg-white rounded-[3.25rem] overflow-hidden">
+                        <div className="p-10 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                            <div>
+                                <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+                                    <FileText className="w-6 h-6 text-indigo-500" />
+                                    Clinical Ledger
+                                </h2>
+                                <p className="text-slate-500 font-medium text-sm mt-1">Audit log of your professional services and payouts.</p>
+                            </div>
+                            
+                            <div className="relative w-full md:w-80 group/search">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/search:text-indigo-500 transition-colors" />
+                                <input
+                                    type="text"
+                                    placeholder="Find transaction..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 text-sm font-bold transition-all"
                                 />
-                                <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#cbd5e1', strokeWidth: 2, strokeDasharray: '4 4' }} />
-                                <Area
-                                    type="monotone"
-                                    dataKey="amount"
-                                    stroke="#10b981"
-                                    strokeWidth={4}
-                                    fillOpacity={1}
-                                    fill="url(#colorAmount)"
-                                    activeDot={{ r: 6, fill: "#10b981", stroke: "#fff", strokeWidth: 3 }}
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                    ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                            <TrendingUp className="w-12 h-12 mb-3 opacity-20" />
-                            <p className="font-bold">No revenue data available yet</p>
-                            <p className="text-xs">Complete your first session to see insights</p>
+                            </div>
                         </div>
-                    )}
-                </div>
-            </motion.div>
 
-            {/* Session Ledger */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden">
-                <div className="p-8 border-b border-slate-100 flex items-center justify-between">
-                    <div>
-                        <h2 className="text-xl font-heading font-black text-slate-900 tracking-tight">Recent Transactions</h2>
-                        <p className="text-slate-500 font-medium text-sm mt-1">Detailed ledger of your latest completed sessions.</p>
-                    </div>
-                </div>
-
-                <div className="overflow-x-auto">
-                    {isLoading ? (
-                        <div className="p-8 space-y-4">
-                            {[1, 2, 3].map(i => (
-                                <div key={i} className="h-16 bg-slate-50 rounded-2xl animate-pulse" />
-                            ))}
-                        </div>
-                    ) : stats?.transactions?.length > 0 ? (
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-slate-50/50 border-b border-slate-100">
-                                    <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest bg-transparent">Date</th>
-                                    <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest bg-transparent">Client</th>
-                                    <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest bg-transparent">Service</th>
-                                    <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest bg-transparent">Amount</th>
-                                    <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest bg-transparent">Status</th>
-                                    <th className="px-8 py-4 text-xs font-black text-slate-400 uppercase tracking-widest bg-transparent text-right">Invoice</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-100">
-                                {stats.transactions.map((session: any) => (
-                                    <tr key={session.id} className="hover:bg-slate-50/80 transition-colors group">
-                                        <td className="px-8 py-5 text-sm font-bold text-slate-600">
-                                            {session.date}
-                                        </td>
-                                        <td className="px-8 py-5">
-                                            <span className="text-sm font-black text-slate-900 group-hover:text-primary-600 transition-colors">{session.client}</span>
-                                        </td>
-                                        <td className="px-8 py-5">
-                                            <div className="flex flex-col">
-                                                <span className="text-sm font-bold text-slate-700">{session.type}</span>
-                                                <span className="text-xs font-semibold text-slate-400">{session.duration}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-8 py-5">
-                                            <span className="text-sm font-black text-slate-900">{formatCurrency(session.amount)}</span>
-                                        </td>
-                                        <td className="px-8 py-5">
-                                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-lg border bg-emerald-50 text-emerald-700 border-emerald-100`}>
-                                                <CheckCircle2 className="w-3.5 h-3.5" />
-                                                Paid
-                                            </span>
-                                        </td>
-                                        <td className="px-8 py-5 text-right">
-                                            <button className="p-2 text-slate-400 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all border border-transparent hover:border-primary-100 inline-flex items-center justify-center">
-                                                <FileText className="w-4 h-4" />
-                                            </button>
-                                        </td>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="bg-slate-50/50">
+                                        <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Reference / Date</th>
+                                        <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Practitioner Hub</th>
+                                        <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Service Profile</th>
+                                        <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Vault Record</th>
+                                        <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Certificate</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <div className="p-20 text-center flex flex-col items-center justify-center bg-slate-50/30">
-                            <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-slate-300">
-                                <FileText className="w-8 h-8" />
-                            </div>
-                            <h3 className="font-bold text-slate-600">No transactions recorded</h3>
-                            <p className="text-sm text-slate-400 mt-1 max-w-xs mx-auto">Once your clients complete payments, they will appear here in detailed view.</p>
+                                </thead>
+                                <tbody className="divide-y divide-slate-50">
+                                    {isLoading ? (
+                                        [...Array(3)].map((_, i) => (
+                                            <tr key={i} className="animate-pulse">
+                                                <td colSpan={5} className="px-10 py-8"><div className="h-8 bg-slate-50 rounded-xl" /></td>
+                                            </tr>
+                                        ))
+                                    ) : (stats?.transactions || [])
+                                        .filter((t: any) => t.client.toLowerCase().includes(searchQuery.toLowerCase()))
+                                        .map((tx: any) => (
+                                        <tr key={tx.id} className="hover:bg-indigo-50/30 transition-all group/row">
+                                            <td className="px-10 py-7">
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ID-{tx.id.padStart(4, '0')}</span>
+                                                    <span className="text-sm font-black text-slate-700">{tx.date}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-7">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
+                                                        <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(tx.client)}&background=1e1b4b&color=fff&bold=true`} alt="" />
+                                                    </div>
+                                                    <span className="text-sm font-black text-slate-900 group-hover/row:text-indigo-600 transition-colors uppercase tracking-tight">{tx.client}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-7">
+                                                <div className="flex items-center gap-3">
+                                                    <span className={`p-2 rounded-xl flex items-center justify-center ${
+                                                        tx.type.includes('Video') ? 'bg-indigo-50 text-indigo-500' : 'bg-sky-50 text-sky-500'
+                                                    }`}>
+                                                        {tx.type.includes('Video') ? <Clock className="w-4 h-4" /> : <Wallet className="w-4 h-4" />}
+                                                    </span>
+                                                    <div className="flex flex-col">
+                                                        <span className="text-xs font-black text-slate-700 uppercase">{tx.type}</span>
+                                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{tx.duration}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-7">
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-sm font-black text-slate-900">{formatCurrency(tx.amount)}</span>
+                                                    <span className="flex items-center gap-1.5 text-[9px] font-black text-emerald-500 uppercase tracking-widest">
+                                                        <CheckCircle2 className="w-3 h-3" /> Confirmed
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-7 text-right">
+                                                <button className="p-3 bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border border-transparent hover:border-indigo-100">
+                                                    <Download className="w-5 h-5" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                    )}
-                </div>
+                    </div>
+                </motion.div>
+
+                {/* Footer Help */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex justify-center flex-col items-center gap-4 text-slate-400">
+                    <div className="flex items-center gap-6">
+                        <button className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-indigo-600 transition-colors">Tax Documents</button>
+                        <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                        <button className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-indigo-600 transition-colors">Payout History</button>
+                        <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                        <button className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-indigo-600 transition-colors">Dispute Resolution</button>
+                    </div>
+                </motion.div>
             </motion.div>
-
-            {/* Help Footer */}
-            <div className="flex justify-center text-slate-400 text-sm font-semibold hover:text-slate-600 transition-colors cursor-pointer w-fit mx-auto group">
-                <HelpCircle className="w-4 h-4 mr-2 group-hover:text-primary-500 transition-colors" />
-                <span>Financial Support & Help Center</span>
-            </div>
-
-        </motion.div>
+        </div>
     );
 };

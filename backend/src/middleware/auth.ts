@@ -11,8 +11,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     try {
         const authReq = req as any;
         const token = req.header('Authorization')?.replace('Bearer ', '');
-
-        logger.info(`AuthMiddleware - Token present: ${!!token}`);
+        logger.info(`[AuthDebug] Token present: ${!!token} for ${req.method} ${req.url}`);
 
         if (!token) {
             return res.status(401).send({ error: 'Please authenticate.' });

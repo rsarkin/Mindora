@@ -71,107 +71,127 @@ export const CommunitiesPage: React.FC<{ onJoin?: (podId: string) => void }> = (
     }
 
     return (
-        <motion.div
-            initial="hidden"
-            animate="show"
-            variants={{
-                hidden: { opacity: 0 },
-                show: { opacity: 1, transition: { staggerChildren: 0.1 } }
-            }}
-            className="p-8 max-w-7xl mx-auto space-y-10"
-        >
-            {/* Header */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS}>
-                <h1 className="text-4xl font-heading font-black text-slate-900 tracking-tight flex items-center gap-3">
-                    <Users className="w-10 h-10 text-indigo-600" />
-                    Community Support Groups
-                </h1>
-                <p className="text-slate-500 mt-2 text-lg max-w-2xl font-medium">
-                    Join an intimate, moderated 15-person pod. Share experiences, attend weekly video circles, and support each other in a safe space.
-                </p>
-            </motion.div>
+        <div className="relative">
+            {/* Background Elements */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sky-100/50 rounded-full blur-[120px] -z-10 -mr-64 -mt-64" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-100/40 rounded-full blur-[100px] -z-10 -ml-48 -mb-48" />
 
-            {/* Error Banner */}
-            {error && (
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-xl flex items-center gap-3">
-                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    <span className="font-semibold text-sm">{error}</span>
+            <motion.div
+                initial="hidden"
+                animate="show"
+                variants={{
+                    hidden: { opacity: 0 },
+                    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+                }}
+                className="p-8 sm:p-12 max-w-7xl mx-auto space-y-12 relative z-10"
+            >
+                {/* Header */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="relative">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-100 border border-sky-200 text-sky-700 text-xs font-bold mb-6 tracking-wide uppercase">
+                        <Users className="w-3.5 h-3.5" />
+                        Safe Social Spaces
+                    </div>
+                    <h1 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-none">
+                        Community <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600">Support Groups</span>
+                    </h1>
+                    <p className="text-slate-500 mt-6 text-xl max-w-2xl font-medium leading-relaxed">
+                        Join an intimate, moderated 15-person pod. Share experiences, attend weekly video circles, and support each other in a safe space.
+                    </p>
                 </motion.div>
-            )}
 
-            {/* My Joined Pods */}
-            {myPods.length > 0 && (
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-4">
-                    <h2 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">My Active Pods</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {myPods.map(pod => (
-                            <button
-                                key={pod._id}
-                                onClick={() => onJoin ? onJoin(pod._id) : navigate(`../pod/${pod._id}`)}
-                                className="bg-white border-2 border-indigo-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all text-left group"
-                            >
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                        <Users className="w-6 h-6" />
+                {/* Error Banner */}
+                {error && (
+                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-rose-50 border border-rose-100 text-rose-700 px-6 py-4 rounded-2xl flex items-center gap-4 shadow-sm">
+                        <AlertCircle className="w-6 h-6 flex-shrink-0" />
+                        <span className="font-bold">{error}</span>
+                    </motion.div>
+                )}
+
+                {/* My Joined Pods */}
+                {myPods.length > 0 && (
+                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-6">
+                        <div className="flex items-center gap-4">
+                            <h2 className="text-2xl font-black text-slate-800 tracking-tight">My Active Pods</h2>
+                            <div className="h-px flex-1 bg-slate-200" />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {myPods.map(pod => (
+                                <button
+                                    key={pod._id}
+                                    onClick={() => onJoin ? onJoin(pod._id) : navigate(`../pod/${pod._id}`)}
+                                    className="bg-white/70 backdrop-blur-2xl border-2 border-white/50 p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:border-sky-200 hover:-translate-y-2 transition-all duration-500 text-left group profile-card-glow"
+                                >
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform duration-500">
+                                            <Users className="w-7 h-7" />
+                                        </div>
+                                        <span className="text-xs font-black px-4 py-1.5 bg-sky-50 text-sky-600 rounded-full border border-sky-100">
+                                            {pod.currentMemberCount}/15 Members
+                                        </span>
                                     </div>
-                                    <span className="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-600 rounded-full">
-                                        {pod.currentMemberCount}/15 Members
-                                    </span>
+                                    <h3 className="text-2xl font-black text-slate-900 leading-tight mb-2 uppercase tracking-tight">{pod.name}</h3>
+                                    <p className="text-base text-slate-500 font-bold mb-6">{pod.communityId?.name || 'Community'}</p>
+                                    <div className="flex items-center text-sky-600 text-sm font-black group-hover:translate-x-2 transition-transform duration-500">
+                                        ENTER POD WORKSPACE <ArrowRight className="w-5 h-5 ml-2" />
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Discover Communities */}
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-6">
+                    <div className="flex items-center gap-4">
+                        <h2 className="text-2xl font-black text-slate-800 tracking-tight">Discover Communities</h2>
+                        <div className="h-px flex-1 bg-slate-200" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {communities.map((community) => {
+                            const isMember = myPods.some(p => p.communityId?._id === community._id);
+
+                            return (
+                                <div key={community._id} className="bg-white/70 backdrop-blur-2xl border border-white/80 p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 relative overflow-hidden flex flex-col h-full group">
+                                    {community.imageUrl && (
+                                        <div className="absolute -top-10 -right-10 w-48 h-48 opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                                            <img src={community.imageUrl} alt="" className="w-full h-full object-cover rounded-full" />
+                                        </div>
+                                    )}
+                                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm ring-1 ring-slate-100 group-hover:scale-110 transition-transform duration-500">
+                                        {getIconMap(community.category)}
+                                    </div>
+                                    <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">{community.name}</h3>
+                                    <p className="text-slate-500 text-[15px] font-medium leading-relaxed mb-8 flex-1">
+                                        {community.description}
+                                    </p>
+                                    <div className="mt-auto">
+                                        <button
+                                            onClick={() => handleJoin(community._id)}
+                                            disabled={joiningId === community._id || isMember}
+                                            className={`w-full py-4 px-6 rounded-2xl font-black text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-3 
+                                                 ${isMember ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200' :
+                                                    'bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:shadow-xl hover:shadow-blue-200 hover:-translate-y-1 active:scale-95 shadow-lg shadow-blue-100'}`}
+                                        >
+                                            {joiningId === community._id ? (
+                                                <><Loader2 className="w-5 h-5 animate-spin" /> ASSIGNING POD...</>
+                                            ) : isMember ? (
+                                                <><CheckCircle2 className="w-5 h-5" /> ALREADY JOINED</>
+                                            ) : (
+                                                <><Shield className="w-5 h-5" /> JOIN SAFE SPACE</>
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
-                                <h3 className="text-lg font-bold text-slate-900">{pod.name}</h3>
-                                <p className="text-sm text-slate-500 mt-1 mb-4">{pod.communityId?.name || 'Community'}</p>
-                                <div className="flex items-center text-indigo-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
-                                    Enter Pod Workspace <ArrowRight className="w-4 h-4 ml-1" />
-                                </div>
-                            </button>
-                        ))}
+                            );
+                        })}
                     </div>
                 </motion.div>
-            )}
-
-            {/* Discover Communities */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-4">
-                <h2 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Discover Communities</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {communities.map((community) => {
-                        const isMember = myPods.some(p => p.communityId?._id === community._id);
-
-                        return (
-                            <div key={community._id} className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col h-full">
-                                {community.imageUrl && (
-                                    <div className="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
-                                        <img src={community.imageUrl} alt="" className="w-full h-full object-cover rounded-full" />
-                                    </div>
-                                )}
-                                <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4 inner-shadow">
-                                    {getIconMap(community.category)}
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">{community.name}</h3>
-                                <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
-                                    {community.description}
-                                </p>
-                                <div className="mt-auto">
-                                    <button
-                                        onClick={() => handleJoin(community._id)}
-                                        disabled={joiningId === community._id || isMember}
-                                        className={`w-full py-3 px-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 
-                                             ${isMember ? 'bg-slate-100 text-slate-400 cursor-not-allowed' :
-                                                'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg shadow-black/10'}`}
-                                    >
-                                        {joiningId === community._id ? (
-                                            <><Loader2 className="w-5 h-5 animate-spin" /> Assigning Pod...</>
-                                        ) : isMember ? (
-                                            <><CheckCircle2 className="w-5 h-5" /> Already Joined</>
-                                        ) : (
-                                            <><Shield className="w-5 h-5" /> Join Safe Space</>
-                                        )}
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
             </motion.div>
-        </motion.div>
+            <style dangerouslySetInnerHTML={{ __html: `
+                .profile-card-glow:hover {
+                    box-shadow: 0 20px 50px rgba(14, 165, 233, 0.15);
+                }
+            `}} />
+        </div>
     );
 };

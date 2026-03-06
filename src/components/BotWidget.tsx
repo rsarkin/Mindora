@@ -15,7 +15,7 @@ export const BotWidget: React.FC = () => {
     const [messages, setMessages] = useState<BotMessage[]>([{
         _id: 'init-0',
         sender: 'bot',
-        content: "Hi there. I'm Mindora, your safe, anonymous AI companion. I'm here to listen without judgment. How are you feeling today?",
+        content: "Hi there. I'm TARA, your safe, anonymous AI companion. I'm here to listen without judgment. How are you feeling today?",
         createdAt: new Date().toISOString()
     }]);
 
@@ -86,32 +86,36 @@ export const BotWidget: React.FC = () => {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-50">
+        <div className="fixed bottom-6 right-6 z-50 font-sans">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
-                        className="absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-primary-100 flex flex-col overflow-hidden origin-bottom-right"
-                        style={{ height: '500px', maxHeight: 'calc(100vh - 120px)' }}
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        className="absolute bottom-18 right-0 w-[380px] sm:w-[420px] bg-white/90 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-white/50 flex flex-col overflow-hidden origin-bottom-right"
+                        style={{ height: '600px', maxHeight: 'calc(100vh - 120px)' }}
                     >
                         {/* Header */}
-                        <div className="px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 flex items-center justify-between text-white shrink-0 shadow-sm relative z-10">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                    <Sparkles className="w-4 h-4 text-white animate-pulse" />
+                        <div className="px-8 py-6 bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-600 flex items-center justify-between text-white shrink-0 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay"></div>
+                            <div className="relative z-10 flex items-center gap-4">
+                                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-inner">
+                                    <Sparkles className="w-6 h-6 text-white animate-pulse" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-sm tracking-wide">Mindora AI</h3>
-                                    <p className="text-[10px] text-primary-100 opacity-90 font-medium tracking-wider uppercase">Anonymous & Safe</p>
+                                    <h3 className="font-extrabold text-lg tracking-tight leading-none mb-1">TARA AI</h3>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                                        <p className="text-[10px] text-sky-100 font-bold tracking-widest uppercase">Safe & Anonymous</p>
+                                    </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors focus:outline-none"
+                                className="w-10 h-10 rounded-xl hover:bg-white/20 flex items-center justify-center transition-all focus:outline-none backdrop-blur-sm border border-white/10"
                             >
-                                <X className="w-5 h-5 opacity-80" />
+                                <X className="w-5 h-5" />
                             </button>
                         </div>
 

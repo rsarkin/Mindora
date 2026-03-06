@@ -131,7 +131,7 @@ export const PodDashboard: React.FC<{ podId?: string; onBack?: () => void }> = (
     const isModerator = pod.role === 'MODERATOR';
 
     return (
-        <div className="max-w-6xl mx-auto h-[calc(100vh-80px)] flex flex-col p-4 md:p-8">
+        <div className="max-w-6xl mx-auto h-full flex flex-col p-4 md:p-8">
 
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">

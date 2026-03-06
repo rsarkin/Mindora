@@ -85,15 +85,16 @@ export const WeeklyCircleCall: React.FC<WeeklyCircleProps> = ({ pod, onJoin }) =
                         </>
                     ) : (
                         <div className="flex flex-col w-full md:w-auto">
-                            <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                <Clock className="w-3.5 h-3.5" /> Next Session In:
+                            <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5" /> Weekly Schedule
                             </span>
-                            <div className="flex items-center gap-2 font-mono text-xl font-bold">
-                                <div className="bg-black/30 px-3 py-1 rounded-md">{String(timeLeft.days).padStart(2, '0')}d</div>
-                                <span>:</span>
-                                <div className="bg-black/30 px-3 py-1 rounded-md">{String(timeLeft.hours).padStart(2, '0')}h</div>
-                                <span>:</span>
-                                <div className="bg-black/30 px-3 py-1 rounded-md">{String(timeLeft.minutes).padStart(2, '0')}m</div>
+                            <div className="flex items-center gap-2 text-indigo-100 font-bold">
+                                {pod.weeklySessionDay === 0 ? 'Sundays' : 
+                                 pod.weeklySessionDay === 1 ? 'Mondays' :
+                                 pod.weeklySessionDay === 2 ? 'Tuesdays' :
+                                 pod.weeklySessionDay === 3 ? 'Wednesdays' :
+                                 pod.weeklySessionDay === 4 ? 'Thursdays' :
+                                 pod.weeklySessionDay === 5 ? 'Fridays' : 'Saturdays'} @ {pod.weeklySessionTime}
                             </div>
                         </div>
                     )}

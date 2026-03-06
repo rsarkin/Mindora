@@ -202,6 +202,14 @@ export const LandingPage: React.FC = () => {
                     </div>
 
                     <div className="hidden md:flex items-center gap-3">
+                        <button 
+                            onClick={() => navigate('/login/therapist')} 
+                            className="text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors px-3 py-2 flex items-center gap-1.5 border border-transparent hover:border-indigo-100 hover:bg-indigo-50/50 rounded-lg group"
+                        >
+                            <Brain className="w-4 h-4 text-indigo-400 group-hover:text-indigo-600 transition-colors" />
+                            For Therapists
+                        </button>
+                        <div className="w-px h-4 bg-slate-200 mx-1" />
                         <button onClick={() => navigate('/login/patient')} className="text-sm font-semibold text-slate-600 hover:text-sky-600 transition-colors px-4 py-2">
                             Sign In
                         </button>
@@ -240,6 +248,15 @@ export const LandingPage: React.FC = () => {
                                 </a>
                             )
                         )}
+                        <button 
+                            onClick={() => {
+                                navigate('/login/therapist');
+                                setMenuOpen(false);
+                            }}
+                            className="w-full py-3 border-2 border-indigo-100 text-indigo-600 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-50 transition-colors"
+                        >
+                            <Brain className="w-5 h-5" /> Therapist Portal
+                        </button>
                         <button onClick={() => navigate('/onboarding')} className="w-full py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-xl font-semibold">
                             Get Started
                         </button>

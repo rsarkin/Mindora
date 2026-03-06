@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play, BookOpen, Video, FileText, Sparkles, Filter, ChevronRight, Loader2, Quote, AlertCircle } from "lucide-react";
+import { X, Play, BookOpen, Video, FileText, Sparkles, Filter, ChevronRight, Quote, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
@@ -84,7 +84,7 @@ export const PatientResourcesPage: React.FC = () => {
     const [resources, setResources] = useState<Resource[]>([]);
     const [quote, setQuote] = useState<{ text: string; author: string } | null>(null);
 
-    const categories = ["All", "Yoga & Mindfulness", "Health News", "Meditation", "Sleep", "Anxiety", "Depression"];
+    const categories = ["All", "Yoga & Mindfulness", "Meditation", "Sleep", "Anxiety", "Depression", "Wellness"];
 
     useEffect(() => {
         const fetchResources = async () => {
@@ -92,7 +92,6 @@ export const PatientResourcesPage: React.FC = () => {
                 setIsLoading(true);
                 const data = await api.getResources();
                 setQuote(data.quote);
-                // Combine and normalize API data into common Resource interface
                 const allRes: Resource[] = [...(data.videos || []), ...(data.articles || [])];
                 setResources(allRes);
                 setError(null);
@@ -125,226 +124,232 @@ export const PatientResourcesPage: React.FC = () => {
                     transition: { staggerChildren: 0.1 }
                 }
             }}
-            className="max-w-7xl mx-auto space-y-8"
+            className="max-w-7xl mx-auto space-y-12 pb-12"
         >
-            {/* Header Area */}
-            <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
-                <div>
-                    <h1 className="text-3xl font-heading font-bold text-slate-900 tracking-tight">Wellness Resources</h1>
-                    <p className="text-slate-500 mt-2 text-lg">Curated articles, guides, and videos to support your mental health journey.</p>
-                </div>
+            {/* Header Area - Ultra Premium */}
+            <motion.div variants={STAGGER_CHILD_VARIANTS} className="relative p-10 rounded-[3rem] bg-gradient-to-br from-slate-900 to-indigo-950 text-white overflow-hidden shadow-2xl">
+                {/* Atmospheric Effects */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sky-500/20 rounded-full blur-[120px] -mr-32 -mt-32" />
+                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/20 rounded-full blur-[100px] -ml-24 -mb-24" />
+                
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="max-w-2xl">
+                        <div className="flex items-center gap-2 mb-4 bg-white/10 w-fit px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10">
+                            <Sparkles className="w-4 h-4 text-sky-300" />
+                            <span className="text-xs font-black uppercase tracking-[0.2em] text-sky-200">Knowledge Hub</span>
+                        </div>
+                        <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
+                            Your Sanctuary for <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-indigo-300">Growth</span>
+                        </h1>
+                        <p className="text-indigo-100/70 mt-4 text-lg font-medium leading-relaxed">
+                            Curated wisdom to nourish your mind, body, and spirit. Guided by expert therapists and researchers.
+                        </p>
+                    </div>
 
-                {/* AI Helper Callout */}
-                <div onClick={() => navigate('/messages')} className="flex items-center gap-4 bg-gradient-to-r from-primary-50 to-indigo-50 border border-primary-100/50 p-4 rounded-2xl cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all group shrink-0">
-                    <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-primary-100 flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform">
-                        <Sparkles className="w-6 h-6" />
+                    <div 
+                        onClick={() => navigate('/bot')} 
+                        className="bg-white/10 backdrop-blur-2xl border border-white/20 p-6 rounded-[2rem] cursor-pointer hover:bg-white/15 transition-all group shrink-0 shadow-lg"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-blue-500 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-sky-500/40 group-hover:scale-110 transition-transform">
+                                <Sparkles className="w-7 h-7" />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-white group-hover:text-sky-300 transition-colors">TARA Personalized</h4>
+                                <p className="text-xs font-bold text-sky-200/60 mt-0.5 uppercase tracking-wider">Ask for recommendations</p>
+                            </div>
+                            <ChevronRight className="w-6 h-6 text-white/40 group-hover:text-white transition-colors ml-2" />
+                        </div>
                     </div>
-                    <div>
-                        <h4 className="font-bold text-slate-900 group-hover:text-primary-700 transition-colors">Not sure where to start?</h4>
-                        <p className="text-sm font-medium text-slate-600 mt-0.5">Ask our AI for personalized recommendations.</p>
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors ml-2" />
                 </div>
             </motion.div>
 
-            {/* Daily Quote Section */}
+            {/* Daily Inspiration Overlay Card */}
             {quote && (
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-100 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-sm">
-                    <div className="absolute top-0 right-0 p-6 opacity-10">
-                        <Quote className="w-24 h-24 text-amber-500" />
+                <motion.div 
+                    variants={STAGGER_CHILD_VARIANTS} 
+                    className="relative -mt-20 mx-8 sm:mx-16 bg-white/70 backdrop-blur-3xl border border-white rounded-[2.5rem] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center gap-8 z-20"
+                >
+                    <div className="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center shrink-0 border border-amber-100">
+                        <Quote className="w-8 h-8 text-amber-500" />
                     </div>
-                    <div className="relative z-10 max-w-2xl">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Sparkles className="w-4 h-4 text-amber-500" />
-                            <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">Daily Inspiration</span>
+                    <div className="flex-1 text-center md:text-left">
+                        <p className="text-xl sm:text-2xl font-bold text-slate-800 italic leading-relaxed">"{quote.text}"</p>
+                        <p className="text-amber-600 font-black mt-2 uppercase tracking-widest text-sm">— {quote.author}</p>
+                    </div>
+                </motion.div>
+            )}
+
+            {/* Error & Loading States */}
+            <AnimatePresence>
+                {error && (
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-red-50 border border-red-100 text-red-600 p-6 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 font-bold text-lg">
+                            <AlertCircle className="w-6 h-6" /> {error}
                         </div>
-                        <h3 className="text-2xl sm:text-3xl font-heading font-bold text-slate-800 leading-tight mb-4">"{quote.text}"</h3>
-                        <p className="text-amber-700 font-bold">— {quote.author}</p>
-                    </div>
-                </motion.div>
-            )}
+                        <button onClick={() => window.location.reload()} className="px-8 py-3 bg-white rounded-2xl shadow-xl shadow-red-500/5 text-sm font-black uppercase tracking-widest hover:bg-red-50 transition-all active:scale-95">
+                            Retry
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-            {/* Error handling */}
-            {error && (
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="bg-red-50 border border-red-100 text-red-600 p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="flex justify-center items-center gap-2 font-semibold">
-                        <AlertCircle className="w-5 h-5 shrink-0" /> {error}
-                    </div>
-                    <button onClick={() => window.location.reload()} className="px-4 py-2 bg-white rounded-xl shadow-sm text-sm hover:bg-slate-50 transition-colors shrink-0">
-                        Retry
-                    </button>
-                </motion.div>
-            )}
-
-            {/* Loading Display */}
             {isLoading && (
-                <div className="py-24 flex flex-col items-center justify-center text-primary-600">
-                    <Loader2 className="w-10 h-10 animate-spin mb-4" />
-                    <p className="font-semibold animate-pulse">Fetching latest resources...</p>
+                <div className="py-32 flex flex-col items-center justify-center">
+                    <div className="relative">
+                        <div className="w-16 h-16 border-4 border-sky-100 border-t-sky-500 rounded-full animate-spin" />
+                        <Sparkles className="w-6 h-6 text-sky-500 absolute inset-0 m-auto animate-pulse" />
+                    </div>
+                    <p className="mt-6 font-black text-slate-400 uppercase tracking-[0.2em] text-sm">Synchronizing your sanctuary...</p>
                 </div>
             )}
 
-            {!isLoading && !error && (
+            {!isLoading && (
                 <>
-                    {/* Categories filter tabs */}
-                    <motion.div variants={STAGGER_CHILD_VARIANTS} className="flex overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
-                        <div className="flex gap-2 p-1.5 bg-white rounded-2xl border border-slate-200/60 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-                            {categories.map((category) => (
-                                <button
-                                    key={category}
-                                    onClick={() => setSelectedCategory(category.toLowerCase())}
-                                    className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${selectedCategory === category.toLowerCase()
-                                        ? "bg-slate-900 text-white shadow-md shadow-slate-900/10"
-                                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    {/* Filter Tabs */}
+                    <div className="flex flex-col gap-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+                                <Filter className="w-6 h-6 text-sky-500" /> Exploration
+                            </h2>
+                            <div className="hidden md:flex gap-2 p-1.5 bg-slate-100/50 rounded-2xl border border-slate-200/50 backdrop-blur-sm">
+                                {categories.map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setSelectedCategory(cat.toLowerCase())}
+                                        className={`px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${selectedCategory === cat.toLowerCase()
+                                            ? "bg-white text-sky-600 shadow-md ring-1 ring-slate-200/50"
+                                            : "text-slate-400 hover:text-slate-600"
                                         }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Mobile Category Scroller */}
+                        <div className="md:hidden flex overflow-x-auto gap-2 pb-2 scrollbar-hide px-1">
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setSelectedCategory(cat.toLowerCase())}
+                                    className={`whitespace-nowrap px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-[0.15em] transition-all shadow-sm ${selectedCategory === cat.toLowerCase()
+                                        ? "bg-slate-900 text-white"
+                                        : "bg-white text-slate-500 border border-slate-100"
+                                    }`}
                                 >
-                                    {category}
+                                    {cat}
                                 </button>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
 
-                    {/* Video Library */}
+                    {/* Video Section */}
                     {videos.length > 0 && (
-                        <motion.div variants={STAGGER_CHILD_VARIANTS} className="pt-2">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center border border-orange-100">
-                                    <Video className="w-5 h-5 text-orange-600" />
+                        <div className="space-y-8 pt-4">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-sky-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-sky-200">
+                                    <Video className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-heading font-bold text-slate-900 tracking-tight">Video Library</h2>
+                                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Immersive Sessions</h3>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 <AnimatePresence>
                                     {videos.map((resource) => (
                                         <motion.div
+                                            key={resource.id}
                                             layout
                                             initial={{ opacity: 0, scale: 0.95 }}
                                             animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.95 }}
-                                            transition={{ duration: 0.2 }}
-                                            key={resource.id}
-                                            className="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all cursor-pointer group flex flex-col"
+                                            className="group bg-white rounded-[2.5rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-100 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-all duration-500 cursor-pointer"
                                             onClick={() => setSelectedVideo({ id: resource.videoId!, title: resource.title })}
                                         >
-                                            <div className="relative aspect-video overflow-hidden bg-slate-100">
-                                                <img
-                                                    src={resource.thumbnail}
-                                                    alt={resource.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                />
-                                                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/40 transition-colors flex items-center justify-center">
-                                                    <div className="w-16 h-16 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-2xl transform transition-transform group-hover:scale-110">
-                                                        <Play className="w-6 h-6 text-slate-900 ml-1" />
+                                            <div className="relative aspect-video overflow-hidden">
+                                                <img src={resource.thumbnail} alt={resource.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/30 transition-all flex items-center justify-center">
+                                                    <div className="w-16 h-16 bg-white/95 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl transform transition-all group-hover:scale-110 group-hover:rotate-6">
+                                                        <Play className="w-7 h-7 text-sky-600 ml-1" />
                                                     </div>
                                                 </div>
-                                                <div className="absolute top-4 left-4 flex gap-2">
-                                                    <span className="px-2.5 py-1 bg-white/90 backdrop-blur-md text-slate-900 font-bold text-[10px] uppercase tracking-wider rounded-lg shadow-sm">
+                                                <div className="absolute top-4 left-4">
+                                                    <span className="px-3 py-1.5 bg-white/90 backdrop-blur-md text-slate-900 font-black text-[10px] uppercase tracking-widest rounded-xl shadow-sm">
                                                         {resource.category}
                                                     </span>
                                                 </div>
-                                                {resource.duration && (
-                                                    <div className="absolute bottom-3 right-3 px-2 py-1 bg-slate-900/80 backdrop-blur-md text-white font-semibold text-xs rounded-lg shadow-sm">
-                                                        {resource.duration}
-                                                    </div>
-                                                )}
                                             </div>
-                                            <div className="p-6 flex-1 flex flex-col">
-                                                <h3 className="font-bold text-lg text-slate-900 mb-2 line-clamp-2 leading-tight group-hover:text-primary-600 transition-colors">
+                                            <div className="p-8">
+                                                <h4 className="text-xl font-black text-slate-900 leading-tight group-hover:text-sky-600 transition-colors line-clamp-2">
                                                     {resource.title}
-                                                </h3>
-                                                <p className="text-sm font-medium text-slate-500 line-clamp-2 leading-relaxed">
+                                                </h4>
+                                                <p className="text-slate-500 mt-3 font-medium text-sm leading-relaxed line-clamp-2 uppercase tracking-wide opacity-70">
                                                     {resource.description}
                                                 </p>
+                                                <div className="mt-6 flex items-center gap-2">
+                                                    <div className="h-1 flex-1 bg-slate-100 rounded-full overflow-hidden">
+                                                        <div className="h-full bg-sky-500 w-1/3 group-hover:w-full transition-all duration-1000" />
+                                                    </div>
+                                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{resource.duration}</span>
+                                                </div>
                                             </div>
                                         </motion.div>
                                     ))}
                                 </AnimatePresence>
                             </div>
-                        </motion.div>
+                        </div>
                     )}
 
                     {/* Articles Section */}
                     {articles.length > 0 && (
-                        <motion.div variants={STAGGER_CHILD_VARIANTS} className="pt-8 border-t border-slate-200/60">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center border border-teal-100">
-                                    <BookOpen className="w-5 h-5 text-teal-600" />
+                        <div className="space-y-8 pt-8 border-t border-slate-100">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-indigo-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                                    <BookOpen className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-heading font-bold text-slate-900 tracking-tight">Articles & Guides</h2>
+                                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Deep Reads</h3>
                             </div>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                                <AnimatePresence>
-                                    {articles.map((resource) => (
-                                        <motion.a
-                                            layout
-                                            initial={{ opacity: 0, scale: 0.95 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.95 }}
-                                            transition={{ duration: 0.2 }}
-                                            key={resource.id}
-                                            href={resource.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all group block relative overflow-hidden"
-                                        >
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-teal-50/50 transition-colors z-0" />
-
-                                            <div className="flex items-start gap-5 relative z-10">
-                                                <div className="w-14 h-14 shrink-0 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-teal-50 group-hover:border-teal-100 group-hover:text-teal-600 transition-colors shadow-sm">
-                                                    <FileText className="w-6 h-6" />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className="flex items-center justify-between mb-2">
-                                                        <span className="text-xs font-bold text-teal-600 uppercase tracking-wider bg-teal-50 px-2 py-0.5 rounded-md border border-teal-100/50">
-                                                            {resource.category}
-                                                        </span>
-                                                        {resource.duration && (
-                                                            <span className="text-xs font-semibold text-slate-400 border border-slate-200 bg-white px-2 py-0.5 rounded-md">
-                                                                {resource.duration}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <h3 className="font-bold text-lg text-slate-900 mb-2 leading-tight group-hover:text-teal-700 transition-colors pr-6">
-                                                        {resource.title}
-                                                    </h3>
-                                                    <p className="text-sm font-medium text-slate-500 line-clamp-2 leading-relaxed">
-                                                        {resource.description}
-                                                    </p>
-                                                </div>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {articles.map((resource) => (
+                                    <motion.a
+                                        key={resource.id}
+                                        href={resource.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group bg-slate-50/50 hover:bg-white rounded-[2rem] p-8 border border-slate-100 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 flex gap-6"
+                                    >
+                                        <div className="w-20 h-20 bg-white shadow-md rounded-2xl border border-slate-100 flex items-center justify-center shrink-0 group-hover:text-indigo-600 transition-colors">
+                                            <FileText className="w-8 h-8" />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em]">{resource.category}</span>
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{resource.duration}</span>
                                             </div>
-
-                                            <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                                                <div className="w-8 h-8 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-600">
-                                                    <ChevronRight className="w-4 h-4" />
-                                                </div>
-                                            </div>
-                                        </motion.a>
-                                    ))}
-                                </AnimatePresence>
+                                            <h4 className="text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight truncate">
+                                                {resource.title}
+                                            </h4>
+                                            <p className="mt-2 text-slate-500 font-medium text-sm leading-relaxed line-clamp-1 opacity-70">
+                                                {resource.description}
+                                            </p>
+                                        </div>
+                                    </motion.a>
+                                ))}
                             </div>
-                        </motion.div>
+                        </div>
                     )}
 
+                    {/* Empty State */}
                     {filteredResources.length === 0 && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white rounded-3xl p-16 text-center shadow-sm border border-slate-100 max-w-2xl mx-auto"
-                        >
-                            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Filter className="w-10 h-10 text-slate-300" />
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-24 text-center">
+                            <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
+                                <Filter className="w-10 h-10" />
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2 font-heading">No resources found</h3>
-                            <p className="text-slate-500 mb-8 max-w-sm mx-auto">
-                                There are currently no resources available for the selected category.
-                            </p>
-                            <button
-                                onClick={() => setSelectedCategory('all')}
-                                className="px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all font-semibold shadow-lg shadow-slate-900/20"
-                            >
-                                View All Resources
+                            <h3 className="text-2xl font-black text-slate-900 mb-2">No Discoveries Here</h3>
+                            <p className="text-slate-500 font-medium max-w-sm mx-auto">It seems we don't have resources for this category yet. Please check "All" resources.</p>
+                            <button onClick={() => setSelectedCategory('all')} className="mt-8 px-10 py-4 bg-slate-900 text-white rounded-[1.5rem] font-black uppercase tracking-widest hover:shadow-2xl hover:scale-105 active:scale-95 transition-all">
+                                View Everything
                             </button>
                         </motion.div>
                     )}

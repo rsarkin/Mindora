@@ -44,7 +44,7 @@ export const CommunitySpacePage: React.FC = () => {
     );
 
     return (
-        <div className="h-[calc(100vh-140px)] min-h-[600px] w-full max-w-[1600px] mx-auto flex bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden relative z-10">
+        <div className="h-[calc(100vh-220px)] w-full max-w-[1600px] mx-auto flex bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden relative z-10">
             {/* Left Sidebar - Pods List & Navigation */}
             <motion.div
                 animate={{ width: activePodId ? 300 : 384 }}
@@ -171,7 +171,7 @@ export const CommunitySpacePage: React.FC = () => {
             </div>
 
             {/* Main Content Area - Expansive Right Side */}
-            <div className={`flex-1 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[length:400px_400px] overflow-hidden ${(!isDiscoveryMode && !activePodId) ? 'hidden md:flex' : 'pt-14 md:pt-0'}`}>
+            <div className={`flex-1 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[length:400px_400px] overflow-hidden ${(!isDiscoveryMode && !activePodId) ? 'hidden md:flex' : ''}`}>
                 {isDiscoveryMode ? (
                     <div className="flex-1 overflow-y-auto">
                         <CommunitiesPage
