@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/static-components */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -7,7 +6,6 @@ import {
     Lock, 
     CreditCard, 
     User, 
-    Globe,
     Smartphone, 
     Mail, 
     Save, 
@@ -18,7 +16,6 @@ import {
     Loader2, 
     Landmark,
     ChevronRight,
-    Search,
     Fingerprint,
     Zap
 } from 'lucide-react';
@@ -55,7 +52,6 @@ export const SettingsPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
     const [settings, setSettings] = useState<SettingsState>({
         name: '',
@@ -72,7 +68,6 @@ export const SettingsPage: React.FC = () => {
     const [passwordData, setPasswordData] = useState({ current: '', new: '', confirm: '' });
     const [showPasswords, setShowPasswords] = useState({ current: false, new: false, confirm: false });
     const [passwordSaving, setPasswordSaving] = useState(false);
-    const [passwordSuccess, setPasswordSuccess] = useState(false);
 
     useEffect(() => {
         fetchSettings();
@@ -94,12 +89,11 @@ export const SettingsPage: React.FC = () => {
     const handleSave = async () => {
         try {
             setSaving(true);
-            setError(null);
             await api.updateSettings(settings);
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
         } catch (err: any) {
-            setError(err.response?.data?.error || "Failed to save settings.");
+            console.error(err.response?.data?.error || "Failed to save settings.");
         } finally {
             setSaving(false);
         }
@@ -108,22 +102,19 @@ export const SettingsPage: React.FC = () => {
     const handlePasswordUpdate = async (e: React.FormEvent) => {
         e.preventDefault();
         if (passwordData.new !== passwordData.confirm) {
-            setError("Passwords do not match.");
+            console.error("Passwords do not match.");
             return;
         }
 
         try {
             setPasswordSaving(true);
-            setError(null);
             await api.changePassword({
                 currentPassword: passwordData.current,
                 newPassword: passwordData.new
             });
-            setPasswordSuccess(true);
             setPasswordData({ current: '', new: '', confirm: '' });
-            setTimeout(() => setPasswordSuccess(false), 5000);
         } catch (err: any) {
-            setError(err.response?.data?.error || "Failed to update password.");
+            console.error(err.response?.data?.error || "Failed to update password.");
         } finally {
             setPasswordSaving(false);
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Eye, Lock, Database, Bell, Trash2 } from 'lucide-react';
+import { ArrowLeft, Shield, Eye, Lock, Database } from 'lucide-react';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <motion.div 

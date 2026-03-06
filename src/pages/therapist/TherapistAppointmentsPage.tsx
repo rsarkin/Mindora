@@ -8,7 +8,7 @@ import {
     XCircle, 
     Search, 
     Check, 
-    ChevronRight,
+
     ArrowUpRight,
     ExternalLink,
     Filter

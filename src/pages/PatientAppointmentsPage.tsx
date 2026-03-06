@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Video, FileText, X, AlertCircle } from 'lucide-react';
+import { Calendar, Video, X, AlertCircle } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 
 import api from '../services/api';

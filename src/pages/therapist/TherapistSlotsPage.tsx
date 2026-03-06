@@ -4,7 +4,7 @@ import {
     ChevronLeft, 
     ChevronRight, 
     Check, 
-    Calendar,
+
     Activity,
     Info,
     CheckCircle2

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { 
-    HelpCircle, 
     Download, 
     DollarSign, 
     Clock, 
@@ -12,10 +11,9 @@ import {
     ArrowUpRight,
     Wallet,
     ArrowDownLeft,
-    ChevronRight,
     Search
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import api from '../../services/api';
 
 const STAGGER_CHILD_VARIANTS = {
@@ -288,7 +286,7 @@ export const EarningsPage: React.FC = () => {
                                                 dataKey="month"
                                                 axisLine={false}
                                                 tickLine={false}
-                                                tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 900, textTransform: 'uppercase' as any }}
+                                                tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 900 }}
                                                 dy={15}
                                             />
                                             <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#6366f1', strokeWidth: 2, strokeDasharray: '6 6' }} />

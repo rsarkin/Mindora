@@ -12161,3 +12161,429 @@
 {"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:32:23:3223"}
 {"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /notifications\u001b[39m","timestamp":"2026-03-07 01:32:23:3223"}
 {"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:32:23:3223"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Gemini AI service initialized successfully\u001b[39m","timestamp":"2026-03-07 01:36:07:367"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Environment variables validated successfully.\u001b[39m","timestamp":"2026-03-07 01:36:07:367"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Database connected successfully\u001b[39m","timestamp":"2026-03-07 01:36:07:367"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🚀 Server running on port 3001\u001b[39m","timestamp":"2026-03-07 01:36:07:367"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/resources\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/resources\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/users/notifications\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /notifications\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /notifications\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/users/notifications\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /notifications\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /notifications\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a4335df97c72e708df4e85\",\"role\":\"PATIENT\",\"iat\":1772826971,\"exp\":1773431771}\u001b[39m","timestamp":"2026-03-07 01:39:22:3922"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mPOST /api/auth/login\u001b[39m","timestamp":"2026-03-07 01:41:27:4127"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket connected: vq45nAC4O06fggxEAAAC\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:41:28:4128"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket disconnected vq45nAC4O06fggxEAAAC: client namespace disconnect\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket connected: hbwMhl1u6mWlTy2lAAAF\u001b[39m","timestamp":"2026-03-07 01:44:01:441"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:44:02:442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:44:02:442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:44:02:442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:44:02:442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:44:02:442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket disconnected hbwMhl1u6mWlTy2lAAAF: client namespace disconnect\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /dashboard/stats\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket connected: M6cafvdYvzmdMCwAAAAH\u001b[39m","timestamp":"2026-03-07 01:45:56:4556"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket disconnected M6cafvdYvzmdMCwAAAAH: client namespace disconnect\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/my-patients\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-patients\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-patients\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/my-patients\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-patients\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-patients\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:13:4713"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:15:4715"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/slots/my-slots\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-slots\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/slots/my-slots\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-slots\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:47:17:4717"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:09:509"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/slots/my-slots\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-slots\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/slots/my-slots\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /my-slots\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:11:5011"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket connected: XGEDDiXl_yNjzVvYAAAJ\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket XGEDDiXl_yNjzVvYAAAJ joined room 69aa8a79cdb20d9f2757a68f\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/messages/69aa8a79cdb20d9f2757a68f?limit=50\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /69aa8a79cdb20d9f2757a68f?limit=50\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:13:5013"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:16:5016"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket XGEDDiXl_yNjzVvYAAAJ joined room 69aa8a79cdb20d9f2757a68f\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/messages/69aa8a79cdb20d9f2757a68f?limit=50\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /69aa8a79cdb20d9f2757a68f?limit=50\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:18:5018"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:20:5020"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:21:5021"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:22:5022"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/appointments/therapist\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /therapist\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket XGEDDiXl_yNjzVvYAAAJ joined room 69aa8a79cdb20d9f2757a68f\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/messages/69aa8a79cdb20d9f2757a68f?limit=50\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /69aa8a79cdb20d9f2757a68f?limit=50\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:23:5023"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:27:5027"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:50:30:5030"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:52:47:5247"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mSocket disconnected XGEDDiXl_yNjzVvYAAAJ: transport close\u001b[39m","timestamp":"2026-03-07 01:54:37:5437"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:38:5438"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:40:5440"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:42:5442"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/my-pods\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /pods/69aaa52800e481c1e7f81ef4/posts\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:43:5443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /earnings-stats\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 01:54:44:5444"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/settings\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /settings\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /settings\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:42:142"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/settings\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /settings\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /settings\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mGET /api/therapists/profile\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m[AuthDebug] Token present: true for GET /profile\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mAuthMiddleware - Decoded: {\"id\":\"69a53b8e73f38538b6dc3fa9\",\"role\":\"THERAPIST\",\"iat\":1772827887,\"exp\":1773432687}\u001b[39m","timestamp":"2026-03-07 02:01:43:143"}
