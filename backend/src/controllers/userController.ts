@@ -48,17 +48,60 @@ export const updateSignInStreak = async (req: Request, res: Response) => {
 
         user.streak = newStreak;
         user.lastLoginAt = now;
+        
+        // Award 10 points for the daily check-in
+        user.points = (user.points || 0) + 10;
+
+        // Check for consistency badges
+        if (newStreak >= 7 && !user.badges.includes('Consistency Champion')) {
+            user.badges.push('Consistency Champion');
+        } else if (newStreak >= 3 && !user.badges.includes('Consistency Starter')) {
+            user.badges.push('Consistency Starter');
+        }
+
         await user.save();
 
-        logger.info(`[Streak] User ${userId} updated streak to ${newStreak}`);
+        logger.info(`[Streak] User ${userId} updated streak to ${newStreak} and earned 10 points`);
         
         res.json({ 
             streak: user.streak, 
-            lastLoginAt: user.lastLoginAt 
+            lastLoginAt: user.lastLoginAt,
+            points: user.points,
+            badges: user.badges
         });
     } catch (error: any) {
         logger.error('Error updating sign-in streak:', error);
         res.status(500).json({ message: 'Failed to update streak', error: error.message });
+    }
+};
+
+/**
+ * Awards points for completing a breathing exercise session.
+ * Reward: 20 points
+ */
+export const rewardBreathingSession = async (req: Request, res: Response) => {
+    try {
+        const userId = (req as any).user.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.points = (user.points || 0) + 20;
+        
+        // Award badge for first breathing session
+        if (!user.badges.includes('Zen Seeker')) {
+            user.badges.push('Zen Seeker');
+        }
+
+        await user.save();
+
+        logger.info(`[Gamification] User ${userId} earned 20 points for breathing`);
+        res.json({ points: user.points, badges: user.badges });
+    } catch (error: any) {
+        logger.error('Error rewarding breathing session:', error);
+        res.status(500).json({ message: 'Failed to award points' });
     }
 };
 

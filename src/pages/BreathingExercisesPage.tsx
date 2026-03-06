@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Wind, Square, Activity, ArrowLeft, Volume2, VolumeX, Clock, Play } from 'lucide-react';
+import api from '../services/api';
+import { useToast } from '../context/ToastContext';
+import { useAuth } from '../context/AuthContext';
 
 const STAGGER_CHILD_VARIANTS = {
     hidden: { opacity: 0, y: 20 },
@@ -199,6 +202,8 @@ export const BreathingExercisesPage: React.FC = () => {
     const [audioEnabled, setAudioEnabled] = useState(true);
     const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
     const [sessionState, setSessionState] = useState<'setup' | 'active'>('setup');
+    const { showToast } = useToast();
+    const { updateUser } = useAuth();
 
     useEffect(() => {
         let interval: ReturnType<typeof setInterval>;
@@ -206,13 +211,24 @@ export const BreathingExercisesPage: React.FC = () => {
             interval = setInterval(() => {
                 setTimeLeft((prev) => {
                     if (prev && prev > 1) return prev - 1;
-                    handleEndSession();
+                    handleCompleteSession();
                     return 0;
                 });
             }, 1000);
         }
         return () => clearInterval(interval);
     }, [isActive, sessionState, timeLeft]);
+
+    const handleCompleteSession = async () => {
+        setSessionState('setup');
+        try {
+            const data = await api.rewardBreathingSession();
+            showToast('Well done! You earned 20 Mindora Points! ✨', 'success');
+            updateUser({ points: data.points, badges: data.badges });
+        } catch (error) {
+            console.error('Failed to award breathing points', error);
+        }
+    };
 
     const handleStartSession = () => {
         if (!audioCtx) {

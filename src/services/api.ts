@@ -180,6 +180,11 @@ const api = {
         return response.data;
     },
 
+    rewardBreathingSession: async () => {
+        const response = await axiosInstance.post('/users/reward/breathing');
+        return response.data;
+    },
+
     getSettings: async () => {
         const response = await axiosInstance.get('/therapists/settings');
         return response.data;

@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { moodService } from '../services/moodService';
+import User from '../models/User';
+import logger from '../utils/logger';
 
 export const saveMood = async (req: Request, res: Response) => {
     try {
         const { mood, note } = req.body;
-        const userId = (req as any).user?.id; // Extracted from auth middleware
+        const userId = (req as any).user?.id;
 
         if (!mood) {
             return res.status(400).json({ message: 'Mood is required' });
@@ -15,6 +17,15 @@ export const saveMood = async (req: Request, res: Response) => {
         }
 
         const savedMood = await moodService.saveMood(userId, mood, note);
+
+        // Award 5 points for mood log
+        const user = await User.findById(userId);
+        if (user) {
+            user.points = (user.points || 0) + 5;
+            await user.save();
+            logger.info(`[Gamification] User ${userId} earned 5 points for mood log`);
+        }
+
         res.status(201).json(savedMood);
     } catch (error) {
         res.status(500).json({ message: 'Error saving mood', error });
@@ -35,6 +46,15 @@ export const saveQuickMood = async (req: Request, res: Response) => {
         }
 
         const savedMood = await moodService.saveMood(userId, mood, 'Quick Log');
+
+        // Award 5 points for quick mood log
+        const user = await User.findById(userId);
+        if (user) {
+            user.points = (user.points || 0) + 5;
+            await user.save();
+            logger.info(`[Gamification] User ${userId} earned 5 points for quick mood log`);
+        }
+
         res.status(201).json(savedMood);
     } catch (error) {
         res.status(500).json({ message: 'Error saving quick mood', error });

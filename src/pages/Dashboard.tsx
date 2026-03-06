@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Calendar, TrendingUp, Quote, CheckCircle2, Heart, Sparkles, Brain, ArrowRight } from 'lucide-react';
+import { Calendar, TrendingUp, Quote, CheckCircle2, Heart, Sparkles, Brain, ArrowRight, Award, Star, Zap, Leaf } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
@@ -119,6 +119,24 @@ export const Dashboard: React.FC = () => {
         return QUOTES[index];
     }, []);
 
+    const wellnessPoints = (user as any)?.points || 0;
+    const userBadges = (user as any)?.badges || [];
+
+    const getWellnessLevel = (points: number) => {
+        if (points >= 600) return { name: 'Radiant Spirit', icon: <Star className="w-6 h-6 text-yellow-500" />, color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-100', progress: 100 };
+        if (points >= 300) return { name: 'Blooming Soul', icon: <Sparkles className="w-6 h-6 text-pink-500" />, color: 'text-pink-600', bg: 'bg-pink-50', border: 'border-pink-100', progress: ((points - 300) / 300) * 100 };
+        if (points >= 100) return { name: 'Sprouting Mind', icon: <Zap className="w-6 h-6 text-emerald-500" />, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100', progress: ((points - 100) / 200) * 100 };
+        return { name: 'Seedling', icon: <Leaf className="w-6 h-6 text-sky-500" />, color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-100', progress: (points / 100) * 100 };
+    };
+
+    const level = getWellnessLevel(wellnessPoints);
+
+    const BADGE_ICONS: Record<string, { icon: any, color: string }> = {
+        'Consistency Starter': { icon: <Zap className="w-4 h-4" />, color: 'text-orange-500 bg-orange-50 border-orange-100' },
+        'Consistency Champion': { icon: <Award className="w-4 h-4" />, color: 'text-purple-500 bg-purple-50 border-purple-100' },
+        'Zen Seeker': { icon: <Heart className="w-4 h-4" />, color: 'text-rose-500 bg-rose-50 border-rose-100' }
+    };
+
     return (
         <div
             className="max-w-6xl mx-auto space-y-12 pb-24"
@@ -176,6 +194,79 @@ export const Dashboard: React.FC = () => {
                     <span className="inline-block px-5 py-2 rounded-full bg-white/10 text-sky-100 text-xs font-bold uppercase tracking-[0.2em] backdrop-blur-sm border border-white/10">
                         Reflect for a moment
                     </span>
+                </div>
+            </motion.div>
+
+            {/* Wellness Journey Hero */}
+            <motion.div
+                variants={STAGGER_CHILD_VARIANTS}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4"
+            >
+                <div className="md:col-span-2 bg-white/80 backdrop-blur-xl rounded-[40px] p-10 border border-white shadow-2xl shadow-slate-200/30 flex flex-col md:flex-row items-center gap-10 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                    
+                    <div className="relative group">
+                        <div className={`w-32 h-32 rounded-[40px] ${level.bg} ${level.border} border-4 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500`}>
+                            <div className={level.color}>
+                                {level.icon}
+                            </div>
+                        </div>
+                        <div className="absolute -bottom-2 -right-2 bg-slate-900 text-white text-[10px] font-black px-4 py-1.5 rounded-full border-2 border-white shadow-xl">
+                            LVL {Math.floor(wellnessPoints / 100) + 1}
+                        </div>
+                    </div>
+
+                    <div className="flex-1 space-y-6 text-center md:text-left">
+                        <div>
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">Current Stature</span>
+                            <h2 className={`text-4xl font-black tracking-tight ${level.color}`}>{level.name}</h2>
+                        </div>
+                        
+                        <div className="space-y-3">
+                            <div className="flex justify-between items-end">
+                                <span className="text-[11px] font-black text-slate-800 uppercase tracking-widest">{wellnessPoints % 100} / 100 XP to next level</span>
+                                <span className="text-2xl font-black text-slate-900 tracking-tighter">{wellnessPoints} <span className="text-xs text-slate-400 uppercase tracking-widest font-bold ml-1">MP</span></span>
+                            </div>
+                            <div className="h-4 bg-slate-100 rounded-full overflow-hidden p-1 border border-slate-200 shadow-inner">
+                                <motion.div 
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${level.progress}%` }}
+                                    className={`h-full rounded-full bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 shadow-lg`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white/80 backdrop-blur-xl rounded-[40px] p-10 border border-white shadow-2xl shadow-slate-200/30 flex flex-col justify-between relative overflow-hidden">
+                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/5 rounded-full blur-3xl -ml-24 -mb-24" />
+                    
+                    <div className="relative z-10">
+                        <div className="flex items-center gap-3 mb-6">
+                            <Award className="w-5 h-5 text-purple-500" />
+                            <h3 className="font-black text-slate-900 uppercase tracking-[0.2em] text-xs">Achievement Badges</h3>
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-3">
+                            {userBadges.length === 0 ? (
+                                <p className="text-slate-400 text-[11px] font-bold leading-relaxed pr-8 italic">Start your journey to unlock therapeutic badges.</p>
+                            ) : (
+                                userBadges.map((badge: string) => (
+                                    <div 
+                                        key={badge}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-2xl border transition-all hover:scale-105 cursor-default ${BADGE_ICONS[badge]?.color || 'bg-slate-50 text-slate-500 border-slate-100'}`}
+                                    >
+                                        {BADGE_ICONS[badge]?.icon || <Star className="w-4 h-4" />}
+                                        <span className="text-[10px] font-black uppercase tracking-widest">{badge}</span>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+
+                    <button className="relative z-10 w-full mt-8 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] font-black text-slate-400 hover:bg-white hover:text-sky-600 hover:border-sky-100 transition-all uppercase tracking-[0.2em] shadow-sm">
+                        View Hall of Fame
+                    </button>
                 </div>
             </motion.div>
 

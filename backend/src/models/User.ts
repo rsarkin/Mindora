@@ -40,6 +40,8 @@ export interface IUser extends Document {
 
     lastLoginAt?: Date;
     streak?: number;
+    points: number;
+    badges: string[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -70,7 +72,9 @@ const UserSchema = new Schema<IUser>({
     isPhoneVerified: { type: Boolean, default: false },
 
     lastLoginAt: { type: Date },
-    streak: { type: Number, default: 0 }
+    streak: { type: Number, default: 0 },
+    points: { type: Number, default: 0 },
+    badges: [{ type: String, default: [] }]
 }, {
     timestamps: true
 });

@@ -4,6 +4,7 @@ import {
     getNotifications,
     markNotificationsRead,
     updateSignInStreak,
+    rewardBreathingSession,
     changePassword
 } from '../controllers/userController';
 
@@ -12,6 +13,7 @@ const router = express.Router();
 router.get('/notifications', authMiddleware, getNotifications);
 router.post('/notifications/read', authMiddleware, markNotificationsRead);
 router.post('/sign-in-streak', authMiddleware, updateSignInStreak);
+router.post('/reward/breathing', authMiddleware, rewardBreathingSession);
 router.post('/change-password', authMiddleware, changePassword);
 
 export default router;

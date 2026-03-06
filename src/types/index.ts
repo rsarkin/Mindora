@@ -10,6 +10,8 @@ export interface User {
     occupation?: string;
     diagnosis?: string[];
     medications?: string[];
+    points?: number;
+    badges?: string[];
 }
 
 export interface AuthState {
