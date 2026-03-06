@@ -25,6 +25,9 @@ export const Dashboard: React.FC = () => {
     const [completedSessionsCount, setCompletedSessionsCount] = useState(0);
     const [upcomingAppointments, setUpcomingAppointments] = useState<any[]>([]);
 
+    // Real-time animation state
+    const [displayPoints, setDisplayPoints] = useState(((user as any)?.points as number) || 0);
+
     useEffect(() => {
         // Fetch appointments to compute stats
         const fetchData = async () => {
@@ -65,6 +68,19 @@ export const Dashboard: React.FC = () => {
             }
         }
     }, [user]);
+
+    // Count-up logic for points
+    const wellnessPoints = (user as any)?.points || 0;
+    useEffect(() => {
+        if (displayPoints !== wellnessPoints) {
+            const timer = setTimeout(() => {
+                const diff = wellnessPoints - displayPoints;
+                const step = diff > 0 ? Math.ceil(diff / 5) : Math.floor(diff / 5);
+                setDisplayPoints(prev => prev + step);
+            }, 50);
+            return () => clearTimeout(timer);
+        }
+    }, [wellnessPoints, displayPoints]);
 
     const handleSignInToday = async () => {
         if (hasSignedInToday || isSigningIn) return;
@@ -119,7 +135,6 @@ export const Dashboard: React.FC = () => {
         return QUOTES[index];
     }, []);
 
-    const wellnessPoints = (user as any)?.points || 0;
     const userBadges = (user as any)?.badges || [];
 
     const getWellnessLevel = (points: number) => {
@@ -224,13 +239,24 @@ export const Dashboard: React.FC = () => {
                         
                         <div className="space-y-3">
                             <div className="flex justify-between items-end">
-                                <span className="text-[11px] font-black text-slate-800 uppercase tracking-widest">{wellnessPoints % 100} / 100 XP to next level</span>
-                                <span className="text-2xl font-black text-slate-900 tracking-tighter">{wellnessPoints} <span className="text-xs text-slate-400 uppercase tracking-widest font-bold ml-1">MP</span></span>
+                                <span className="text-[11px] font-black text-slate-800 uppercase tracking-widest">{displayPoints % 100} / 100 XP to next level</span>
+                                <span className="text-2xl font-black text-slate-900 tracking-tighter">
+                                    <motion.span
+                                        key={displayPoints}
+                                        initial={{ y: 10, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="inline-block"
+                                    >
+                                        {displayPoints}
+                                    </motion.span>
+                                    <span className="text-xs text-slate-400 uppercase tracking-widest font-bold ml-1">MP</span>
+                                </span>
                             </div>
                             <div className="h-4 bg-slate-100 rounded-full overflow-hidden p-1 border border-slate-200 shadow-inner">
                                 <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${level.progress}%` }}
+                                    transition={{ type: "spring", stiffness: 100, damping: 15 }}
                                     className={`h-full rounded-full bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 shadow-lg`}
                                 />
                             </div>
@@ -264,11 +290,15 @@ export const Dashboard: React.FC = () => {
                         </div>
                     </div>
 
-                    <button className="relative z-10 w-full mt-8 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] font-black text-slate-400 hover:bg-white hover:text-sky-600 hover:border-sky-100 transition-all uppercase tracking-[0.2em] shadow-sm">
+                    <button 
+                        onClick={() => navigate('/hall-of-fame')}
+                        className="relative z-10 w-full mt-8 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] font-black text-slate-400 hover:bg-white hover:text-sky-600 hover:border-sky-100 transition-all uppercase tracking-[0.2em] shadow-sm active:scale-95"
+                    >
                         View Hall of Fame
                     </button>
                 </div>
             </motion.div>
+
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">

@@ -22,6 +22,7 @@ import { CrisisHelplinesPage } from './pages/CrisisHelplinesPage';
 import { ContactUsPage } from './pages/ContactUsPage';
 import { AboutUsPage } from './pages/AboutUsPage';
 import { ResourcesPage } from './pages/ResourcesPage';
+import HallOfFamePage from './pages/HallOfFamePage';
 
 import { TherapistLayout } from './layouts/TherapistLayout';
 import { TherapistDashboardPage } from './pages/TherapistDashboardPage';
@@ -118,6 +119,7 @@ const AnimatedRoutes = () => {
           <Route path="/breathing" element={<ProtectedRoute><BreathingExercisesPage /></ProtectedRoute>} />
           <Route path="/resources" element={<ProtectedRoute><PatientResourcesPage /></ProtectedRoute>} />
           <Route path="/all-resources" element={<ProtectedRoute><ResourcesPage /></ProtectedRoute>} />
+          <Route path="/hall-of-fame" element={<ProtectedRoute><HallOfFamePage /></ProtectedRoute>} />
 
           <Route path="/find-therapists" element={<ProtectedRoute><FindTherapistsPage /></ProtectedRoute>} />
           <Route path="/appointments" element={<ProtectedRoute><PatientAppointmentsPage /></ProtectedRoute>} />
