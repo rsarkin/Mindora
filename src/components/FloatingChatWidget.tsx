@@ -116,9 +116,10 @@ export const FloatingChatWidget: React.FC = () => {
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 text-white rounded-full shadow-lg hover:bg-indigo-700 transition-all flex items-center justify-center z-50 hover:scale-110"
+                className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all flex items-center justify-center z-50 hover:scale-110 active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%)' }}
             >
-                <MessageCircle className="w-8 h-8" />
+                <MessageCircle className="w-7 h-7 text-white drop-shadow-sm" />
             </button>
         );
     }

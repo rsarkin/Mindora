@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Loader2, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, Mail, Loader2, ArrowRight, ShieldCheck, ArrowLeft } from 'lucide-react';
 
 interface LoginPageProps {
     role?: 'patient' | 'therapist' | 'admin';
@@ -68,6 +68,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ role = 'patient' }) => {
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="max-w-md w-full p-8 bg-white/80 backdrop-blur-xl rounded-[32px] shadow-2xl shadow-sky-100/50 border border-white/50 relative z-10"
             >
+                {/* Back Button */}
+                <button
+                    onClick={() => navigate('/')}
+                    className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-sky-600 transition-colors mb-6 group"
+                >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                    Back to Home
+                </button>
+
                 <div className="text-center mb-10">
                     <motion.div
                         initial={{ scale: 0.8 }}
