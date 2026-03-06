@@ -40,7 +40,6 @@ interface Appointment {
 
 interface DashboardStats {
     upcomingSessions: number;
-    pendingMessages: number;
     totalEarningsINR: number;
     completedThisMonth: number;
 }
@@ -59,7 +58,6 @@ export const TherapistDashboardPage: React.FC = () => {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [stats, setStats] = useState<DashboardStats>({
         upcomingSessions: 0,
-        pendingMessages: 0,
         totalEarningsINR: 0,
         completedThisMonth: 0
     });
@@ -76,79 +74,34 @@ export const TherapistDashboardPage: React.FC = () => {
     }, []);
 
     const fetchDashboardData = async () => {
-        // Mock data for demonstration
-        const mockAppointments: Appointment[] = [
-            {
-                id: '1',
-                patientId: 'p1',
-                patientName: 'Rahul M.',
-                scheduledAt: new Date(Date.now() + 3600000 * 2),
-                durationMinutes: 50,
-                type: 'VIDEO_CALL',
-                status: 'CONFIRMED',
-                avatar: 'https://ui-avatars.com/api/?name=Rahul+M&background=3b82f6&color=fff'
-            },
-            {
-                id: '2',
-                patientId: 'p2',
-                patientName: 'Priya S.',
-                scheduledAt: new Date(Date.now() + 3600000 * 4),
-                durationMinutes: 50,
-                type: 'VIDEO_CALL',
-                status: 'CONFIRMED',
-                avatar: 'https://ui-avatars.com/api/?name=Priya+S&background=10b981&color=fff'
-            },
-            {
-                id: '3',
-                patientId: 'p3',
-                patientName: 'Anonymous #4521',
-                scheduledAt: new Date(Date.now() + 3600000 * 5),
-                durationMinutes: 30,
-                type: 'CHAT_ONLY',
-                status: 'SCHEDULED',
-                avatar: 'https://ui-avatars.com/api/?name=Anon&background=64748b&color=fff'
-            }
-        ];
-
-        const mockActivity: ActivityItem[] = [
-            {
-                id: '1',
-                type: 'SESSION_COMPLETED',
-                description: 'Completed 50min session',
-                actor: 'Aditya K.',
-                timestamp: new Date(Date.now() - 3600000)
-            },
-            {
-                id: '2',
-                type: 'MESSAGE_SENT',
-                description: 'Replied to secure message',
-                actor: 'Neha P.',
-                timestamp: new Date(Date.now() - 7200000)
-            },
-            {
-                id: '3',
-                type: 'APPOINTMENT_APPROVED',
-                description: 'Approved new booking request',
-                actor: 'Rajesh T.',
-                timestamp: new Date(Date.now() - 10800000)
-            }
-        ];
-
         try {
-            const response = await api.get('/therapists/dashboard/stats');
-            const metrics = response.data.metrics;
+            const data = await api.getTherapistDashboardStats();
+
+            // Stats
+            const metrics = data.metrics;
             setStats({
-                upcomingSessions: metrics.appointments,
-                pendingMessages: metrics.pendingRequests, // mapping pending requests here since messages aren't live
-                totalEarningsINR: metrics.totalEarnings || 0,
-                completedThisMonth: metrics.completedSessions
+                upcomingSessions: metrics.upcomingSessions,
+                totalEarningsINR: metrics.totalEarningsINR || 0,
+                completedThisMonth: metrics.completedThisMonth
             });
+
+            // Appointments
+            const formattedApts = data.appointments.map((apt: any) => ({
+                ...apt,
+                scheduledAt: new Date(apt.scheduledAt)
+            }));
+            setAppointments(formattedApts);
+
+            // Recent activities from backend
+            const actualActivities = (data.activities || []).map((act: any) => ({
+                ...act,
+                timestamp: new Date(act.timestamp)
+            }));
+            setRecentActivity(actualActivities);
         } catch (error) {
             console.error("Failed to fetch live stats", error);
+            showToast('Failed to load dashboard data', 'error');
         }
-
-        setAppointments(mockAppointments);
-        setRecentActivity(mockActivity);
     };
 
     const formatTime = (date: Date) => {
@@ -290,10 +243,9 @@ export const TherapistDashboardPage: React.FC = () => {
                 </AnimatePresence>
 
                 {/* Stats Grid */}
-                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <motion.div variants={STAGGER_CHILD_VARIANTS} className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {[
                         { label: "Upcoming Sessions", value: stats.upcomingSessions, icon: CalendarIcon, color: "blue" as const, prefix: "" },
-                        { label: "Pending Messages", value: stats.pendingMessages, icon: MessageSquare, color: "fuchsia" as const, prefix: "" },
                         { label: "Monthly Earnings", value: stats.totalEarningsINR.toLocaleString('en-IN'), icon: DollarSign, color: "emerald" as const, prefix: "₹" },
                         { label: "Completed Sessions", value: stats.completedThisMonth, icon: CheckCircle, color: "indigo" as const, prefix: "" }
                     ].map((stat, idx) => (

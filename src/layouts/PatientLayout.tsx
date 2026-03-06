@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Heart, Home, MessageSquare, Calendar, TrendingUp, BookOpen, User as UserIcon, LogOut, Menu, X, Search, Bell, ChevronDown, Wind, Users
+    Heart, Home, MessageSquare, Calendar, TrendingUp, BookOpen, User as UserIcon, LogOut, Menu, X, Search, Bell, ChevronDown, Wind, Users, Sparkles, BarChart3
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -57,6 +57,8 @@ export const PatientLayout = () => {
         { name: 'Breathing Space', path: '/breathing', icon: Wind },
         { name: 'Community', path: '/community', icon: Users },
         { name: 'Mindora AI', path: '/bot', icon: MessageSquare },
+        { name: 'Progress', path: '/progress', icon: BarChart3 },
+        { name: 'Inspiration', path: '/inspiration', icon: Sparkles },
         { name: 'Resources', path: '/resources', icon: BookOpen },
     ];
 
@@ -163,7 +165,7 @@ export const PatientLayout = () => {
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden lg:pl-72 transition-all">
                 {/* Topbar */}
                 <header
-                    className={`h-20 shrink-0 flex items-center justify-between px-4 sm:px-8 transition-all duration-300 z-10 sticky top-0
+                    className={`h-20 shrink-0 flex items-center justify-between px-4 sm:px-8 transition-all duration-300 z-40 sticky top-0
                     ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm' : 'bg-transparent'}`}
                 >
                     <div className="flex items-center gap-4">

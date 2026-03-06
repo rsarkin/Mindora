@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Users, HeartPulse, Activity, Brain, Shield, ArrowRight, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 import api from '../../services/api';
 
@@ -9,6 +10,7 @@ const STAGGER_CHILD_VARIANTS = {
 };
 
 export const CommunitiesPage: React.FC<{ onJoin?: (podId: string) => void }> = ({ onJoin }) => {
+    const navigate = useNavigate();
     const [communities, setCommunities] = useState<any[]>([]);
     const [myPods, setMyPods] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +43,8 @@ export const CommunitiesPage: React.FC<{ onJoin?: (podId: string) => void }> = (
             const response = await api.joinCommunity(communityId);
             if (onJoin) {
                 onJoin(response.pod._id);
+            } else {
+                navigate(`../pod/${response.pod._id}`);
             }
         } catch (err: any) {
             setError(err.response?.data?.error || 'Failed to join community');
@@ -50,7 +54,7 @@ export const CommunitiesPage: React.FC<{ onJoin?: (podId: string) => void }> = (
     };
 
     const getIconMap = (category: string) => {
-        switch(category) {
+        switch (category) {
             case 'Rehab': return <Activity className="w-8 h-8 text-rose-500" />;
             case 'Anxiety': return <Brain className="w-8 h-8 text-indigo-500" />;
             case 'Grief': return <HeartPulse className="w-8 h-8 text-emerald-500" />;
@@ -98,75 +102,75 @@ export const CommunitiesPage: React.FC<{ onJoin?: (podId: string) => void }> = (
             {/* My Joined Pods */}
             {myPods.length > 0 && (
                 <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-4">
-                     <h2 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">My Active Pods</h2>
-                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                         {myPods.map(pod => (
-                              <button 
+                    <h2 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">My Active Pods</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {myPods.map(pod => (
+                            <button
                                 key={pod._id}
-                                 onClick={() => onJoin && onJoin(pod._id)}
-                                 className="bg-white border-2 border-indigo-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all text-left group"
-                              >
-                                  <div className="flex items-center justify-between mb-4">
-                                      <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                          <Users className="w-6 h-6" />
-                                      </div>
-                                      <span className="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-600 rounded-full">
-                                          {pod.currentMemberCount}/15 Members
-                                      </span>
-                                  </div>
-                                  <h3 className="text-lg font-bold text-slate-900">{pod.name}</h3>
-                                  <p className="text-sm text-slate-500 mt-1 mb-4">{pod.communityId?.name || 'Community'}</p>
-                                  <div className="flex items-center text-indigo-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
-                                      Enter Pod Workspace <ArrowRight className="w-4 h-4 ml-1" />
-                                  </div>
-                              </button>
-                         ))}
-                     </div>
+                                onClick={() => onJoin ? onJoin(pod._id) : navigate(`../pod/${pod._id}`)}
+                                className="bg-white border-2 border-indigo-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all text-left group"
+                            >
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <Users className="w-6 h-6" />
+                                    </div>
+                                    <span className="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-600 rounded-full">
+                                        {pod.currentMemberCount}/15 Members
+                                    </span>
+                                </div>
+                                <h3 className="text-lg font-bold text-slate-900">{pod.name}</h3>
+                                <p className="text-sm text-slate-500 mt-1 mb-4">{pod.communityId?.name || 'Community'}</p>
+                                <div className="flex items-center text-indigo-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
+                                    Enter Pod Workspace <ArrowRight className="w-4 h-4 ml-1" />
+                                </div>
+                            </button>
+                        ))}
+                    </div>
                 </motion.div>
             )}
 
             {/* Discover Communities */}
             <motion.div variants={STAGGER_CHILD_VARIANTS} className="space-y-4">
-                 <h2 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Discover Communities</h2>
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {communities.map((community) => {
-                         const isMember = myPods.some(p => p.communityId?._id === community._id);
-                         
-                         return (
-                             <div key={community._id} className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col h-full">
-                                 {community.imageUrl && (
-                                     <div className="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
-                                         <img src={community.imageUrl} alt="" className="w-full h-full object-cover rounded-full" />
-                                     </div>
-                                 )}
-                                 <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4 inner-shadow">
-                                     {getIconMap(community.category)}
-                                 </div>
-                                 <h3 className="text-xl font-bold text-slate-900 mb-2">{community.name}</h3>
-                                 <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
-                                     {community.description}
-                                 </p>
-                                 <div className="mt-auto">
-                                     <button
-                                         onClick={() => handleJoin(community._id)}
-                                         disabled={joiningId === community._id || isMember}
-                                         className={`w-full py-3 px-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 
-                                             ${isMember ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 
-                                               'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg shadow-black/10'}`}
-                                     >
-                                         {joiningId === community._id ? (
-                                              <><Loader2 className="w-5 h-5 animate-spin" /> Assigning Pod...</>
-                                         ) : isMember ? (
-                                              <><CheckCircle2 className="w-5 h-5" /> Already Joined</>
-                                         ) : (
-                                              <><Shield className="w-5 h-5" /> Join Safe Space</>
-                                         )}
-                                     </button>
-                                 </div>
-                             </div>
-                         );
-                     })}
-                 </div>
+                <h2 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-2">Discover Communities</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {communities.map((community) => {
+                        const isMember = myPods.some(p => p.communityId?._id === community._id);
+
+                        return (
+                            <div key={community._id} className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col h-full">
+                                {community.imageUrl && (
+                                    <div className="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
+                                        <img src={community.imageUrl} alt="" className="w-full h-full object-cover rounded-full" />
+                                    </div>
+                                )}
+                                <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4 inner-shadow">
+                                    {getIconMap(community.category)}
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-2">{community.name}</h3>
+                                <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1">
+                                    {community.description}
+                                </p>
+                                <div className="mt-auto">
+                                    <button
+                                        onClick={() => handleJoin(community._id)}
+                                        disabled={joiningId === community._id || isMember}
+                                        className={`w-full py-3 px-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 
+                                             ${isMember ? 'bg-slate-100 text-slate-400 cursor-not-allowed' :
+                                                'bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg shadow-black/10'}`}
+                                    >
+                                        {joiningId === community._id ? (
+                                            <><Loader2 className="w-5 h-5 animate-spin" /> Assigning Pod...</>
+                                        ) : isMember ? (
+                                            <><CheckCircle2 className="w-5 h-5" /> Already Joined</>
+                                        ) : (
+                                            <><Shield className="w-5 h-5" /> Join Safe Space</>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
             </motion.div>
         </motion.div>
     );

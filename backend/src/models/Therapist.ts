@@ -39,6 +39,22 @@ export interface ITherapist extends Document {
     totalEarningsUSD: number;
     totalSessionsCompleted: number;
 
+    professionalTitle?: string;
+    timezone?: string;
+    emergencyRequests: boolean;
+    publicProfile: boolean;
+    notificationPreferences: {
+        email: boolean;
+        sms: boolean;
+        push: boolean;
+    };
+    bankAccount?: {
+        holderName: string;
+        accountNumber: string;
+        bankName: string;
+        ifscCode: string;
+    };
+
     googleAccessToken?: string;
     googleRefreshToken?: string;
 
@@ -78,6 +94,22 @@ const TherapistSchema = new Schema<ITherapist>({
 
     totalEarningsUSD: { type: Number, default: 0 },
     totalSessionsCompleted: { type: Number, default: 0 },
+
+    professionalTitle: { type: String },
+    timezone: { type: String, default: 'UTC+05:30' },
+    emergencyRequests: { type: Boolean, default: false },
+    publicProfile: { type: Boolean, default: true },
+    notificationPreferences: {
+        email: { type: Boolean, default: true },
+        sms: { type: Boolean, default: false },
+        push: { type: Boolean, default: true }
+    },
+    bankAccount: {
+        holderName: { type: String },
+        accountNumber: { type: String },
+        bankName: { type: String },
+        ifscCode: { type: String }
+    },
 
     googleAccessToken: { type: String },
     googleRefreshToken: { type: String }

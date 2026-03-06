@@ -144,6 +144,26 @@ const api = {
         return response.data;
     },
 
+    getTherapistDashboardStats: async () => {
+        const response = await axiosInstance.get('/therapists/dashboard/stats');
+        return response.data;
+    },
+
+    getMyPatients: async () => {
+        const response = await axiosInstance.get('/therapists/my-patients');
+        return response.data;
+    },
+
+    getPatientDetails: async (patientId: string) => {
+        const response = await axiosInstance.get(`/therapists/patients/${patientId}`);
+        return response.data;
+    },
+
+    getEarningsStats: async () => {
+        const response = await axiosInstance.get('/therapists/earnings-stats');
+        return response.data;
+    },
+
     // User endpoints (Streaks, Notifications)
     getNotifications: async () => {
         const response = await axiosInstance.get('/users/notifications');
@@ -157,6 +177,21 @@ const api = {
 
     updateSignInStreak: async () => {
         const response = await axiosInstance.post('/users/sign-in-streak');
+        return response.data;
+    },
+
+    getSettings: async () => {
+        const response = await axiosInstance.get('/therapists/settings');
+        return response.data;
+    },
+
+    updateSettings: async (settingsData: any) => {
+        const response = await axiosInstance.patch('/therapists/settings', settingsData);
+        return response.data;
+    },
+
+    changePassword: async (passwordData: any) => {
+        const response = await axiosInstance.post('/users/change-password', passwordData);
         return response.data;
     }
 };

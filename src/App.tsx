@@ -7,6 +7,7 @@ import { ToastProvider, useToast } from './context/ToastContext';
 // Pages & Components
 import { OnboardingPage } from './pages/OnboardingPage';
 import { LoginPage } from './pages/LoginPage';
+import { CommunitySpacePage } from './pages/shared/CommunitySpacePage';
 import { RegisterPage } from './pages/RegisterPage';
 import { Dashboard } from './pages/Dashboard';
 import { ProfilePage } from './pages/ProfilePage';
@@ -15,6 +16,14 @@ import { LandingPage } from './pages/LandingPage';
 import { PublicBotPage } from './pages/PublicBotPage';
 import { BreathingExercisesPage } from './pages/BreathingExercisesPage';
 import { PatientResourcesPage } from './pages/PatientResourcesPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsOfServicePage } from './pages/TermsOfServicePage';
+import { CrisisHelplinesPage } from './pages/CrisisHelplinesPage';
+import { ContactUsPage } from './pages/ContactUsPage';
+import { AboutUsPage } from './pages/AboutUsPage';
+import { InspirationPage } from './pages/InspirationPage';
+import { ProgressPage } from './pages/ProgressPage';
+import { ResourcesPage } from './pages/ResourcesPage';
 
 import { TherapistLayout } from './layouts/TherapistLayout';
 import { TherapistDashboardPage } from './pages/TherapistDashboardPage';
@@ -32,7 +41,7 @@ import { FindTherapistsPage } from './pages/FindTherapistsPage';
 import { TherapistBookingPage } from './pages/TherapistBookingPage';
 import { PatientMessagesPage } from './pages/PatientMessagesPage';
 import { BotChatPage } from './pages/PatientBotChatPage';
-
+import { PodDashboard } from './pages/patient/PodDashboard';
 import { PageTransition } from './components/PageTransition';
 import { ScrollToTop } from './components/ScrollToTop';
 import { PatientLayout } from './layouts/PatientLayout';
@@ -46,9 +55,6 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { VerificationPendingPage } from './pages/VerificationPendingPage';
 
 import { LoadingSpinner } from './components/LoadingSpinner';
-
-// Shared global pages
-import { CommunitySpacePage } from './pages/shared/CommunitySpacePage';
 
 const RedirectWithToast = ({ to, message }: { to: string; message: string }) => {
   const { showToast } = useToast();
@@ -89,6 +95,11 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<PageTransition><LandingPage /></PageTransition>} />
         <Route path="/onboarding" element={<PageTransition><OnboardingPage /></PageTransition>} />
         <Route path="/bot/public" element={<PageTransition><PublicBotPage /></PageTransition>} />
+        <Route path="/privacy" element={<PageTransition><PrivacyPolicyPage /></PageTransition>} />
+        <Route path="/terms" element={<PageTransition><TermsOfServicePage /></PageTransition>} />
+        <Route path="/crisis-helplines" element={<PageTransition><CrisisHelplinesPage /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><ContactUsPage /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><AboutUsPage /></PageTransition>} />
 
         <Route path="/login/patient" element={<PageTransition><LoginPage role="patient" /></PageTransition>} />
         <Route path="/login/therapist" element={<PageTransition><LoginPage role="therapist" /></PageTransition>} />
@@ -108,12 +119,16 @@ const AnimatedRoutes = () => {
           <Route path="/dashboard/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           <Route path="/breathing" element={<ProtectedRoute><BreathingExercisesPage /></ProtectedRoute>} />
           <Route path="/resources" element={<ProtectedRoute><PatientResourcesPage /></ProtectedRoute>} />
+          <Route path="/inspiration" element={<ProtectedRoute><InspirationPage /></ProtectedRoute>} />
+          <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
+          <Route path="/all-resources" element={<ProtectedRoute><ResourcesPage /></ProtectedRoute>} />
 
           <Route path="/find-therapists" element={<ProtectedRoute><FindTherapistsPage /></ProtectedRoute>} />
           <Route path="/appointments" element={<ProtectedRoute><PatientAppointmentsPage /></ProtectedRoute>} />
           <Route path="/therapist-profile/:therapistId" element={<ProtectedRoute><TherapistBookingPage /></ProtectedRoute>} />
           <Route path="/messages" element={<ProtectedRoute><PatientMessagesPage /></ProtectedRoute>} />
           <Route path="/community" element={<ProtectedRoute><CommunitySpacePage /></ProtectedRoute>} />
+          <Route path="/pod/:podId" element={<ProtectedRoute><PodDashboard /></ProtectedRoute>} />
           <Route path="/bot" element={<ProtectedRoute><BotChatPage /></ProtectedRoute>} />
         </Route>
 
@@ -127,11 +142,12 @@ const AnimatedRoutes = () => {
           <Route path="slots" element={<TherapistSlotsPage />} />
           <Route path="session/:appointmentId" element={<SessionPage />} />
           <Route path="messages" element={<MessagesPage />} />
-          <Route path="community" element={<CommunitySpacePage />} />
           <Route path="chat" element={<Navigate to="/therapist/messages" replace />} />
           <Route path="profile" element={<TherapistProfilePage />} />
           <Route path="earnings" element={<EarningsPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="community" element={<CommunitySpacePage />} />
+          <Route path="pod/:podId" element={<PodDashboard />} />
         </Route>
 
         {/* Admin Routes */}
@@ -144,6 +160,7 @@ const AnimatedRoutes = () => {
           <Route path="patients" element={<AdminDashboardPage />} />
           <Route path="therapists" element={<AdminDashboardPage />} />
           <Route path="community" element={<CommunitySpacePage />} />
+          <Route path="pod/:podId" element={<PodDashboard />} />
         </Route>
 
         {/* 404 Catch-All Route */}

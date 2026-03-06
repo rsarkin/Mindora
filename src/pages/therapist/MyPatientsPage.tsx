@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/static-components */
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
+import { useToast } from '../../context/ToastContext';
 import { Calendar, MessageSquare, Eye, Clock, Search, Filter, MoreHorizontal, Activity, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -24,24 +26,17 @@ export const MyPatientsPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
+    const { showToast } = useToast();
 
     useEffect(() => {
         const fetchPatients = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-                const response = await axios.get(`${API_BASE_URL}/therapists/my-patients`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-
-                if (response.data.length === 0) {
-                    setPatients(getMockData());
-                } else {
-                    setPatients(response.data);
-                }
+                const data = await api.getMyPatients();
+                setPatients(data);
             } catch (error) {
                 console.error('Error fetching patients:', error);
-                setPatients(getMockData());
+                showToast('Failed to load patient directory', 'error');
+                // setPatients(getMockData()); // Removing mock fallback for real-time focus
             } finally {
                 setLoading(false);
             }
@@ -49,15 +44,6 @@ export const MyPatientsPage: React.FC = () => {
 
         fetchPatients();
     }, []);
-
-    const getMockData = (): Patient[] => [
-        { _id: '1', name: 'Sarah Chen', email: 'sarah@example.com', lastSession: new Date(Date.now() - 86400000 * 2).toISOString(), totalSessions: 5, moodTrend: 'Improving', avatar: 'https://ui-avatars.com/api/?name=Sarah+Chen&background=10b981&color=fff' },
-        { _id: '2', name: 'David Lee', email: 'david@example.com', lastSession: new Date(Date.now() - 86400000 * 5).toISOString(), totalSessions: 8, moodTrend: 'Fluctuating', avatar: 'https://ui-avatars.com/api/?name=David+Lee&background=f59e0b&color=fff' },
-        { _id: '3', name: 'Emily White', email: 'emily@example.com', lastSession: new Date(Date.now() - 86400000 * 10).toISOString(), totalSessions: 3, moodTrend: 'Declining', avatar: 'https://ui-avatars.com/api/?name=Emily+White&background=ef4444&color=fff' },
-        { _id: '4', name: 'Michael Brown', email: 'michael@example.com', lastSession: new Date(Date.now() - 86400000 * 1).toISOString(), totalSessions: 12, moodTrend: 'Stable', avatar: 'https://ui-avatars.com/api/?name=Michael+Brown&background=3b82f6&color=fff' },
-        { _id: '5', name: 'Jessica Garcia', email: 'jessica@example.com', lastSession: new Date(Date.now() - 86400000 * 4).toISOString(), totalSessions: 6, moodTrend: 'Improving', avatar: 'https://ui-avatars.com/api/?name=Jessica+Garcia&background=8b5cf6&color=fff' },
-        { _id: '6', name: 'Chris R.', email: 'chris@example.com', lastSession: new Date(Date.now() - 86400000 * 3).toISOString(), totalSessions: 9, moodTrend: 'Stable', avatar: 'https://ui-avatars.com/api/?name=Chris+R&background=64748b&color=fff' },
-    ];
 
     const getMoodIcon = (trend?: string) => {
         switch (trend) {

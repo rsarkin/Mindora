@@ -7,6 +7,9 @@ export interface User {
     accountStatus?: string;
     streak?: number;
     lastLoginAt?: Date | string;
+    occupation?: string;
+    diagnosis?: string[];
+    medications?: string[];
 }
 
 export interface AuthState {

@@ -28,6 +28,9 @@ export interface IUser extends Document {
     dateOfBirth?: Date;
     gender?: string;
     location?: string;
+    occupation?: string;
+    diagnosis?: string[];
+    medications?: string[];
     emergencyContact?: any; // JSON object
 
     consentedAt?: Date;
@@ -56,6 +59,9 @@ const UserSchema = new Schema<IUser>({
     dateOfBirth: { type: Date },
     gender: { type: String },
     location: { type: String },
+    occupation: { type: String },
+    diagnosis: [{ type: String }],
+    medications: [{ type: String }],
     emergencyContact: { type: Schema.Types.Mixed },
 
     consentedAt: { type: Date },

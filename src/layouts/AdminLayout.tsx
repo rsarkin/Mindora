@@ -146,7 +146,7 @@ export const AdminLayout = () => {
 
                 {/* Topbar */}
                 <header
-                    className={`h-24 shrink-0 flex items-center justify-between px-6 sm:px-10 transition-all duration-300 z-10 sticky top-0
+                    className={`h-24 shrink-0 flex items-center justify-between px-6 sm:px-10 transition-all duration-300 z-40 sticky top-0
                     ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}
                 >
                     <div className="flex items-center gap-4">

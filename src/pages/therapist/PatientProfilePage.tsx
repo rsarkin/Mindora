@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/static-components */
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 import { motion } from 'framer-motion';
 import {
     User, Mail, Phone, Calendar,
@@ -25,6 +26,7 @@ interface PatientProfile {
     avatar: string;
     joinDate: string;
     status: 'Active' | 'Inactive';
+    moodTrend?: 'Stable' | 'Fluctuating' | 'Declining' | 'Improving';
     diagnosis: string[];
     medications: string[];
     nextAppointment: string;
@@ -46,39 +48,19 @@ export const PatientProfilePage: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Mock Data Generation
-        setTimeout(() => {
-            setPatient({
-                id: id || '1',
-                name: 'Sarah Chen',
-                email: 'sarah.chen@example.com',
-                phone: '+1 (555) 123-4567',
-                age: 28,
-                gender: 'Female',
-                occupation: 'Graphic Designer',
-                address: '123 Wellness Ave, San Francisco, CA',
-                avatar: `https://ui-avatars.com/api/?name=Sarah+Chen&background=3b82f6&color=fff`,
-                joinDate: '2024-01-15',
-                status: 'Active',
-                diagnosis: ['Generalized Anxiety Disorder', 'Mild Depression'],
-                medications: ['Sertraline 50mg', 'Melatonin 3mg'],
-                nextAppointment: new Date(Date.now() + 86400000 * 2).toISOString(),
-                notes: [
-                    { id: 'n1', date: new Date(Date.now() - 86400000 * 5).toISOString(), content: 'Patient reported feeling better after breathing exercises. Discussed work stress triggers and implemented 4-7-8 breathing blocks.', author: 'Dr. Sarah' },
-                    { id: 'n2', date: new Date(Date.now() - 86400000 * 12).toISOString(), content: 'Initial consultation phase 2. Signs of anxiety still prominent but manageable. Recommended daily journaling via Mindora.', author: 'Dr. Sarah' }
-                ],
-                moodHistory: [
-                    { date: 'Jul 1', score: 6 },
-                    { date: 'Jul 5', score: 5 },
-                    { date: 'Jul 10', score: 7 },
-                    { date: 'Jul 15', score: 6 },
-                    { date: 'Jul 20', score: 8 },
-                    { date: 'Jul 25', score: 7 },
-                    { date: 'Jul 30', score: 9 },
-                ]
-            });
-            setLoading(false);
-        }, 800);
+        const fetchPatientDetails = async () => {
+            if (!id) return;
+            try {
+                const data = await api.getPatientDetails(id);
+                setPatient(data);
+            } catch (error) {
+                console.error('Error fetching patient details:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPatientDetails();
     }, [id]);
 
     const CustomTooltip = ({ active, payload, label }: any) => {
@@ -213,12 +195,20 @@ export const PatientProfilePage: React.FC = () => {
                         <h3 className="text-white/80 font-bold text-sm tracking-wider uppercase mb-1 flex items-center gap-2">
                             <Calendar className="w-4 h-4" /> Next Session
                         </h3>
-                        <p className="text-2xl font-black text-white font-heading mt-2">
-                            {new Date(patient.nextAppointment).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
-                        </p>
-                        <p className="text-indigo-200 font-semibold mb-6">
-                            at {new Date(patient.nextAppointment).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}
-                        </p>
+                        {patient.nextAppointment ? (
+                            <>
+                                <p className="text-2xl font-black text-white font-heading mt-2">
+                                    {new Date(patient.nextAppointment).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+                                </p>
+                                <p className="text-indigo-200 font-semibold mb-6">
+                                    at {new Date(patient.nextAppointment).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}
+                                </p>
+                            </>
+                        ) : (
+                            <div className="mb-6 py-2">
+                                <p className="text-indigo-100 font-bold">No sessions scheduled</p>
+                            </div>
+                        )}
 
                         <div className="flex gap-2">
                             <button
@@ -276,10 +266,17 @@ export const PatientProfilePage: React.FC = () => {
                         <div className="flex items-center justify-between mb-8 relative z-10">
                             <div>
                                 <h3 className="text-xl font-heading font-black text-slate-900 tracking-tight">Mood & Progress</h3>
-                                <p className="text-sm font-medium text-slate-500 mt-1">Self-reported mood scores (last 30 days)</p>
+                                <p className="text-sm font-medium text-slate-500 mt-1">Self-reported mood scores (last 30 entries)</p>
                             </div>
-                            <div className="px-3 py-1 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-lg text-xs font-bold tracking-wide">
-                                Trending Up ↗
+                            <div className={`px-3 py-1 rounded-lg text-xs font-bold tracking-wide border ${patient.moodTrend === 'Improving' ? 'bg-emerald-50 border-emerald-100 text-emerald-700' :
+                                patient.moodTrend === 'Declining' ? 'bg-rose-50 border-rose-100 text-rose-700' :
+                                    patient.moodTrend === 'Fluctuating' ? 'bg-amber-50 border-amber-100 text-amber-700' :
+                                        'bg-blue-50 border-blue-100 text-blue-700'
+                                }`}>
+                                {patient.moodTrend === 'Improving' ? 'Trending Up ↗' :
+                                    patient.moodTrend === 'Declining' ? 'Trending Down ↘' :
+                                        patient.moodTrend === 'Fluctuating' ? 'Fluctuating ↕' :
+                                            'Stable →'}
                             </div>
                         </div>
 
