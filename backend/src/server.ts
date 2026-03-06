@@ -290,12 +290,11 @@ class MentalHealthServer {
         try {
             await connectDatabase().catch(err => logger.warn(err));
 
-            // Only listen if not running on Vercel
-            if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-                this.server.listen(this.port, () => {
-                    logger.info(`🚀 Server running on port ${this.port}`);
-                });
-            }
+            // Always listen — Render requires a bound port
+            // Render injects process.env.PORT automatically
+            this.server.listen(this.port, () => {
+                logger.info(`🚀 Server running on port ${this.port}`);
+            });
         } catch (err) {
             logger.error(err);
             process.exit(1);
