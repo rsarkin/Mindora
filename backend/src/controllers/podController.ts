@@ -68,45 +68,45 @@ export const createPodPost = async (req: Request, res: Response): Promise<any> =
 // @route   POST /api/pods/posts/:postId/report
 // @desc    Flag a post for moderation
 export const reportPost = async (req: Request, res: Response): Promise<any> => {
-     try {
-         const { postId } = req.params;
-         const { reason } = req.body;
-         const userId = (req as any).user?.id;
+    try {
+        const { postId } = req.params;
+        const { reason } = req.body;
+        const userId = (req as any).user?.id;
 
-         const post = await PodPost.findById(postId);
-         if (!post) return res.status(404).json({ error: 'Post not found' });
+        const post = await PodPost.findById(postId);
+        if (!post) return res.status(404).json({ error: 'Post not found' });
 
-         // Verify the reporter is in the same pod
-         const membership = await PodMembership.findOne({ podId: post.podId, userId, banned: false });
-         if (!membership) return res.status(403).json({ error: 'Not authorized' });
+        // Verify the reporter is in the same pod
+        const membership = await PodMembership.findOne({ podId: post.podId, userId, banned: false });
+        if (!membership) return res.status(403).json({ error: 'Not authorized' });
 
-         post.isFlagged = true;
-         post.flaggedReason = reason || 'User report';
-         await post.save();
+        post.isFlagged = true;
+        post.flaggedReason = reason || 'User report';
+        await post.save();
 
-         res.json({ message: 'Post reported to moderators', post });
-     } catch (error) {
-         logger.error('Error reporting post:', error);
-         res.status(500).json({ error: 'Server error reporting post' });
-     }
+        res.json({ message: 'Post reported to moderators', post });
+    } catch (error) {
+        logger.error('Error reporting post:', error);
+        res.status(500).json({ error: 'Server error reporting post' });
+    }
 };
 
 // @route   DELETE /api/pods/posts/:postId
 // @desc    Moderator deletes a post
 export const deletePost = async (req: Request, res: Response): Promise<any> => {
     try {
-         const { postId } = req.params;
-         const userId = (req as any).user?.id;
+        const { postId } = req.params;
+        const userId = (req as any).user?.id;
 
-         const post = await PodPost.findById(postId);
-         if (!post) return res.status(404).json({ error: 'Post not found' });
+        const post = await PodPost.findById(postId);
+        if (!post) return res.status(404).json({ error: 'Post not found' });
 
-         // Verify moderator status
-         const membership = await PodMembership.findOne({ podId: post.podId, userId, role: PodRole.MODERATOR });
-         if (!membership) return res.status(403).json({ error: 'Only moderators can delete posts' });
+        // Verify moderator status
+        const membership = await PodMembership.findOne({ podId: post.podId, userId, role: PodRole.MODERATOR });
+        if (!membership) return res.status(403).json({ error: 'Only moderators can delete posts' });
 
-         await PodPost.deleteOne({ _id: post._id });
-         res.json({ message: 'Post deleted' });
+        await PodPost.deleteOne({ _id: post._id });
+        res.json({ message: 'Post deleted' });
     } catch (error) {
         logger.error('Error deleting post:', error);
         res.status(500).json({ error: 'Server error deleting post' });
@@ -147,18 +147,21 @@ export const banUser = async (req: Request, res: Response): Promise<any> => {
 // @desc    Get pods the user belongs to
 export const getMyPods = async (req: Request, res: Response): Promise<any> => {
     try {
-         const userId = (req as any).user?.id;
-         const memberships = await PodMembership.find({ userId, banned: false }).populate({
-             path: 'podId',
-             populate: { path: 'communityId', select: 'name category imageUrl' }
-         });
+        const userId = (req as any).user?.id;
+        const memberships = await PodMembership.find({ userId, banned: false }).populate({
+            path: 'podId',
+            populate: { path: 'communityId', select: 'name category imageUrl' }
+        });
 
-         const pods = memberships.map(m => ({
-             ...m.podId, 
-             role: m.role // Inject role into the pod object for UI
-         }));
+        const pods = memberships.map(m => {
+            const membershipObj = m.toObject();
+            return {
+                ...membershipObj.podId,
+                role: membershipObj.role // Inject role into the pod object for UI
+            };
+        });
 
-         res.json(pods);
+        res.json(pods);
     } catch (error) {
         logger.error('Error fetching user pods:', error);
         res.status(500).json({ error: 'Server error fetching pods' });

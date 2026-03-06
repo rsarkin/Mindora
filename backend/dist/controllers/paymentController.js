@@ -45,11 +45,13 @@ const googleCalendarService_1 = require("../services/googleCalendarService");
 const User_1 = __importDefault(require("../models/User"));
 const logger_1 = __importDefault(require("../utils/logger"));
 const razorpay_1 = __importDefault(require("razorpay"));
-// Initialize Razorpay
-const razorpay = new razorpay_1.default({
-    key_id: process.env.RAZORPAY_KEY_ID || '',
-    key_secret: process.env.RAZORPAY_SECRET || ''
-});
+// Razorpay instance is lazily initialized when needed to avoid ES6 import hoisting issues with dotenv
+const getRazorpayInstance = () => {
+    return new razorpay_1.default({
+        key_id: process.env.RAZORPAY_KEY_ID || '',
+        key_secret: process.env.RAZORPAY_SECRET || ''
+    });
+};
 const createRazorpayOrder = async (req, res) => {
     try {
         const { slotId } = req.body;
@@ -73,10 +75,11 @@ const createRazorpayOrder = async (req, res) => {
         logger_1.default.info(`Booking amount: ${amount}`);
         // Create real Razorpay order
         const options = {
-            amount: amount * 100, // amount in the smallest currency unit
+            amount: Math.round(amount * 100), // amount MUST be an integer (in the smallest currency unit)
             currency: "INR",
             receipt: `receipt_${slotId}`
         };
+        const razorpay = getRazorpayInstance();
         const order = await razorpay.orders.create(options);
         // Mark slot as pending
         slot.status = AppointmentSlot_1.SlotStatus.PENDING;

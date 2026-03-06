@@ -41,6 +41,7 @@ export const TherapistLayout: React.FC = () => {
         { name: 'Appointments', href: '/therapist/appointments', icon: Calendar },
         { name: 'Availability', href: '/therapist/slots', icon: Clock },
         { name: 'Messages', href: '/therapist/messages', icon: MessageSquare },
+        { name: 'Community', href: '/therapist/community', icon: Users },
         { name: 'Earnings', href: '/therapist/earnings', icon: DollarSign },
         { name: 'Profile', href: '/therapist/profile', icon: UserIcon },
         { name: 'Settings', href: '/therapist/settings', icon: Settings },

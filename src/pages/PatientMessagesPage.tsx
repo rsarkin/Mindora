@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Send, Users, User, MoreVertical, Smile, CheckCheck, Paperclip, Plus } from 'lucide-react';
+import { Search, Send, Users, User, MoreVertical, Smile, CheckCheck, Paperclip } from 'lucide-react';
 import api from '../services/api';
 import { getSocket } from '../services/socket';
 import { useAuth } from '../context/AuthContext';
-import { CommunitiesPage } from './patient/CommunitiesPage';
-import { PodDashboard } from './patient/PodDashboard';
 
 interface Message {
     _id: string;
@@ -42,9 +40,6 @@ export const PatientMessagesPage: React.FC = () => {
     const { user } = useAuth();
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [activeChatId, setActiveChatId] = useState<string | null>(null);
-    const [activePodId, setActivePodId] = useState<string | null>(null);
-    const [isDiscoveryMode, setIsDiscoveryMode] = useState(false);
-    const [myPods, setMyPods] = useState<any[]>([]);
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
@@ -66,24 +61,31 @@ export const PatientMessagesPage: React.FC = () => {
     const fetchConversations = async () => {
         try {
             const res = await api.get('/appointments/my-appointments');
-            const mappedConvs = res.data.map((appt: any) => ({
-                _id: appt._id,
-                type: 'direct',
-                participants: [
-                    { _id: user?.id, name: user?.name || 'Patient', role: 'PATIENT' },
-                    { _id: appt.therapistId?._id, name: appt.therapist?.user?.name || appt.therapistId?.userId?.name || 'Unknown Therapist', role: 'THERAPIST' }
-                ],
-                updatedAt: appt.createdAt,
-                lastMessage: { content: `${appt.status} Request` }
-            }));
+
+            // Group raw appointments by therapist to avoid duplicates in the direct chat list
+            const groupedConvs = res.data.reduce((acc: Record<string, Conversation>, appt: any) => {
+                const therapistId = appt.therapistId?._id || appt.therapist?._id;
+                // If we haven't seen this therapist yet, OR if this appointment is newer than the stored one
+                if (!acc[therapistId] || new Date(appt.createdAt) > new Date(acc[therapistId].updatedAt)) {
+                    acc[therapistId] = {
+                        _id: appt._id,
+                        type: 'direct',
+                        participants: [
+                            { _id: user?.id || '', name: user?.name || 'Patient', role: 'PATIENT' },
+                            { _id: therapistId, name: appt.therapist?.user?.name || appt.therapistId?.userId?.name || 'Unknown Therapist', role: 'THERAPIST' }
+                        ],
+                        updatedAt: appt.createdAt,
+                        lastMessage: { content: `${appt.status} Request`, createdAt: appt.createdAt, sender: therapistId }
+                    };
+                }
+                return acc;
+            }, {} as Record<string, Conversation>);
+
+            const mappedConvs = Object.values(groupedConvs) as Conversation[];
 
             setConversations(mappedConvs);
 
-            // Fetch Pods
-            const pods = await api.getMyPods();
-            setMyPods(pods);
-
-            if (mappedConvs.length > 0 && !activeChatId && !activePodId && !isDiscoveryMode) {
+            if (mappedConvs.length > 0 && !activeChatId) {
                 setActiveChatId(mappedConvs[0]._id);
             }
         } catch (err) {
@@ -400,7 +402,7 @@ export const PatientMessagesPage: React.FC = () => {
                             {directChats.filter(c => (getChatName(c) || '').toLowerCase().includes((searchQuery || '').toLowerCase())).map(chat => (
                                 <button
                                     key={chat._id}
-                                    onClick={() => { setActiveChatId(chat._id); setActivePodId(null); setIsDiscoveryMode(false); }}
+                                    onClick={() => setActiveChatId(chat._id)}
                                     className={`w-full p-3 rounded-2xl transition-all text-left flex items-start gap-3 group relative overflow-hidden ${activeChatId === chat._id
                                         ? 'bg-primary-50 ring-1 ring-primary-100 shadow-sm'
                                         : 'hover:bg-white hover:shadow-sm hover:ring-1 hover:ring-slate-100 border border-transparent'
@@ -433,102 +435,24 @@ export const PatientMessagesPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <div className="flex items-center justify-between px-3 mb-2">
-                            <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4 text-slate-400" />
-                                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Support Groups</h3>
-                            </div>
-                            <button 
-                                onClick={() => { setIsDiscoveryMode(true); setActiveChatId(null); setActivePodId(null); }}
-                                className="p-1 hover:bg-secondary-100 text-secondary-600 rounded-lg transition-colors"
-                                title="Discover Communities"
-                            >
-                                <Plus className="w-4 h-4" />
-                            </button>
-                        </div>
-                        <div className="space-y-1 pb-4">
-                            {myPods.filter(p => (p.name || '').toLowerCase().includes((searchQuery || '').toLowerCase())).map(pod => (
-                                <button
-                                    key={pod._id}
-                                    onClick={() => { setActivePodId(pod._id); setActiveChatId(null); setIsDiscoveryMode(false); }}
-                                    className={`w-full p-3 rounded-2xl transition-all text-left flex items-start gap-3 group relative overflow-hidden ${activePodId === pod._id
-                                        ? 'bg-secondary-50 ring-1 ring-secondary-100 shadow-sm'
-                                        : 'hover:bg-white hover:shadow-sm hover:ring-1 hover:ring-slate-100 border border-transparent'
-                                        }`}
-                                >
-                                    <div className="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-secondary-100 to-secondary-50 rounded-full flex items-center justify-center text-secondary-600 shadow-inner border border-secondary-200">
-                                        <Users className="w-6 h-6" />
-                                    </div>
-                                    <div className="flex-1 min-w-0 py-0.5">
-                                        <h4 className={`font-bold text-sm truncate pr-2 ${activePodId === pod._id ? 'text-secondary-900' : 'text-slate-900'}`}>
-                                            {pod.name}
-                                        </h4>
-                                        <p className="text-xs truncate max-w-[140px] font-medium text-slate-500">
-                                            {pod.communityId?.name || 'Community Pod'}
-                                        </p>
-                                    </div>
-                                </button>
-                            ))}
-                            {myPods.length === 0 && !isDiscoveryMode && (
-                                <div className="px-3 py-2">
-                                    <p className="text-[11px] text-slate-400 italic">No pods joined yet.</p>
-                                    <button 
-                                        onClick={() => { setIsDiscoveryMode(true); setActiveChatId(null); setActivePodId(null); }}
-                                        className="text-xs font-bold text-secondary-600 hover:text-secondary-700 mt-1"
-                                    >
-                                        Browse Communities &rarr;
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
-            {/* Main Chat Area */}
             <div className="flex-1 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[length:400px_400px] overflow-hidden">
-                {isDiscoveryMode ? (
-                    <div className="flex-1 overflow-y-auto">
-                        <CommunitiesPage 
-                            onJoin={(podId) => {
-                                fetchConversations();
-                                setActivePodId(podId);
-                                setIsDiscoveryMode(false);
-                            }} 
-                        />
-                    </div>
-                ) : activePodId ? (
-                    <div className="flex-1 overflow-hidden">
-                        <PodDashboard 
-                            podId={activePodId} 
-                            onBack={() => setIsDiscoveryMode(true)} 
-                        />
-                    </div>
-                ) : activeConversation ? (
+                {activeConversation ? (
                     <>
                         <div className="px-6 py-4 bg-white/90 backdrop-blur-md border-b border-slate-100/80 flex items-center justify-between z-20 shadow-sm relative">
                             <div className="flex items-center gap-4">
-                                {activeConversation.type === 'direct' ? (
-                                    <div className="relative">
-                                        <img
-                                            src={`https://ui-avatars.com/api/?name=${getChatName(activeConversation)}&background=eff6ff&color=3b82f6`}
-                                            alt={getChatName(activeConversation)}
-                                            className="w-11 h-11 rounded-full object-cover shadow-sm bg-slate-50"
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="w-11 h-11 bg-gradient-to-br from-secondary-100 to-secondary-50 text-secondary-600 rounded-full flex items-center justify-center border border-secondary-200 shadow-sm">
-                                        <Users className="w-5 h-5" />
-                                    </div>
-                                )}
+                                <div className="relative">
+                                    <img
+                                        src={`https://ui-avatars.com/api/?name=${getChatName(activeConversation)}&background=eff6ff&color=3b82f6`}
+                                        alt={getChatName(activeConversation)}
+                                        className="w-11 h-11 rounded-full object-cover shadow-sm bg-slate-50"
+                                    />
+                                </div>
                                 <div>
                                     <h3 className="font-bold text-slate-900 text-lg leading-tight tracking-tight">{getChatName(activeConversation)}</h3>
-                                    {activeConversation.type === 'group' && (
-                                        <p className="text-xs font-medium text-slate-500 truncate max-w-sm mt-0.5">
-                                            {activeConversation.participants?.length} members
-                                        </p>
-                                    )}
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -545,7 +469,7 @@ export const PatientMessagesPage: React.FC = () => {
                         >
                             <AnimatePresence>
                                 {messages.map((message, i) => {
-                                    const showName = !message.isOwn && activeConversation.type === 'group' && (i === 0 || messages[i - 1].sender?._id !== message.sender?._id);
+                                    const showName = !message.isOwn && (i === 0 || messages[i - 1].sender?._id !== message.sender?._id);
 
                                     return (
                                         <motion.div
@@ -660,16 +584,9 @@ export const PatientMessagesPage: React.FC = () => {
                             <div className="w-20 h-20 bg-slate-50 border border-slate-100 text-slate-300 rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-inner transform rotate-3">
                                 <Users className="w-10 h-10" />
                             </div>
-                            <h3 className="text-xl font-heading font-bold text-slate-900 mb-2 tracking-tight">Your Messages</h3>
                             <p className="text-sm font-medium text-slate-500 leading-relaxed">
-                                Connect with your therapists and support groups securely. Select a conversation to start messaging.
+                                Connect with your therapists securely. Select a conversation to start messaging.
                             </p>
-                            <button 
-                                onClick={() => setIsDiscoveryMode(true)}
-                                className="mt-6 w-full py-3 bg-secondary-600 text-white rounded-xl font-bold hover:bg-secondary-700 transition-colors shadow-lg shadow-secondary-500/20"
-                            >
-                                Discover Support Groups
-                            </button>
                         </div>
                     </div>
                 )}

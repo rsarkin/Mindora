@@ -61,16 +61,29 @@ export const MessagesPage: React.FC = () => {
         const fetchConversations = async () => {
             try {
                 const res = await api.get('/appointments/therapist');
-                const mappedConvs = res.data.map((appt: any) => ({
-                    _id: appt._id,
-                    type: 'direct',
-                    participants: [
-                        { _id: user?.id, name: user?.name || 'Therapist', role: 'THERAPIST' },
-                        { _id: appt.patient?._id || appt.patientId?._id, name: appt.patient?.name || appt.patientId?.name || 'Unknown Patient', role: 'PATIENT' }
-                    ],
-                    updatedAt: appt.createdAt,
-                    lastMessage: { content: `${appt.status} Request` }
-                }));
+                // Group raw appointments by patient to avoid duplicates in the direct chat list and match patient's active chat room
+                const groupedConvs = res.data.reduce((acc: Record<string, Conversation>, appt: any) => {
+                    const patientId = appt.patient?._id || appt.patientId?._id;
+                    if (!patientId) return acc;
+
+                    // If we haven't seen this patient yet, OR if this appointment is newer than the stored one
+                    if (!acc[patientId] || new Date(appt.createdAt) > new Date(acc[patientId].updatedAt)) {
+                        acc[patientId] = {
+                            _id: appt._id,
+                            type: 'direct',
+                            participants: [
+                                { _id: user?.id || '', name: user?.name || 'Therapist', role: 'THERAPIST' },
+                                { _id: patientId, name: appt.patient?.name || appt.patientId?.name || 'Unknown Patient', role: 'PATIENT' }
+                            ],
+                            updatedAt: appt.createdAt,
+                            lastMessage: { content: `${appt.status} Request`, createdAt: appt.createdAt, sender: patientId }
+                        };
+                    }
+                    return acc;
+                }, {} as Record<string, Conversation>);
+
+                const mappedConvs = Object.values(groupedConvs) as Conversation[];
+                mappedConvs.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 
                 setConversations(mappedConvs);
                 if (mappedConvs.length > 0 && !activeChatId) {

@@ -200,6 +200,81 @@ export const LandingPage: React.FC = () => {
                 </div>
             </div>
 
+            {/* About Section */}
+            <div id="about" className="py-24 bg-white relative">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <span className="text-primary-600 font-bold tracking-wider uppercase text-sm mb-2 block">Our Mission</span>
+                        <h2 className="text-3xl md:text-4xl font-heading text-primary-900 mb-6">About Mindora</h2>
+                        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                            Mindora was built on the belief that everyone deserves immediate, compassionate, and stigma-free mental health support. We blend the instant accessibility of empathetic AI with the profound expertise of licensed human therapists. Our platform ensures that whether you need to just vent anonymously at 3 AM or seek ongoing professional therapy, you have a safe, secure, and judgment-free space to heal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mindora vs Traditional Therapy Section */}
+            <div className="py-24 bg-primary-50 relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-16">
+                        <span className="text-secondary-600 font-bold tracking-wider uppercase text-sm mb-2 block">Why Choose Us</span>
+                        <h2 className="text-3xl md:text-4xl font-heading text-primary-900 mb-6">Mindora vs. Traditional Therapy</h2>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            See how we are redefining mental healthcare accessibility, responsiveness, and continuous support.
+                        </p>
+                    </div>
+
+                    <div className="overflow-x-auto pb-4">
+                        <table className="w-full text-left border-collapse bg-white rounded-3xl overflow-hidden shadow-xl border border-primary-100 min-w-[800px]">
+                            <thead>
+                                <tr className="bg-primary-600 text-white font-heading">
+                                    <th className="p-6 text-lg font-semibold w-1/3">Feature</th>
+                                    <th className="p-6 text-lg font-semibold w-1/3 border-l border-primary-500">Mindora</th>
+                                    <th className="p-6 text-lg font-semibold w-1/3 border-l border-primary-500">Traditional Therapy</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-600 divide-y divide-primary-100">
+                                <tr className="hover:bg-primary-50 transition-colors">
+                                    <td className="p-6 font-medium text-primary-900">Availability</td>
+                                    <td className="p-6 border-l border-primary-100">
+                                        <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-primary-600 shrink-0" /> 24/7 Instant AI & Therapist Access</div>
+                                    </td>
+                                    <td className="p-6 border-l border-primary-100">Scheduled appointments only</td>
+                                </tr>
+                                <tr className="hover:bg-primary-50 transition-colors bg-neutral-50">
+                                    <td className="p-6 font-medium text-primary-900">Response Time</td>
+                                    <td className="p-6 border-l border-primary-100">
+                                        <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-primary-600 shrink-0" /> &lt; 1 second (AI), Minutes (Emergency)</div>
+                                    </td>
+                                    <td className="p-6 border-l border-primary-100">Days or weeks</td>
+                                </tr>
+                                <tr className="hover:bg-primary-50 transition-colors">
+                                    <td className="p-6 font-medium text-primary-900">Anonymity</td>
+                                    <td className="p-6 border-l border-primary-100">
+                                        <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-primary-600 shrink-0" /> 100% Anonymous Chat available</div>
+                                    </td>
+                                    <td className="p-6 border-l border-primary-100">Full identity disclosure required</td>
+                                </tr>
+                                <tr className="hover:bg-primary-50 transition-colors bg-neutral-50">
+                                    <td className="p-6 font-medium text-primary-900">Crisis Detection</td>
+                                    <td className="p-6 border-l border-primary-100">
+                                        <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-primary-600 shrink-0" /> Real-time active ML scanning</div>
+                                    </td>
+                                    <td className="p-6 border-l border-primary-100">Only during scheduled 1-hour sessions</td>
+                                </tr>
+                                <tr className="hover:bg-primary-50 transition-colors">
+                                    <td className="p-6 font-medium text-primary-900">Community Support</td>
+                                    <td className="p-6 border-l border-primary-100">
+                                        <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-primary-600 shrink-0" /> Integrated "Pods" system</div>
+                                    </td>
+                                    <td className="p-6 border-l border-primary-100">Usually separate or unavailable</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             {/* Therapist Spotlight */}
             <div className="py-24 bg-white relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

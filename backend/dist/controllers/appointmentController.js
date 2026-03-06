@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelAppointment = exports.createChatConnection = exports.getPatientAppointments = exports.updateAppointmentStatus = exports.getTherapistAppointments = exports.createAppointment = void 0;
+exports.getAppointmentById = exports.cancelAppointment = exports.createChatConnection = exports.getPatientAppointments = exports.updateAppointmentStatus = exports.getTherapistAppointments = exports.createAppointment = void 0;
 const AppointmentService = __importStar(require("../services/appointmentService"));
 const createAppointment = async (req, res) => {
     try {
@@ -117,4 +117,15 @@ const cancelAppointment = async (req, res) => {
     }
 };
 exports.cancelAppointment = cancelAppointment;
+const getAppointmentById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const appointment = await AppointmentService.getAppointmentByIdService(id);
+        res.json(appointment);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error fetching appointment', error: error.message });
+    }
+};
+exports.getAppointmentById = getAppointmentById;
 //# sourceMappingURL=appointmentController.js.map

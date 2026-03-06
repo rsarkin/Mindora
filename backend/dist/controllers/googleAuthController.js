@@ -1,26 +1,36 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.googleOAuthCallback = exports.initiateGoogleOAuth = void 0;
 const googleCalendarService_1 = require("../services/googleCalendarService");
+const Therapist_1 = __importDefault(require("../models/Therapist"));
 const initiateGoogleOAuth = (req, res) => {
-    const url = (0, googleCalendarService_1.getAuthUrl)();
+    // req.user is guaranteed by authMiddleware
+    const therapistId = req.user.id;
+    const url = (0, googleCalendarService_1.getAuthUrl)(therapistId);
     res.json({ url });
 };
 exports.initiateGoogleOAuth = initiateGoogleOAuth;
 const googleOAuthCallback = async (req, res) => {
     try {
-        const { code, state } = req.query; // state could contain therapistId or userId
+        const { code, state } = req.query; // state contains therapistId
         if (!code)
             return res.status(400).send('No code provided');
+        if (!state)
+            return res.status(400).send('No state provided (missing therapistId)');
         const tokens = await (0, googleCalendarService_1.exchangeCodeForTokens)(code);
-        // In a real app, you'd use the state to find the therapist or use req.user if session exists
-        // Since this is a redirect from Google, we might not have the session depending on config.
-        // For simplicity, let's assume we can get therapist from session or state.
-        // Mocking finding therapist for now. In real implementation, redirect home with success.
-        console.log('Google OAuth successful. Tokens received:', tokens);
+        console.log('Google OAuth successful. Tokens received for therapist:', state);
+        // Find therapist using state
+        const therapist = await Therapist_1.default.findById(state);
+        if (!therapist) {
+            return res.status(404).send('Therapist not found for OAuth linking');
+        }
         // Save tokens to therapist profile
-        // Find therapist using state or existing user session
-        // const therapist = await Therapist.findOneAndUpdate({ userId: req.user.id }, { googleRefreshToken: tokens.refresh_token, googleAccessToken: tokens.access_token });
+        therapist.googleRefreshToken = tokens.refresh_token || therapist.googleRefreshToken;
+        therapist.googleAccessToken = tokens.access_token || therapist.googleAccessToken;
+        await therapist.save();
         // Redirect back to frontend
         const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
         res.redirect(`${frontendUrl}/therapist/dashboard?google_success=true`);

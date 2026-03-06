@@ -39,6 +39,8 @@ const slots_1 = __importDefault(require("./routes/slots"));
 const googleAuth_1 = __importDefault(require("./routes/googleAuth"));
 const mood_1 = __importDefault(require("./routes/mood"));
 const bot_1 = __importDefault(require("./routes/bot"));
+const notes_1 = __importDefault(require("./routes/notes"));
+const community_1 = __importDefault(require("./routes/community"));
 // Validate ENV
 (0, validateEnv_1.validateEnv)();
 class MentalHealthServer {
@@ -131,6 +133,8 @@ class MentalHealthServer {
         this.app.use('/api/auth', googleAuth_1.default);
         this.app.use('/api/mood', auth_1.authMiddleware, mood_1.default);
         this.app.use('/api/bot', bot_1.default);
+        this.app.use('/api/notes', notes_1.default);
+        this.app.use('/api', community_1.default);
         // ML ANALYZE PROXY
         this.app.post('/api/analyze', auth_1.authMiddleware, async (req, res) => {
             try {

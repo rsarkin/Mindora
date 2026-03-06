@@ -41,6 +41,7 @@ import moodRoutes from './routes/mood';
 import botRoutes from './routes/bot';
 import notesRoutes from './routes/notes';
 import communityRoutes from './routes/community';
+import resourcesRoutes from './routes/resources';
 
 // Validate ENV
 validateEnv();
@@ -119,7 +120,7 @@ class MentalHealthServer {
             '/api',
             rateLimit({
                 windowMs: 15 * 60 * 1000,
-                max: 100,
+                max: 1000,
                 standardHeaders: true,
                 legacyHeaders: false
             })
@@ -165,6 +166,8 @@ class MentalHealthServer {
         this.app.use('/api/bot', botRoutes);
         this.app.use('/api/notes', notesRoutes);
         this.app.use('/api', communityRoutes);
+        this.app.use('/api/resources', authMiddleware, resourcesRoutes);
+        this.app.use('/api/public-resources', resourcesRoutes); // TEMPORARY DEBUG
 
         // ML ANALYZE PROXY
         this.app.post('/api/analyze', authMiddleware, async (req, res) => {

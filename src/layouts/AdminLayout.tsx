@@ -39,6 +39,7 @@ export const AdminLayout = () => {
         { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
         { name: 'Patient Directory', path: '/admin/patients', icon: Users },
         { name: 'Therapists Directory', path: '/admin/therapists', icon: UserCog },
+        { name: 'Communities', path: '/admin/community', icon: ShieldCheck },
         { name: 'Global Settings', path: '/admin/settings', icon: Settings },
     ];
 

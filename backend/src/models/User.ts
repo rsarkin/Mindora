@@ -36,6 +36,7 @@ export interface IUser extends Document {
     isPhoneVerified: boolean;
 
     lastLoginAt?: Date;
+    streak?: number;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -62,7 +63,8 @@ const UserSchema = new Schema<IUser>({
     isEmailVerified: { type: Boolean, default: false },
     isPhoneVerified: { type: Boolean, default: false },
 
-    lastLoginAt: { type: Date }
+    lastLoginAt: { type: Date },
+    streak: { type: Number, default: 0 }
 }, {
     timestamps: true
 });

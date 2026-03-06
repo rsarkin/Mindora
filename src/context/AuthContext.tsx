@@ -5,6 +5,7 @@ import type { User, AuthState } from '../types';
 interface AuthContextType extends AuthState {
     login: (token: string, user: User) => void;
     logout: () => void;
+    updateUser: (updates: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -63,8 +64,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
     };
 
+    const updateUser = (updates: Partial<User>) => {
+        setState(prev => {
+            if (!prev.user) return prev;
+            const updatedUser = { ...prev.user, ...updates };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            return { ...prev, user: updatedUser };
+        });
+    };
+
     return (
-        <AuthContext.Provider value={{ ...state, login, logout }}>
+        <AuthContext.Provider value={{ ...state, login, logout, updateUser }}>
             {children}
         </AuthContext.Provider>
     );

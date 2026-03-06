@@ -36,7 +36,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelAppointmentService = exports.createChatConnectionService = exports.getPatientAppointmentsService = exports.updateAppointmentStatusService = exports.getTherapistAppointmentsService = exports.createAppointmentService = void 0;
+exports.getAppointmentByIdService = exports.cancelAppointmentService = exports.createChatConnectionService = exports.getPatientAppointmentsService = exports.updateAppointmentStatusService = exports.getTherapistAppointmentsService = exports.createAppointmentService = void 0;
 const Appointment_1 = __importDefault(require("../models/Appointment"));
 const Therapist_1 = __importDefault(require("../models/Therapist"));
 const Payment_1 = __importDefault(require("../models/Payment"));
@@ -172,4 +172,17 @@ const cancelAppointmentService = async (appointmentId, userId, reason) => {
     return { message: 'Appointment cancelled and refund initiated', refundPercentage };
 };
 exports.cancelAppointmentService = cancelAppointmentService;
+const getAppointmentByIdService = async (appointmentId) => {
+    const appointment = await Appointment_1.default.findById(appointmentId)
+        .populate('patientId', 'name email avatar')
+        .populate({
+        path: 'therapistId',
+        populate: { path: 'userId', select: 'name avatar' }
+    })
+        .lean();
+    if (!appointment)
+        throw new Error('Appointment not found');
+    return appointment;
+};
+exports.getAppointmentByIdService = getAppointmentByIdService;
 //# sourceMappingURL=appointmentService.js.map

@@ -5,6 +5,8 @@ export interface User {
     role: 'patient' | 'therapist' | 'admin';
     avatar?: string;
     accountStatus?: string;
+    streak?: number;
+    lastLoginAt?: Date | string;
 }
 
 export interface AuthState {

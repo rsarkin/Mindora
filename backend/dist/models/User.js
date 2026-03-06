@@ -66,7 +66,8 @@ const UserSchema = new mongoose_1.Schema({
     dataRetentionDays: { type: Number, default: 2555 },
     isEmailVerified: { type: Boolean, default: false },
     isPhoneVerified: { type: Boolean, default: false },
-    lastLoginAt: { type: Date }
+    lastLoginAt: { type: Date },
+    streak: { type: Number, default: 0 }
 }, {
     timestamps: true
 });

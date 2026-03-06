@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Calendar, TrendingUp, Quote } from 'lucide-react';
+import { Calendar, TrendingUp, Quote, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import { useToast } from '../context/ToastContext';
 
@@ -12,10 +12,76 @@ const STAGGER_CHILD_VARIANTS = {
 };
 
 export const Dashboard: React.FC = () => {
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
     const navigate = useNavigate();
     const { showToast } = useToast();
-    const [isLoggingMood, setIsLoggingMood] = React.useState(false);
+    const [isLoggingMood, setIsLoggingMood] = useState(false);
+
+    // Dynamic Stats State
+    const [streak, setStreak] = useState<number>(((user as any)?.streak as number) || 0);
+    const [hasSignedInToday, setHasSignedInToday] = useState(false);
+    const [isSigningIn, setIsSigningIn] = useState(false);
+
+    const [completedSessionsCount, setCompletedSessionsCount] = useState(0);
+    const [upcomingAppointments, setUpcomingAppointments] = useState<any[]>([]);
+
+    useEffect(() => {
+        // Fetch appointments to compute stats
+        const fetchData = async () => {
+            try {
+                const appointments = await api.getAppointments();
+
+                // Completed sessions
+                const completed = appointments.filter((a: any) => a.status === 'COMPLETED');
+                setCompletedSessionsCount(completed.length);
+
+                // Upcoming
+                const now = new Date();
+                const upcoming = (appointments as any[])
+                    .filter((a: any) =>
+                        (a.status === 'SCHEDULED' || a.status === 'CONFIRMED') &&
+                        new Date(a.scheduledAt) > now
+                    )
+                    .sort((a: any, b: any) => new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime())
+                    .slice(0, 2);
+                setUpcomingAppointments(upcoming);
+
+            } catch (err) {
+                console.error("Failed to fetch dashboard stats", err);
+            }
+        };
+        fetchData();
+
+        // Initial streak check based on user object context
+        if ((user as any)?.lastLoginAt) {
+            const lastLog = new Date((user as any).lastLoginAt);
+            const today = new Date();
+            if (
+                lastLog.getDate() === today.getDate() &&
+                lastLog.getMonth() === today.getMonth() &&
+                lastLog.getFullYear() === today.getFullYear()
+            ) {
+                setHasSignedInToday(true);
+            }
+        }
+    }, [user]);
+
+    const handleSignInToday = async () => {
+        if (hasSignedInToday || isSigningIn) return;
+        setIsSigningIn(true);
+        try {
+            const data = await api.updateSignInStreak();
+            setStreak(data.streak);
+            setHasSignedInToday(true);
+            updateUser({ streak: data.streak, lastLoginAt: data.lastLoginAt });
+            showToast(`Streak updated! You're on a ${data.streak}-day streak! 🔥`, 'success');
+        } catch (error) {
+            console.error("Failed to sign in streak", error);
+            showToast('Failed to record sign in', 'error');
+        } finally {
+            setIsSigningIn(false);
+        }
+    };
 
     const handleQuickMoodLog = async (moodType: string) => {
         setIsLoggingMood(true);
@@ -118,8 +184,8 @@ export const Dashboard: React.FC = () => {
 
                     <div className="grid grid-cols-2 gap-4">
                         {[
-                            { title: 'Sessions', value: '12', change: '+2', color: 'secondary', icon: Calendar },
-                            { title: 'Streak', value: '5 Days', change: '+1', color: 'emerald', icon: TrendingUp }
+                            { title: 'Sessions', value: `${completedSessionsCount}`, change: 'Total', color: 'secondary', icon: Calendar },
+                            { title: 'Streak', value: `${streak || 0} Days`, change: 'Current', color: 'emerald', icon: TrendingUp }
                         ].map((stat, idx) => (
                             <div key={idx} className={`bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow`}>
                                 <div className={`absolute top-0 right-0 w-24 h-24 bg-${stat.color}-500 blur-[60px] opacity-10 rounded-full -mr-8 -mt-8`}></div>
@@ -138,32 +204,60 @@ export const Dashboard: React.FC = () => {
                             </div>
                         ))}
                     </div>
+
+                    {/* Sign-in Today Button */}
+                    <AnimatePresence>
+                        {!hasSignedInToday && (
+                            <motion.button
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                                onClick={handleSignInToday}
+                                disabled={isSigningIn}
+                                className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold py-4 rounded-3xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all flex items-center justify-center gap-2 transform active:scale-95"
+                            >
+                                <CheckCircle2 className="w-5 h-5" />
+                                {isSigningIn ? 'Recording...' : 'Claim Daily Sign-In Streak! 🔥'}
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
                 </div>
 
                 {/* Upcoming Appointments */}
                 <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8 flex flex-col h-full min-h-[350px]">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-heading font-bold text-slate-900">Upcoming</h2>
-                        <button className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">View All</button>
+                        <button onClick={() => navigate('/appointments')} className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">View All</button>
                     </div>
                     <div className="space-y-4 flex-1">
-                        {[1, 2].map((i) => (
-                            <div key={i} onClick={() => navigate('/appointments')} className="p-4 rounded-2xl bg-slate-50 border border-slate-100/50 hover:bg-slate-100 transition-all group cursor-pointer hover:-translate-y-0.5 shadow-sm">
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-secondary-100 text-secondary-600 flex items-center justify-center font-bold relative shadow-inner text-sm">
-                                        D
-                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></div>
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-slate-900 group-hover:text-primary-600 transition-colors text-sm">Dr. Sarah Jenkins</h4>
-                                        <p className="text-[10px] font-semibold text-slate-500 border border-slate-200 inline-block px-1.5 py-0.5 rounded uppercase tracking-wider mt-1 bg-white">Clinical</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center justify-between text-[11px] font-bold text-slate-600 bg-white p-2.5 rounded-lg border border-slate-100/80 shadow-sm">
-                                    <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-primary-500" /> Tomorrow, 10:00 AM</div>
-                                </div>
+                        {upcomingAppointments.length === 0 ? (
+                            <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
+                                <Calendar className="w-12 h-12 mb-3 text-slate-200" />
+                                <p className="text-sm font-medium">No upcoming sessions scheduled.</p>
                             </div>
-                        ))}
+                        ) : (
+                            upcomingAppointments.map((appt) => {
+                                const therapistName = appt.therapist?.user?.name || appt.therapistId?.userId?.name || 'Therapist';
+                                const d = new Date(appt.scheduledAt);
+                                return (
+                                    <div key={appt._id} onClick={() => navigate('/appointments')} className="p-4 rounded-2xl bg-slate-50 border border-slate-100/50 hover:bg-slate-100 transition-all group cursor-pointer hover:-translate-y-0.5 shadow-sm">
+                                        <div className="flex items-center gap-4 mb-4">
+                                            <div className="w-10 h-10 rounded-full bg-secondary-100 text-secondary-600 flex items-center justify-center font-bold relative shadow-inner text-sm overflow-hidden">
+                                                <img src={`https://ui-avatars.com/api/?name=${therapistName}&background=c7d2fe&color=3730a3`} alt={therapistName} />
+                                                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></div>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-slate-900 group-hover:text-primary-600 transition-colors text-sm truncate max-w-[160px]">{therapistName}</h4>
+                                                <p className="text-[10px] font-semibold text-slate-500 border border-slate-200 inline-block px-1.5 py-0.5 rounded uppercase tracking-wider mt-1 bg-white truncate">({appt.type})</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center justify-between text-[11px] font-bold text-slate-600 bg-white p-2.5 rounded-lg border border-slate-100/80 shadow-sm">
+                                            <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-primary-500" /> {d.toLocaleDateString()} at {d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        )}
                     </div>
                     <button onClick={() => navigate('/appointments')} className="w-full mt-4 py-3.5 rounded-xl border-2 border-dashed border-slate-200 text-slate-500 font-bold text-sm hover:border-primary-400 hover:text-primary-600 hover:bg-primary-50 transition-all">
                         + Book New Session

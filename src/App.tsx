@@ -32,8 +32,7 @@ import { FindTherapistsPage } from './pages/FindTherapistsPage';
 import { TherapistBookingPage } from './pages/TherapistBookingPage';
 import { PatientMessagesPage } from './pages/PatientMessagesPage';
 import { BotChatPage } from './pages/PatientBotChatPage';
-import { CommunitiesPage } from './pages/patient/CommunitiesPage';
-import { PodDashboard } from './pages/patient/PodDashboard';
+
 import { PageTransition } from './components/PageTransition';
 import { ScrollToTop } from './components/ScrollToTop';
 import { PatientLayout } from './layouts/PatientLayout';
@@ -47,6 +46,9 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { VerificationPendingPage } from './pages/VerificationPendingPage';
 
 import { LoadingSpinner } from './components/LoadingSpinner';
+
+// Shared global pages
+import { CommunitySpacePage } from './pages/shared/CommunitySpacePage';
 
 const RedirectWithToast = ({ to, message }: { to: string; message: string }) => {
   const { showToast } = useToast();
@@ -111,6 +113,7 @@ const AnimatedRoutes = () => {
           <Route path="/appointments" element={<ProtectedRoute><PatientAppointmentsPage /></ProtectedRoute>} />
           <Route path="/therapist-profile/:therapistId" element={<ProtectedRoute><TherapistBookingPage /></ProtectedRoute>} />
           <Route path="/messages" element={<ProtectedRoute><PatientMessagesPage /></ProtectedRoute>} />
+          <Route path="/community" element={<ProtectedRoute><CommunitySpacePage /></ProtectedRoute>} />
           <Route path="/bot" element={<ProtectedRoute><BotChatPage /></ProtectedRoute>} />
         </Route>
 
@@ -124,6 +127,7 @@ const AnimatedRoutes = () => {
           <Route path="slots" element={<TherapistSlotsPage />} />
           <Route path="session/:appointmentId" element={<SessionPage />} />
           <Route path="messages" element={<MessagesPage />} />
+          <Route path="community" element={<CommunitySpacePage />} />
           <Route path="chat" element={<Navigate to="/therapist/messages" replace />} />
           <Route path="profile" element={<TherapistProfilePage />} />
           <Route path="earnings" element={<EarningsPage />} />
@@ -139,6 +143,7 @@ const AnimatedRoutes = () => {
 
           <Route path="patients" element={<AdminDashboardPage />} />
           <Route path="therapists" element={<AdminDashboardPage />} />
+          <Route path="community" element={<CommunitySpacePage />} />
         </Route>
 
         {/* 404 Catch-All Route */}

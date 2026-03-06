@@ -77,6 +77,11 @@ const api = {
         return response.data;
     },
 
+    getResources: async () => {
+        const response = await axiosInstance.get('/resources');
+        return response.data;
+    },
+
     // Session Notes Endpoints
     saveSessionNote: async (appointmentId: string, data: { content: string, status?: string }) => {
         const response = await axiosInstance.post(`/notes/${appointmentId}`, data);
@@ -103,7 +108,7 @@ const api = {
         const response = await axiosInstance.get(`/communities`);
         return response.data;
     },
-    
+
     joinCommunity: async (categoryId: string) => {
         const response = await axiosInstance.post(`/communities/${categoryId}/join`);
         return response.data;
@@ -136,6 +141,22 @@ const api = {
 
     banUserFromPod: async (podId: string, targetUserId: string) => {
         const response = await axiosInstance.post(`/pods/${podId}/ban/${targetUserId}`);
+        return response.data;
+    },
+
+    // User endpoints (Streaks, Notifications)
+    getNotifications: async () => {
+        const response = await axiosInstance.get('/users/notifications');
+        return response.data;
+    },
+
+    markNotificationsRead: async () => {
+        const response = await axiosInstance.post('/users/notifications/read');
+        return response.data;
+    },
+
+    updateSignInStreak: async () => {
+        const response = await axiosInstance.post('/users/sign-in-streak');
         return response.data;
     }
 };

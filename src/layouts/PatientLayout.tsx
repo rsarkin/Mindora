@@ -6,6 +6,7 @@ import {
     Heart, Home, MessageSquare, Calendar, TrendingUp, BookOpen, User as UserIcon, LogOut, Menu, X, Search, Bell, ChevronDown, Wind, Users
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 export const PatientLayout = () => {
     const { user, logout } = useAuth();
@@ -17,11 +18,36 @@ export const PatientLayout = () => {
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
+    // Notifications State
+    const [notifications, setNotifications] = useState<any[]>([]);
+    const unreadCount = notifications.filter(n => !n.isRead).length;
+
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 10);
         window.addEventListener('scroll', handleScroll);
+
+        // Fetch Notifications
+        const fetchNotifs = async () => {
+            try {
+                const data = await api.getNotifications();
+                setNotifications(data);
+            } catch (err) {
+                console.error("Failed to fetch notifications");
+            }
+        };
+        fetchNotifs();
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const handleMarkAllRead = async () => {
+        try {
+            await api.markNotificationsRead();
+            setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+        } catch (err) {
+            console.error("Failed to mark notifications read");
+        }
+    };
 
     const navItems = [
         { name: 'Home', path: '/dashboard', icon: Home },
@@ -29,6 +55,7 @@ export const PatientLayout = () => {
         { name: 'Find Therapists', path: '/find-therapists', icon: Search },
         { name: 'Appointments', path: '/appointments', icon: Calendar },
         { name: 'Breathing Space', path: '/breathing', icon: Wind },
+        { name: 'Community', path: '/community', icon: Users },
         { name: 'Mindora AI', path: '/bot', icon: MessageSquare },
         { name: 'Resources', path: '/resources', icon: BookOpen },
     ];
@@ -166,7 +193,9 @@ export const PatientLayout = () => {
                                 className="relative p-2.5 text-slate-400 hover:text-primary-600 transition-colors rounded-full hover:bg-primary-50"
                             >
                                 <Bell className="w-6 h-6" />
-                                <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+                                {unreadCount > 0 && (
+                                    <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+                                )}
                             </button>
 
                             <AnimatePresence>
@@ -181,32 +210,34 @@ export const PatientLayout = () => {
                                         >
                                             <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                                                 <h3 className="font-bold text-slate-900">Notifications</h3>
-                                                <button className="text-xs font-semibold text-primary-600 hover:text-primary-800">Mark all read</button>
+                                                {unreadCount > 0 && (
+                                                    <button onClick={handleMarkAllRead} className="text-xs font-semibold text-primary-600 hover:text-primary-800">Mark all read</button>
+                                                )}
                                             </div>
                                             <div className="max-h-[320px] overflow-y-auto scrollbar-hide p-2 flex flex-col gap-1">
-                                                {/* Mock Notifications */}
-                                                <div className="p-3 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer border border-transparent hover:border-slate-100">
-                                                    <div className="flex gap-3">
-                                                        <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center shrink-0">
-                                                            <Calendar className="w-5 h-5" />
-                                                        </div>
-                                                        <div>
-                                                            <p className="text-sm font-medium text-slate-800 line-clamp-2">Upcoming session with Dr. Sarah is in 30 minutes.</p>
-                                                            <p className="text-xs text-slate-400 mt-1">10 min ago</p>
-                                                        </div>
+                                                {notifications.length === 0 ? (
+                                                    <div className="p-6 text-center text-slate-400">
+                                                        <Bell className="w-8 h-8 mx-auto mb-2 opacity-20" />
+                                                        <p className="text-sm font-medium">No notifications yet.</p>
                                                     </div>
-                                                </div>
-                                                <div className="p-3 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer border border-transparent hover:border-slate-100">
-                                                    <div className="flex gap-3">
-                                                        <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                                                            <TrendingUp className="w-5 h-5" />
-                                                        </div>
-                                                        <div>
-                                                            <p className="text-sm font-medium text-slate-800 line-clamp-2">Your weekly progress report is available to view.</p>
-                                                            <p className="text-xs text-slate-400 mt-1">2 hours ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                ) : (
+                                                    notifications.map(n => {
+                                                        const date = new Date(n.createdAt);
+                                                        return (
+                                                            <div key={n._id} className={`p-3 rounded-2xl transition-colors cursor-pointer border border-transparent ${n.isRead ? 'hover:bg-slate-50 hover:border-slate-100' : 'bg-primary-50/30 border-primary-100/50 hover:bg-primary-50/60'}`}>
+                                                                <div className="flex gap-3">
+                                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${n.type === 'APPOINTMENT' ? 'bg-primary-100 text-primary-600' : 'bg-emerald-100 text-emerald-600'}`}>
+                                                                        {n.type === 'APPOINTMENT' ? <Calendar className="w-5 h-5" /> : <TrendingUp className="w-5 h-5" />}
+                                                                    </div>
+                                                                    <div>
+                                                                        <p className={`text-sm line-clamp-2 ${n.isRead ? 'font-medium text-slate-800' : 'font-bold text-slate-900'}`}>{n.message}</p>
+                                                                        <p className="text-xs text-slate-400 mt-1">{date.toLocaleDateString()} {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })
+                                                )}
                                             </div>
                                             <div className="p-3 border-t border-slate-100 text-center">
                                                 <button className="text-sm font-bold text-slate-500 hover:text-primary-600 transition-colors">View all notifications</button>

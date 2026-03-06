@@ -213,7 +213,7 @@ export const TherapistDashboardPage: React.FC = () => {
                     <div>
                         <h1 className="text-3xl font-heading font-bold text-slate-900 tracking-tight">Overview</h1>
                         <p className="text-slate-500 mt-2 text-lg">
-                            Welcome back, Dr. {user?.name?.split(' ')[0] || 'Therapist'}. {crisisAlerts.length > 0 && (
+                            Welcome back, {user?.name?.split(' ')[0] || 'Therapist'}. {crisisAlerts.length > 0 && (
                                 <span className="text-red-500 font-semibold ml-1">
                                     You have {crisisAlerts.length} emergency alert{crisisAlerts.length > 1 ? 's' : ''} pending!
                                 </span>
