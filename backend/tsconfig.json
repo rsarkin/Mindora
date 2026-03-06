@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* Language & Environment */
+    "target": "ES2020",
+    "lib": [
+      "ES2020"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    /* Project Structure */
+    "rootDir": "src",
+    "outDir": "dist",
+    /* Interop & Compatibility */
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    /* Build Safety */
+    "strict": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Runtime */
+    "sourceMap": true,
+    /* Decorators (ONLY if using TypeORM / class-validator) */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    /* Type Definitions */
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts"
+  ]
+}

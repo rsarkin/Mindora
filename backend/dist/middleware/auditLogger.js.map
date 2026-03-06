@@ -1,0 +1,1 @@
+{"version":3,"file":"auditLogger.js","sourceRoot":"","sources":["../../src/middleware/auditLogger.ts"],"names":[],"mappings":";;;AACA,4CAAyC;AAElC,MAAM,WAAW,GAAG,CAAC,GAAY,EAAE,GAAa,EAAE,IAAkB,EAAE,EAAE;IAC3E,eAAM,CAAC,IAAI,CAAC,GAAG,GAAG,CAAC,MAAM,IAAI,GAAG,CAAC,GAAG,EAAE,CAAC,CAAC;IACxC,IAAI,EAAE,CAAC;AACX,CAAC,CAAC;AAHW,QAAA,WAAW,eAGtB"}
