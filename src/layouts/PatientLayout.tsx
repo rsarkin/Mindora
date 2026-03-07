@@ -57,6 +57,7 @@ export const PatientLayout = () => {
         { name: 'Breathing Space', path: '/breathing', icon: Wind },
         { name: 'Community', path: '/community', icon: Users },
         { name: 'TARA AI', path: '/bot', icon: MessageSquare },
+        { name: 'Wellness Plan', path: '/wellness/tasks', icon: TrendingUp },
         { name: 'Resources', path: '/resources', icon: BookOpen },
     ];
 

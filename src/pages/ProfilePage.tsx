@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Shield, Clock, Calendar, Activity, Save, Key, Camera, Edit2, CheckCircle2 } from 'lucide-react';
+import { User, Mail, Shield, Clock, Calendar, Activity, Save, Key, Camera, Edit2, CheckCircle2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../services/api';
+import { useToast } from '../context/ToastContext';
 
 const STAGGER_CHILD_VARIANTS = {
     hidden: { opacity: 0, y: 20 },
@@ -9,10 +11,12 @@ const STAGGER_CHILD_VARIANTS = {
 };
 
 export const ProfilePage: React.FC = () => {
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
+    const { showToast } = useToast();
+    
+    // Core Profile State
     const [isEditing, setIsEditing] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
-
     const [formData, setFormData] = useState({
         name: user?.name || '',
         email: user?.email || '',
@@ -21,13 +25,30 @@ export const ProfilePage: React.FC = () => {
         gender: 'prefer_not_to_say'
     });
 
+    // Wellness Preferences State
+    const [aiTaskApproval, setAiTaskApproval] = useState(user?.preferences?.aiTaskApproval || 'review');
+
     const handleSave = () => {
         setIsSaving(true);
         // Simulate API call
         setTimeout(() => {
             setIsSaving(false);
             setIsEditing(false);
+            updateUser({ name: formData.name });
+            showToast("Profile updated successfully!", "success");
         }, 800);
+    };
+
+    const handleToggleAIApproval = async () => {
+        const newValue = aiTaskApproval === 'auto' ? 'review' : 'auto';
+        try {
+            await api.updatePreferences({ aiTaskApproval: newValue });
+            setAiTaskApproval(newValue);
+            updateUser({ preferences: { ...user?.preferences, aiTaskApproval: newValue } });
+            showToast(`AI tasks will now ${newValue === 'auto' ? 'bypass' : 'require'} your approval.`, "success");
+        } catch (err) {
+            showToast("Failed to update preferences", "error");
+        }
     };
 
     return (
@@ -263,6 +284,35 @@ export const ProfilePage: React.FC = () => {
                             <p className="text-sm font-medium text-slate-500 text-center">
                                 Member since {new Date().getFullYear()}
                             </p>
+                        </div>
+                    </div>
+
+                    {/* Wellness Preferences */}
+                    <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-8">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                                <Sparkles className="w-5 h-5" />
+                            </div>
+                            <h2 className="text-xl font-heading font-bold text-slate-900">AI Wellness</h2>
+                        </div>
+                        
+                        <div className="space-y-4">
+                            <p className="text-sm font-medium text-slate-500">
+                                Control how AI-generated wellness tasks are added to your plan.
+                            </p>
+                            
+                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <div>
+                                    <p className="font-bold text-slate-800">Auto-Approve</p>
+                                    <p className="text-xs text-slate-500">Skip the review queue</p>
+                                </div>
+                                <button 
+                                    onClick={handleToggleAIApproval}
+                                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${aiTaskApproval === 'auto' ? 'bg-indigo-600' : 'bg-slate-300'}`}
+                                >
+                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${aiTaskApproval === 'auto' ? 'translate-x-6' : 'translate-x-1'}`} />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </motion.div>

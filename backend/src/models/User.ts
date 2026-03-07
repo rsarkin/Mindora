@@ -42,6 +42,9 @@ export interface IUser extends Document {
     streak?: number;
     points: number;
     badges: string[];
+    preferences?: {
+        aiTaskApproval: 'auto' | 'review';
+    };
     createdAt: Date;
     updatedAt: Date;
 }
@@ -74,7 +77,10 @@ const UserSchema = new Schema<IUser>({
     lastLoginAt: { type: Date },
     streak: { type: Number, default: 0 },
     points: { type: Number, default: 0 },
-    badges: [{ type: String, default: [] }]
+    badges: [{ type: String, default: [] }],
+    preferences: {
+        aiTaskApproval: { type: String, enum: ['auto', 'review'], default: 'auto' }
+    }
 }, {
     timestamps: true
 });
@@ -86,6 +92,9 @@ UserSchema.pre('findOneAndDelete', async function (next) {
             await mongoose.model('Therapist').findOneAndDelete({ userId: docToDelete._id });
         }
         await mongoose.model('Appointment').deleteMany({ patientId: docToDelete._id });
+        await mongoose.model('ProblemDescription').deleteMany({ patientId: docToDelete._id });
+        await mongoose.model('WellnessTask').deleteMany({ patientId: docToDelete._id });
+        await mongoose.model('AITaskPlan').deleteMany({ patientId: docToDelete._id });
     }
     next();
 });

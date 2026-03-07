@@ -5,7 +5,8 @@ import {
     markNotificationsRead,
     updateSignInStreak,
     rewardBreathingSession,
-    changePassword
+    changePassword,
+    updatePreferences
 } from '../controllers/userController';
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.post('/notifications/read', authMiddleware, markNotificationsRead);
 router.post('/sign-in-streak', authMiddleware, updateSignInStreak);
 router.post('/reward/breathing', authMiddleware, rewardBreathingSession);
 router.post('/change-password', authMiddleware, changePassword);
+router.patch('/preferences', authMiddleware, updatePreferences);
 
 export default router;

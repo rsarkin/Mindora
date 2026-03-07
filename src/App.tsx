@@ -41,6 +41,8 @@ import { TherapistBookingPage } from './pages/TherapistBookingPage';
 import { PatientMessagesPage } from './pages/PatientMessagesPage';
 import { BotChatPage } from './pages/PatientBotChatPage';
 import { PodDashboard } from './pages/patient/PodDashboard';
+import { ProblemDescriptionPage } from './pages/patient/ProblemDescriptionPage';
+import { WellnessTasksPage } from './pages/patient/WellnessTasksPage';
 import { PageTransition } from './components/PageTransition';
 import { ScrollToTop } from './components/ScrollToTop';
 import { PatientLayout } from './layouts/PatientLayout';
@@ -120,6 +122,8 @@ const AnimatedRoutes = () => {
           <Route path="/resources" element={<ProtectedRoute><PatientResourcesPage /></ProtectedRoute>} />
           <Route path="/all-resources" element={<ProtectedRoute><ResourcesPage /></ProtectedRoute>} />
           <Route path="/hall-of-fame" element={<ProtectedRoute><HallOfFamePage /></ProtectedRoute>} />
+          <Route path="/wellness/report" element={<ProtectedRoute><ProblemDescriptionPage /></ProtectedRoute>} />
+          <Route path="/wellness/tasks" element={<ProtectedRoute><WellnessTasksPage /></ProtectedRoute>} />
 
           <Route path="/find-therapists" element={<ProtectedRoute><FindTherapistsPage /></ProtectedRoute>} />
           <Route path="/appointments" element={<ProtectedRoute><PatientAppointmentsPage /></ProtectedRoute>} />

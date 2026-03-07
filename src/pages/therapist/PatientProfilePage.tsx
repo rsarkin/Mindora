@@ -8,6 +8,7 @@ import {
     Activity, FileText, ChevronLeft, MessageSquare, Video, ShieldCheck, Download, MoreVertical, Plus
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { TherapistWellnessContext } from '../../components/wellness/TherapistWellnessContext';
 
 const STAGGER_CHILD_VARIANTS = {
     hidden: { opacity: 0, y: 20 },
@@ -306,7 +307,8 @@ export const PatientProfilePage: React.FC = () => {
                     </div>
 
                     {/* Session Notes */}
-                    <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-8">
+                    <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-8 mb-8">
+                        {/* Session Notes Content */}
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-violet-600 border border-violet-100">
@@ -341,6 +343,9 @@ export const PatientProfilePage: React.FC = () => {
                             ))}
                         </div>
                     </div>
+
+                    {/* Wellness Context */}
+                    <TherapistWellnessContext patientId={id!} />
 
                 </motion.div>
             </div>

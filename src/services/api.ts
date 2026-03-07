@@ -203,6 +203,11 @@ const api = {
     changePassword: async (passwordData: any) => {
         const response = await axiosInstance.post('/users/change-password', passwordData);
         return response.data;
+    },
+
+    updatePreferences: async (preferences: any) => {
+        const response = await axiosInstance.patch('/users/preferences', preferences);
+        return response.data;
     }
 };
 

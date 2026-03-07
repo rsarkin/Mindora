@@ -130,3 +130,26 @@ export const changePassword = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error changing password' });
     }
 };
+
+export const updatePreferences = async (req: Request, res: Response) => {
+    try {
+        const userId = (req as any).user.id;
+        const { aiTaskApproval } = req.body;
+
+        if (aiTaskApproval && !['auto', 'review'].includes(aiTaskApproval)) {
+            return res.status(400).json({ message: 'Invalid preference value' });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        if (!user.preferences) user.preferences = { aiTaskApproval: 'auto' };
+        if (aiTaskApproval) user.preferences.aiTaskApproval = aiTaskApproval;
+
+        await user.save();
+        res.json({ success: true, preferences: user.preferences });
+    } catch (error: any) {
+        logger.error('Error updating preferences:', error);
+        res.status(500).json({ message: 'Failed to update preferences' });
+    }
+};

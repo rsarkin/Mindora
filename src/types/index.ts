@@ -12,6 +12,9 @@ export interface User {
     medications?: string[];
     points?: number;
     badges?: string[];
+    preferences?: {
+        aiTaskApproval: 'auto' | 'review';
+    };
 }
 
 export interface AuthState {

@@ -22,6 +22,7 @@ import { ChatService } from './services/chatService';
 import { CrisisDetectionService } from './services/crisisDetectionService';
 import { TherapistMatchingService } from './services/therapistMatchingService';
 import { NotificationService } from './services/notificationService';
+import { AIPlanService } from './services/aiPlanService';
 
 import authRoutes from './routes/auth';
 import chatRoutes from './routes/chat';
@@ -43,6 +44,8 @@ import botRoutes from './routes/bot';
 import notesRoutes from './routes/notes';
 import communityRoutes from './routes/community';
 import resourcesRoutes from './routes/resources';
+import descriptionRoutes from './routes/descriptionRoutes';
+import taskRoutes from './routes/taskRoutes';
 
 // Validate ENV
 validateEnv();
@@ -57,6 +60,7 @@ class MentalHealthServer {
     private crisisService!: CrisisDetectionService;
     private therapistService!: TherapistMatchingService;
     private notificationService!: NotificationService;
+    public aiPlanService!: AIPlanService;
 
     constructor() {
         this.app = express();
@@ -85,6 +89,11 @@ class MentalHealthServer {
         this.crisisService = new CrisisDetectionService();
         this.therapistService = new TherapistMatchingService();
         this.notificationService = new NotificationService();
+        this.aiPlanService = new AIPlanService(this.io);
+
+        // Expose services for controllers
+        this.app.set('io', this.io);
+        this.app.set('aiPlanService', this.aiPlanService);
     }
 
     private setupMiddleware() {
@@ -168,7 +177,9 @@ class MentalHealthServer {
         this.app.use('/api/notes', notesRoutes);
         this.app.use('/api', communityRoutes);
         this.app.use('/api/resources', authMiddleware, resourcesRoutes);
-        this.app.use('/api/public-resources', resourcesRoutes); // TEMPORARY DEBUG
+        this.app.use('/api/public-resources', resourcesRoutes);
+        this.app.use('/api', descriptionRoutes);
+        this.app.use('/api', taskRoutes);
 
         // ML ANALYZE PROXY
         this.app.post('/api/analyze', authMiddleware, async (req, res) => {
@@ -202,6 +213,18 @@ class MentalHealthServer {
             if (!socket.handshake.auth?.token) {
                 return next(new Error('Auth token required'));
             }
+            
+            // Join user-specific room on connect
+            try {
+                const jwt = require('jsonwebtoken');
+                const decoded = jwt.verify(socket.handshake.auth.token, process.env.JWT_SECRET as string);
+                (socket as any).user = decoded;
+                socket.join(`patient:${decoded.id}`);
+                logger.info(`Socket ${socket.id} joined personal room patient:${decoded.id}`);
+            } catch (err) {
+                logger.error('Socket auth error during room join:', err);
+            }
+            
             next();
         });
 
