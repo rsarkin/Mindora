@@ -48,7 +48,7 @@ export const ProblemDescriptionPage: React.FC = () => {
             
             if (triggerAI) {
                 setIsGeneratingPlan(true);
-                navigate('/patient/tasks');
+                navigate('/wellness/tasks');
             } else {
                 // Refresh local state without navigating
                 const active = await descriptionService.getActive();
@@ -111,7 +111,7 @@ export const ProblemDescriptionPage: React.FC = () => {
 
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                         <Link 
-                            to="/patient/tasks" 
+                            to="/wellness/tasks" 
                             className="text-slate-500 hover:text-slate-800 font-medium transition-colors"
                         >
                             Skip for now
