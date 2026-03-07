@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Plus, Filter } from 'lucide-react';
 import { taskService } from '../../services/taskService';
@@ -10,6 +11,7 @@ import { TaskCard } from '../../components/wellness/TaskCard';
 import { PendingTaskBanner } from '../../components/wellness/PendingTaskBanner';
 
 export const WellnessTasksPage: React.FC = () => {
+    const navigate = useNavigate();
     const { tasks, pendingTasks, setTasks, moveTask, isGeneratingPlan, setIsGeneratingPlan } = useTaskStore();
     const { showToast } = useToast();
     const [filterCategory, setFilterCategory] = useState<string>('all');
