@@ -93,6 +93,13 @@ export const WellnessTasksPage: React.FC = () => {
                     <div className="flex items-center gap-3">
                         <button 
                             className="bg-white/80 backdrop-blur-md border border-slate-200 text-slate-700 font-semibold px-5 py-3 rounded-2xl flex items-center gap-2 hover:bg-slate-50 transition-all shadow-sm active:scale-95"
+                            onClick={() => navigate('/wellness/report')}
+                        >
+                            <Sparkles className="text-indigo-500" size={20} />
+                            Update My Status
+                        </button>
+                        <button 
+                            className="bg-slate-900 text-white font-semibold px-5 py-3 rounded-2xl flex items-center gap-2 hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 active:scale-95"
                             onClick={() => showToast("Manual task creation coming soon!", "info")}
                         >
                             <Plus size={20} />
