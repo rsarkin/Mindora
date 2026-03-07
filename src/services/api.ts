@@ -57,6 +57,11 @@ const api = {
         return response.data;
     },
 
+    logQuickMood: async (mood: string) => {
+        const response = await axiosInstance.post('/mood/quick', { mood });
+        return response.data;
+    },
+
     bookAppointment: async (appointmentData: any) => {
         const response = await axiosInstance.post('/therapists/book', appointmentData);
         return response.data;

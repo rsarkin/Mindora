@@ -107,7 +107,7 @@ export const Dashboard: React.FC = () => {
     const handleQuickMoodLog = async (moodType: string) => {
         setIsLoggingMood(true);
         try {
-            const data = await api.post('/mood/quick', { mood: moodType });
+            const data = await api.logQuickMood(moodType);
             showToast('Mood logged successfully!', 'success');
             // Sync points/badges from mood reward
             if (data.points !== undefined) {
