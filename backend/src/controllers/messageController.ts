@@ -23,17 +23,25 @@ export const getAppointmentMessages = async (req: Request, res: Response) => {
             }
         }
 
-        const query: any = { appointmentId };
+        // Fetch all messages between this patient and therapist for a unified history
+        const query: any = {
+            $or: [
+                { appointmentId }, // Keep existing for compatibility
+                {
+                    senderId: { $in: [appointment.patientId, appointment.therapistId.userId || appointment.therapistId] },
+                    receiverId: { $in: [appointment.patientId, appointment.therapistId.userId || appointment.therapistId] }
+                }
+            ]
+        };
+
         if (before) {
             query.createdAt = { $lt: new Date(before as string) };
         }
 
-        // Post-find hook handles decrypting, but we need to query and sort
         const docs = await Message.find(query)
-            .sort({ createdAt: -1 }) // Sort newest first to get the last N
+            .sort({ createdAt: -1 })
             .limit(Number(limit));
 
-        // Mark messages as read if the recipient opened them
         const unreadMessageIds = docs
             .filter(doc => doc.receiverId?.toString() === userId && !doc.isRead)
             .map(doc => doc._id);
@@ -43,8 +51,6 @@ export const getAppointmentMessages = async (req: Request, res: Response) => {
                 { _id: { $in: unreadMessageIds } },
                 { $set: { isRead: true, readAt: new Date() } }
             );
-            // Optionally, we could emit socket event here as well, 
-            // but the client will usually emit 'mark:read' when they open the chat.
         }
 
         const decryptedMessages = docs.map(doc => {

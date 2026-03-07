@@ -214,15 +214,20 @@ class MentalHealthServer {
                 return next(new Error('Auth token required'));
             }
             
-            // Join user-specific room on connect
             try {
                 const jwt = require('jsonwebtoken');
                 const decoded = jwt.verify(socket.handshake.auth.token, process.env.JWT_SECRET as string);
                 (socket as any).user = decoded;
+                
+                // User always joins their personal room
+                socket.join(`user:${decoded.id}`);
+                
+                // Backwards compatibility for some routes
                 socket.join(`patient:${decoded.id}`);
-                logger.info(`Socket ${socket.id} joined personal room patient:${decoded.id}`);
+                
+                logger.info(`Socket ${socket.id} (User: ${decoded.id}) joined personal rooms.`);
             } catch (err) {
-                logger.error('Socket auth error during room join:', err);
+                logger.error('Socket auth error:', err);
             }
             
             next();
@@ -239,25 +244,50 @@ class MentalHealthServer {
             socket.on('send:message', async data => {
                 try {
                     const Message = require('./models/Message').default;
+                    const Appointment = require('./models/Appointment').default;
+
+                    // 1. Resolve true Receiver User ID if missing or profile ID provided
+                    let receiverUserId = data.receiverId;
+                    
+                    // 2. Persistent room ID - ensures cross-appointment delivery
+                    const appt = await Appointment.findById(data.appointmentId).populate('therapistId');
+                    if (appt) {
+                        const therapistUserId = appt.therapistId?.userId?.toString() || appt.therapistId?.toString();
+                        const patientId = appt.patientId.toString();
+                        
+                        // Receiver is the other party in the appointment
+                        if (!receiverUserId) {
+                            receiverUserId = ((socket as any).user.id === patientId) ? therapistUserId : patientId;
+                        }
+                    }
+
                     const msg = new Message({
                         appointmentId: data.appointmentId,
-                        senderId: data.senderId,
-                        receiverId: data.receiverId,
+                        senderId: (socket as any).user.id,
+                        receiverId: receiverUserId,
                         content: data.content
                     });
 
-                    // msg.content gets encrypted on save
                     await msg.save();
 
-                    this.io.to(data.appointmentId).emit('receive:message', {
-                        _id: msg._id,
-                        appointmentId: msg.appointmentId,
-                        senderId: msg.senderId,
-                        receiverId: msg.receiverId,
-                        content: data.content, // unencrypted for live relay
+                    const payload = {
+                        _id: msg._id.toString(),
+                        appointmentId: msg.appointmentId.toString(),
+                        senderId: msg.senderId.toString(),
+                        receiverId: receiverUserId ? receiverUserId.toString() : '',
+                        content: data.content,
                         isRead: false,
                         createdAt: msg.createdAt
-                    });
+                    };
+
+                    // Emit to the specific appointment room (active session)
+                    this.io.to(data.appointmentId.toString()).emit('receive:message', payload);
+                    
+                    // ALSO emit to receiver's personal user room for global notification/update
+                    if (receiverUserId) {
+                        this.io.to(`user:${receiverUserId}`).emit('receive:message', payload);
+                        this.io.to(`patient:${receiverUserId}`).emit('receive:message', payload);
+                    }
                 } catch (err) {
                     logger.error('Error in send:message:', err);
                 }
