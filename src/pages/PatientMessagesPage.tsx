@@ -64,18 +64,23 @@ export const PatientMessagesPage: React.FC = () => {
 
             // Group raw appointments by therapist to avoid duplicates in the direct chat list
             const groupedConvs = res.data.reduce((acc: Record<string, Conversation>, appt: any) => {
-                const therapistId = appt.therapistId?._id || appt.therapist?._id;
+                // IMPORTANT: We must use the Therapist's USER ID, not their Profile ID for persistent messaging
+                const therapistUserInfo = appt.therapist?.user || appt.therapistId?.userId;
+                const therapistUserId = therapistUserInfo?._id || therapistUserInfo;
+                
+                if (!therapistUserId) return acc;
+
                 // If we haven't seen this therapist yet, OR if this appointment is newer than the stored one
-                if (!acc[therapistId] || new Date(appt.createdAt) > new Date(acc[therapistId].updatedAt)) {
-                    acc[therapistId] = {
+                if (!acc[therapistUserId] || new Date(appt.createdAt) > new Date(acc[therapistUserId].updatedAt)) {
+                    acc[therapistUserId] = {
                         _id: appt._id,
                         type: 'direct',
                         participants: [
                             { _id: user?.id || '', name: user?.name || 'Patient', role: 'PATIENT' },
-                            { _id: therapistId, name: appt.therapist?.user?.name || appt.therapistId?.userId?.name || 'Unknown Therapist', role: 'THERAPIST' }
+                            { _id: therapistUserId, name: therapistUserInfo?.name || 'Unknown Therapist', role: 'THERAPIST' }
                         ],
                         updatedAt: appt.createdAt,
-                        lastMessage: { content: `${appt.status} Request`, createdAt: appt.createdAt, sender: therapistId }
+                        lastMessage: { content: `${appt.status} Request`, createdAt: appt.createdAt, sender: therapistUserId }
                     };
                 }
                 return acc;
@@ -137,7 +142,7 @@ export const PatientMessagesPage: React.FC = () => {
                     isOwn: msg.senderId === user?.id,
                     sender: {
                         _id: msg.senderId,
-                        name: msg.senderId === user?.id ? 'You' : 'Therapist'
+                        name: msg.senderId === user?.id ? 'You' : (activeConversation?.participants.find(p => p._id === msg.senderId)?.name || 'Therapist')
                     }
                 }));
 
@@ -249,7 +254,7 @@ export const PatientMessagesPage: React.FC = () => {
                     isOwn: msg.senderId === user?.id,
                     sender: {
                         _id: msg.senderId,
-                        name: msg.senderId === user?.id ? 'You' : 'Therapist'
+                        name: msg.senderId === user?.id ? 'You' : (activeConversation?.participants.find(p => p._id === msg.senderId)?.name || 'Therapist')
                     }
                 }));
 
