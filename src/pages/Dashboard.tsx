@@ -89,7 +89,12 @@ export const Dashboard: React.FC = () => {
             const data = await api.updateSignInStreak();
             setStreak(data.streak);
             setHasSignedInToday(true);
-            updateUser({ streak: data.streak, lastLoginAt: data.lastLoginAt });
+            updateUser({ 
+                streak: data.streak, 
+                lastLoginAt: data.lastLoginAt,
+                points: data.points,
+                badges: data.badges
+            });
             showToast(`Streak updated! You're on a ${data.streak}-day streak! 🔥`, 'success');
         } catch (error) {
             console.error("Failed to sign in streak", error);
@@ -102,8 +107,12 @@ export const Dashboard: React.FC = () => {
     const handleQuickMoodLog = async (moodType: string) => {
         setIsLoggingMood(true);
         try {
-            await api.post('/mood/quick', { mood: moodType });
+            const data = await api.post('/mood/quick', { mood: moodType });
             showToast('Mood logged successfully!', 'success');
+            // Sync points/badges from mood reward
+            if (data.points !== undefined) {
+                updateUser({ points: data.points, badges: data.badges });
+            }
         } catch (error) {
             console.error('Failed to log mood', error);
             showToast('Failed to log mood', 'error');

@@ -17,16 +17,21 @@ export const saveMood = async (req: Request, res: Response) => {
         }
 
         const savedMood = await moodService.saveMood(userId, mood, note);
+        let updatedUser = null;
 
         // Award 5 points for mood log
         const user = await User.findById(userId);
         if (user) {
             user.points = (user.points || 0) + 5;
-            await user.save();
+            updatedUser = await user.save();
             logger.info(`[Gamification] User ${userId} earned 5 points for mood log`);
         }
 
-        res.status(201).json(savedMood);
+        res.status(201).json({
+            ...savedMood.toObject(),
+            points: updatedUser?.points || user?.points,
+            badges: updatedUser?.badges || user?.badges
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error saving mood', error });
     }
@@ -46,16 +51,21 @@ export const saveQuickMood = async (req: Request, res: Response) => {
         }
 
         const savedMood = await moodService.saveMood(userId, mood, 'Quick Log');
+        let updatedUser = null;
 
         // Award 5 points for quick mood log
         const user = await User.findById(userId);
         if (user) {
             user.points = (user.points || 0) + 5;
-            await user.save();
+            updatedUser = await user.save();
             logger.info(`[Gamification] User ${userId} earned 5 points for quick mood log`);
         }
 
-        res.status(201).json(savedMood);
+        res.status(201).json({
+            ...savedMood.toObject(),
+            points: updatedUser?.points || user?.points,
+            badges: updatedUser?.badges || user?.badges
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error saving quick mood', error });
     }
