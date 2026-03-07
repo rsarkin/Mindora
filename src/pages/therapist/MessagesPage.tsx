@@ -104,10 +104,10 @@ export const MessagesPage: React.FC = () => {
                 const res = await api.get(`/messages/${activeChatId}?limit=50`);
                 const loadedMessages = res.data.map((msg: any) => ({
                     ...msg,
-                    isOwn: msg.senderId === user?.id,
+                    isOwn: msg.senderId?.toString() === user?.id,
                     sender: {
                         _id: msg.senderId,
-                        name: msg.senderId === user?.id ? 'You' : 'Patient'
+                        name: msg.senderId?.toString() === user?.id ? 'You' : 'Patient'
                     }
                 }));
 
@@ -136,8 +136,10 @@ export const MessagesPage: React.FC = () => {
         if (!socket) return;
 
         const handleNewMessage = (msg: any) => {
-            if (msg.appointmentId === activeChatId) {
-                const isOwn = msg.senderId === user?.id;
+            // CRITICAL FIX: MongoDB ObjectId may come as object — always compare as strings
+            const msgAppointmentId = msg.appointmentId?.toString();
+            if (msgAppointmentId === activeChatId) {
+                const isOwn = msg.senderId?.toString() === user?.id;
                 const formattedMsg: Message = {
                     ...msg,
                     isOwn,
@@ -152,7 +154,7 @@ export const MessagesPage: React.FC = () => {
             }
 
             setConversations(prev => prev.map(conv => {
-                if (conv._id === msg.appointmentId) {
+                if (conv._id === msgAppointmentId) {
                     return {
                         ...conv,
                         lastMessage: {
@@ -211,10 +213,10 @@ export const MessagesPage: React.FC = () => {
 
                 const olderMessages = res.data.map((msg: any) => ({
                     ...msg,
-                    isOwn: msg.senderId === user?.id,
+                    isOwn: msg.senderId?.toString() === user?.id,
                     sender: {
                         _id: msg.senderId,
-                        name: msg.senderId === user?.id ? 'You' : 'Patient'
+                        name: msg.senderId?.toString() === user?.id ? 'You' : 'Patient'
                     }
                 }));
 

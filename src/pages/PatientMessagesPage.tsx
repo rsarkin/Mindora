@@ -57,6 +57,8 @@ export const PatientMessagesPage: React.FC = () => {
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const socket = getSocket();
+    // Use a ref to always have access to the latest activeConversation inside callbacks
+    const activeConversationRef = useRef<Conversation | undefined>(undefined);
 
     const fetchConversations = async () => {
         try {
@@ -89,6 +91,10 @@ export const PatientMessagesPage: React.FC = () => {
             const mappedConvs = Object.values(groupedConvs) as Conversation[];
 
             setConversations(mappedConvs);
+            // Keep the ref in sync
+            if (activeChatId) {
+                activeConversationRef.current = mappedConvs.find(c => c._id === activeChatId);
+            }
 
             if (mappedConvs.length > 0 && !activeChatId) {
                 setActiveChatId(mappedConvs[0]._id);
@@ -137,12 +143,13 @@ export const PatientMessagesPage: React.FC = () => {
         const fetchMessages = async () => {
             try {
                 const res = await api.get(`/messages/${activeChatId}?limit=50`);
+                const currentConv = activeConversationRef.current;
                 const loadedMessages = res.data.map((msg: any) => ({
                     ...msg,
-                    isOwn: msg.senderId === user?.id,
+                    isOwn: msg.senderId?.toString() === user?.id,
                     sender: {
                         _id: msg.senderId,
-                        name: msg.senderId === user?.id ? 'You' : (activeConversation?.participants.find(p => p._id === msg.senderId)?.name || 'Therapist')
+                        name: msg.senderId?.toString() === user?.id ? 'You' : (currentConv?.participants.find(p => p._id === msg.senderId?.toString())?.name || 'Therapist')
                     }
                 }));
 
@@ -176,8 +183,10 @@ export const PatientMessagesPage: React.FC = () => {
         };
 
         const handleNewMessage = (msg: any) => {
-            if (msg.appointmentId === activeChatId) {
-                const isOwn = msg.senderId === user?.id;
+            // CRITICAL FIX: MongoDB ObjectId may come as object — always compare as strings
+            const msgAppointmentId = msg.appointmentId?.toString();
+            if (msgAppointmentId === activeChatId) {
+                const isOwn = msg.senderId?.toString() === user?.id;
                 const formattedMsg: Message = {
                     ...msg,
                     isOwn,
@@ -192,7 +201,7 @@ export const PatientMessagesPage: React.FC = () => {
             }
 
             setConversations(prev => prev.map(conv => {
-                if (conv._id === msg.appointmentId) {
+                if (conv._id === msgAppointmentId) {
                     return {
                         ...conv,
                         lastMessage: {
@@ -249,12 +258,13 @@ export const PatientMessagesPage: React.FC = () => {
                 const oldestMsg = messages[0];
                 const res = await api.get(`/messages/${activeChatId}?limit=50&before=${oldestMsg.createdAt}`);
 
+                const currentConv = activeConversationRef.current;
                 const olderMessages = res.data.map((msg: any) => ({
                     ...msg,
-                    isOwn: msg.senderId === user?.id,
+                    isOwn: msg.senderId?.toString() === user?.id,
                     sender: {
                         _id: msg.senderId,
-                        name: msg.senderId === user?.id ? 'You' : (activeConversation?.participants.find(p => p._id === msg.senderId)?.name || 'Therapist')
+                        name: msg.senderId?.toString() === user?.id ? 'You' : (currentConv?.participants.find(p => p._id === msg.senderId?.toString())?.name || 'Therapist')
                     }
                 }));
 
@@ -315,6 +325,8 @@ export const PatientMessagesPage: React.FC = () => {
     };
 
     const activeConversation = conversations.find(c => c._id === activeChatId);
+    // Keep ref in sync every render
+    activeConversationRef.current = activeConversation;
 
     const getChatName = (conv: Conversation) => {
         if (conv.type === 'group') return conv.groupName || 'Group Chat';
